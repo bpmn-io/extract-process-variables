@@ -1,6 +1,6 @@
-import { find, findIndex, forEach } from 'min-dash';
+import { filter, find, findIndex, forEach } from 'min-dash';
 
-import { selfAndAllFlowElements, getParents } from './util/ElementsUtil';
+import { selfAndAllFlowElements, getParents, getElement } from './util/ElementsUtil';
 
 import {
   getInputParameters,
@@ -67,6 +67,41 @@ export function getProcessVariables(containerElement) {
   });
 
   return processVariables;
+}
+
+/**
+ * Retrieves all variables which are available in the given scope
+ *
+ * * Exclude variables which are only available in other scopes
+ * * Exclude variables which are produced by the given element
+ * * Include variables which are available in parent scopes
+ *
+ * @param {string} scope
+ * @param {ModdleElement} rootElement element from where to extract all variables
+ *
+ * @returns {Array<ProcessVariable>}
+ */
+export function getVariablesForScope(scope, rootElement) {
+
+  const allVariables = getProcessVariables(rootElement);
+
+  const scopeElement = getElement(scope, rootElement);
+
+  // (1) get variables for given scope
+  const scopeVariables = filter(allVariables, function(variable) {
+    return variable.scope === scopeElement.id;
+  });
+
+  // (2) get variables for parent scopes
+  const parents = getParents(scopeElement);
+
+  const parentsScopeVariables = filter(allVariables, function(variable) {
+    return find(parents, function(parent) {
+      return parent.id === variable.scope;
+    });
+  });
+
+  return combineArrays(scopeVariables, parentsScopeVariables);
 }
 
 // helpers ////////////////////
