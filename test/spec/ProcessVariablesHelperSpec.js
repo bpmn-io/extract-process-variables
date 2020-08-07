@@ -13,7 +13,8 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 import fs from 'fs';
 
 import {
-  getProcessVariables
+  getProcessVariables,
+  getVariablesForScope
 } from '../../src/ProcessVariablesHelper';
 
 
@@ -203,6 +204,92 @@ describe('providers/camunda/util - getProcessVariables', function() {
         { name: 'variable16', origin: ['Task_12'], scope: 'Process_1' },
       ]);
     });
+  });
+
+
+  describe('#getVariablesForScope', function() {
+
+    it('should extract available variables - process', async function() {
+
+      // given
+      const xml = read('test/fixtures/sub-process-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getVariablesForScope('Process_1', rootElement);
+
+      // then
+      expect(variables).to.eql([
+        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+      ]);
+    });
+
+
+    it('should extract available variables - sub process', async function() {
+
+      // given
+      const xml = read('test/fixtures/sub-process-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getVariablesForScope('SubProcess_1', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(sortedVariables).to.eql([
+        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' }
+      ]);
+    });
+
+
+    it('should extract available variables - complex', async function() {
+
+      // given
+      const xml = read('test/fixtures/complex.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getVariablesForScope('SubProcess_2', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(sortedVariables).to.eql([
+        { name: 'variable01', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable02', origin: ['Event_2'], scope: 'Process_1' },
+        { name: 'variable03', origin: ['SubProcess_1'], scope: 'Process_1' },
+        { name: 'variable04', origin: ['Task_4'], scope: 'Process_1' },
+        { name: 'variable05', origin: ['Task_5'], scope: 'Process_1' },
+        { name: 'variable06', origin: ['Event_5'], scope: 'Process_1' },
+        { name: 'variable07', origin: ['Event_5'], scope: 'Process_1' },
+        { name: 'variable08', origin: ['Task_7'], scope: 'Process_1' },
+        { name: 'variable09', origin: ['Event_6'], scope: 'Process_1' },
+        { name: 'variable10', origin: ['Event_8'], scope: 'SubProcess_2' },
+        { name: 'variable11', origin: ['Event_8'], scope: 'Process_1' },
+        { name: 'variable12', origin: ['Task_10'], scope: 'SubProcess_2' },
+        { name: 'variable14', origin: ['Task_10'], scope: 'Process_1' },
+        { name: 'variable15', origin: ['Task_11'], scope: 'Process_1' },
+        { name: 'variable16', origin: ['Task_12'], scope: 'Process_1' },
+      ]);
+    });
+
   });
 
 });
