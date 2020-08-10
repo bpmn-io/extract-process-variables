@@ -8,8 +8,8 @@ import { find, forEach, isArray } from 'min-dash';
  * @returns {Array<ModdleElement>}
  */
 export function getParents(element) {
-  let parents = [];
-  let current = element;
+  var parents = [];
+  var current = element;
 
   while (current.$parent) {
     parents.push(current.$parent);
@@ -37,7 +37,7 @@ function eachElement(elements, fn, depth) {
   }
 
   forEach(elements, function(s, i) {
-    const filter = fn(s, i, depth);
+    var filter = fn(s, i, depth);
 
     if (isArray(filter) && filter.length) {
       eachElement(filter, fn, depth + 1);
@@ -54,7 +54,7 @@ function eachElement(elements, fn, depth) {
  * @param {boolean} unique
  */
 function add(elements, e, unique) {
-  const canAdd = !unique || elements.indexOf(e) === -1;
+  var canAdd = !unique || elements.indexOf(e) === -1;
 
   if (canAdd) {
     elements.push(e);
@@ -73,13 +73,13 @@ function add(elements, e, unique) {
  * @return {Array<ModdleElement>} found elements
  */
 export function selfAndFlowElements(elements, unique, maxDepth) {
-  let result = [],
+  var result = [],
       processedFlowElements = [];
 
   eachElement(elements, function(element, i, depth) {
     add(result, element, unique);
 
-    const flowElements = element.flowElements;
+    var flowElements = element.flowElements;
 
     // max traversal depth not reached yet
     if (maxDepth === -1 || depth < maxDepth) {
@@ -115,7 +115,7 @@ export function selfAndAllFlowElements(elements, allowDuplicates) {
  * @returns {ModdleElement}
  */
 export function getElement(elementId, rootElement) {
-  const allElements = selfAndAllFlowElements(rootElement);
+  var allElements = selfAndAllFlowElements(rootElement);
 
   return find(allElements, function(element) {
     return element.id === elementId;

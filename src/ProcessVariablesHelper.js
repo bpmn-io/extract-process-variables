@@ -25,7 +25,7 @@ import {
  * @returns {ProcessVariable}
  */
 function createProcessVariable(flowElement, outputParameter, defaultScope) {
-  const scope = getScope(flowElement, defaultScope, outputParameter.name);
+  var scope = getScope(flowElement, defaultScope, outputParameter.name);
 
   return {
     name: outputParameter.name,
@@ -43,20 +43,20 @@ function createProcessVariable(flowElement, outputParameter, defaultScope) {
  * @returns {Array<ProcessVariable>}
  */
 export function getProcessVariables(containerElement) {
-  let processVariables = [];
+  var processVariables = [];
 
   // (1) extract all flow elements inside the container
-  const elements = selfAndAllFlowElements([containerElement], false);
+  var elements = selfAndAllFlowElements([containerElement], false);
 
   // (2) extract all output parameters inside the container
   forEach(elements, function(element) {
 
     // variables are created by output parameters
-    const outputParameters = getOutputParameters(element);
+    var outputParameters = getOutputParameters(element);
 
     // (3) extract all variables with correct scope
     forEach(outputParameters, function(parameter) {
-      const newVariable = createProcessVariable(
+      var newVariable = createProcessVariable(
         element,
         parameter,
         containerElement.id
@@ -83,19 +83,19 @@ export function getProcessVariables(containerElement) {
  */
 export function getVariablesForScope(scope, rootElement) {
 
-  const allVariables = getProcessVariables(rootElement);
+  var allVariables = getProcessVariables(rootElement);
 
-  const scopeElement = getElement(scope, rootElement);
+  var scopeElement = getElement(scope, rootElement);
 
   // (1) get variables for given scope
-  const scopeVariables = filter(allVariables, function(variable) {
+  var scopeVariables = filter(allVariables, function(variable) {
     return variable.scope === scopeElement.id;
   });
 
   // (2) get variables for parent scopes
-  const parents = getParents(scopeElement);
+  var parents = getParents(scopeElement);
 
-  const parentsScopeVariables = filter(allVariables, function(variable) {
+  var parentsScopeVariables = filter(allVariables, function(variable) {
     return find(parents, function(parent) {
       return parent.id === variable.scope;
     });
@@ -111,9 +111,9 @@ export function getVariablesForScope(scope, rootElement) {
  * when it defines an input mapping for it. Otherwise returns the default global scope
  */
 function getScope(element, globalScope, variableName) {
-  const parents = getParents(element);
+  var parents = getParents(element);
 
-  const scopedParent = find(parents, function(parent) {
+  var scopedParent = find(parents, function(parent) {
     return (
       is(parent, 'bpmn:SubProcess') && hasInputParameter(parent, variableName)
     );
@@ -141,7 +141,7 @@ function hasInputParameter(element, name) {
 }
 
 function addVariableToList(variablesList, newVariable) {
-  const foundIdx = findIndex(variablesList, function(variable) {
+  var foundIdx = findIndex(variablesList, function(variable) {
     return (
       variable.name === newVariable.name && variable.scope === newVariable.scope
     );

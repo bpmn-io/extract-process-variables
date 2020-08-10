@@ -39,25 +39,25 @@ export function getOutputParameters(element) {
 // helpers //////////
 
 function getElements(element, type, property) {
-  const elems = getExtensionElements(element, type) || [];
+  var elems = getExtensionElements(element, type) || [];
 
   return !property ? elems : (elems[0] || {})[property] || [];
 }
 
 function getParameters(element, property) {
-  const inputOutput = getInputOutput(element);
+  var inputOutput = getInputOutput(element);
 
   return (inputOutput && inputOutput.get(property)) || [];
 }
 
 function getExtensionElements(element, type) {
-  const extensionElements = element.get('extensionElements');
+  var extensionElements = element.get('extensionElements');
 
   if (typeof extensionElements !== 'undefined') {
-    const extensionValues = extensionElements.get('values');
+    var extensionValues = extensionElements.get('values');
 
     if (typeof extensionValues !== 'undefined') {
-      const elements = filter(extensionValues, function(value) {
+      var elements = filter(extensionValues, function(value) {
         return is(value, type);
       });
 
