@@ -41,5 +41,8 @@
   },
   "dependencies": {
     "min-dash": "^3.5.2"
+  },
+  "peerDependencies": {
+    "camunda-bpmn-moddle": "^4.x"
   }
 }
