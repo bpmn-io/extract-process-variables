@@ -10,8 +10,8 @@ import {
 /**
  * @typedef {Object} ProcessVariable
  * @property {string} name
- * @property {Array<string>} origin
- * @property {string} scope
+ * @property {Array<ModdleElement>} origin
+ * @property {ModdleElement} scope
  */
 
 /**
@@ -20,7 +20,7 @@ import {
  *
  * @param {ModdleElement} flowElement
  * @param {ModdleElement} outputParameter
- * @param {String} defaultScope
+ * @param {ModdleElement} defaultScope
  *
  * @returns {ProcessVariable}
  */
@@ -29,7 +29,7 @@ function createProcessVariable(flowElement, outputParameter, defaultScope) {
 
   return {
     name: outputParameter.name,
-    origin: [flowElement.id],
+    origin: [flowElement],
     scope: scope,
   };
 }
@@ -59,7 +59,7 @@ export function getProcessVariables(containerElement) {
       var newVariable = createProcessVariable(
         element,
         parameter,
-        containerElement.id
+        containerElement
       );
 
       addVariableToList(processVariables, newVariable);
@@ -89,7 +89,7 @@ export function getVariablesForScope(scope, rootElement) {
 
   // (1) get variables for given scope
   var scopeVariables = filter(allVariables, function(variable) {
-    return variable.scope === scopeElement.id;
+    return variable.scope.id === scopeElement.id;
   });
 
   // (2) get variables for parent scopes
@@ -97,7 +97,7 @@ export function getVariablesForScope(scope, rootElement) {
 
   var parentsScopeVariables = filter(allVariables, function(variable) {
     return find(parents, function(parent) {
-      return parent.id === variable.scope;
+      return parent.id === variable.scope.id;
     });
   });
 
@@ -119,7 +119,7 @@ function getScope(element, globalScope, variableName) {
     );
   });
 
-  return scopedParent ? scopedParent.id : globalScope;
+  return scopedParent ? scopedParent : globalScope;
 }
 
 function combineArrays(a, b) {
