@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { sortBy } from 'min-dash';
+import { sortBy, map } from 'min-dash';
 
 import BpmnModdle from 'bpmn-moddle';
 
@@ -30,7 +30,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
       ]);
@@ -50,7 +50,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable3', origin: ['Task_2'], scope: 'Process_1' },
@@ -71,7 +71,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1', 'Task_2'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable3', origin: ['Task_2'], scope: 'Process_1' },
@@ -92,7 +92,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' },
@@ -113,7 +113,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_2'], scope: 'SubProcess_1' },
@@ -135,7 +135,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable3', origin: ['SubProcess_1'], scope: 'Process_1' },
@@ -157,7 +157,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getProcessVariables(rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' },
@@ -180,7 +180,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const sortedVariables = sortVariablesByName(variables);
 
       // then
-      expect(sortedVariables).to.eql([
+      expect(convertToTestable(sortedVariables)).to.eql([
         { name: 'variable01', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable02', origin: ['Event_2'], scope: 'Process_1' },
         { name: 'variable03', origin: ['SubProcess_1'], scope: 'Process_1' },
@@ -218,7 +218,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       const variables = getVariablesForScope('Process_1', rootElement);
 
       // then
-      expect(variables).to.eql([
+      expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
       ]);
@@ -242,7 +242,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       // then
 
       // own + all variables from parent scope
-      expect(sortedVariables).to.eql([
+      expect(convertToTestable(sortedVariables)).to.eql([
         { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' }
@@ -267,7 +267,7 @@ describe('providers/camunda/util - getProcessVariables', function() {
       // then
 
       // own + all variables from parent scope
-      expect(sortedVariables).to.eql([
+      expect(convertToTestable(sortedVariables)).to.eql([
         { name: 'variable01', origin: ['Task_1'], scope: 'Process_1' },
         { name: 'variable02', origin: ['Event_2'], scope: 'Process_1' },
         { name: 'variable03', origin: ['SubProcess_1'], scope: 'Process_1' },
@@ -313,5 +313,18 @@ function read(path, encoding = 'utf8') {
 function sortVariablesByName(variables) {
   return sortBy(variables, function(variable) {
     return variable.name;
+  });
+}
+
+// converts the variables list from full moddle elements to only id, for better testability
+function convertToTestable(variables) {
+  return map(variables, function(variable) {
+    return {
+      name: variable.name,
+      origin: map(variable.origin, function(origin) {
+        return origin.id;
+      }),
+      scope: variable.scope.id
+    };
   });
 }

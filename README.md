@@ -62,6 +62,8 @@ const scopeVariables = getVariablesForScope('Process_1', rootElement.businessObj
 */
 ```
 
+Note that `origin` and `scope` retrieves the full moddle element. The example outputs are reduced due to better readibility.
+
 Note that [camunda-bpmn-moddle](https://github.com/camunda/camunda-bpmn-moddle) descriptors have to be installed.
 
 ## See also
