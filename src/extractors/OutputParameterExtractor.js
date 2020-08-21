@@ -4,7 +4,7 @@ import inherits from 'inherits';
 
 import BaseExtractor from './BaseExtractor';
 
-import { getOutputParameters } from '../util/InputOutputUtil';
+import { getOutputParameters } from '../util/ExtensionElementsUtil';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
 

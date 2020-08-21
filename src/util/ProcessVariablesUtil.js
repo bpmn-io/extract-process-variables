@@ -1,6 +1,6 @@
 import { find, findIndex } from 'min-dash';
 
-import { getInputParameters } from './InputOutputUtil';
+import { getInputParameters } from './ExtensionElementsUtil';
 
 import { getParents } from './ElementsUtil';
 
