@@ -26,16 +26,16 @@ export function addVariableToList(variablesList, newVariable) {
  * Identifies correct (highest) scope, in which variable is available
  *
  * @param {ModdleElement} flowElement
- * @param {ModdleElement} outputParameter
+ * @param {String} name
  * @param {ModdleElement} defaultScope
  *
  * @returns {ProcessVariable}
  */
-export function createProcessVariable(flowElement, outputParameter, defaultScope) {
-  var scope = getScope(flowElement, defaultScope, outputParameter.name);
+export function createProcessVariable(flowElement, name, defaultScope) {
+  var scope = getScope(flowElement, defaultScope, name);
 
   return {
-    name: outputParameter.name,
+    name: name,
     origin: [flowElement],
     scope: scope,
   };

@@ -4,16 +4,14 @@ import inherits from 'inherits';
 
 import BaseExtractor from './BaseExtractor';
 
-import { getOutputParameters } from '../util/InputOutputUtil';
-
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
 
 
-export default function OutputParameterExtractor() {
+export default function ResultVariableExtractor() {
   BaseExtractor.call(this);
 }
 
-OutputParameterExtractor.extractVariables = function(options) {
+ResultVariableExtractor.extractVariables = function(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
       processVariables = options.processVariables;
@@ -24,23 +22,27 @@ OutputParameterExtractor.extractVariables = function(options) {
 
   forEach(elements, function(element) {
 
-    // variables are created by output parameters
-    var outputParameters = getOutputParameters(element);
+    var resultVariable = getResultVariable(element);
 
-    // extract all variables with correct scope
-    forEach(outputParameters, function(parameter) {
+    if (resultVariable) {
       var newVariable = createProcessVariable(
         element,
-        parameter.name,
+        resultVariable,
         containerElement
       );
 
       addVariableToList(processVariables, newVariable);
-    });
+    }
   });
 
   return processVariables;
 };
 
-inherits(OutputParameterExtractor, BaseExtractor);
+inherits(ResultVariableExtractor, BaseExtractor);
 
+
+// helpers ///////////////////////
+
+function getResultVariable(element) {
+  return element.get('camunda:resultVariable');
+}
