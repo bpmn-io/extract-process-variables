@@ -36,12 +36,37 @@ export function getOutputParameters(element) {
   return getParameters(element, 'outputParameters');
 }
 
+/**
+ * Return all form fields existing in the business object, and
+ * an empty array if none exist.
+ *
+ * @param {ModdleElement} element
+ *
+ * @return {Array<ModdleElement>} a list of form fields
+ */
+export function getFormFields(element) {
+  var formData = getFormData(element);
+  return (formData && formData.get('fields')) || [];
+}
+
+/**
+ * Return form data existing in the business object
+ *
+ * @param {ModdleElement} element
+ *
+ * @return {ModdleElement}
+ */
+export function getFormData(element) {
+  return (getElements(element, 'camunda:FormData') || [])[0];
+}
+
+
 // helpers //////////
 
 function getElements(element, type, property) {
-  var elems = getExtensionElements(element, type) || [];
+  var elements = getExtensionElements(element, type) || [];
 
-  return !property ? elems : (elems[0] || {})[property] || [];
+  return !property ? elements : (elements[0] || {})[property] || [];
 }
 
 function getParameters(element, property) {
@@ -67,8 +92,6 @@ function getExtensionElements(element, type) {
     }
   }
 }
-
-// helpers //////////
 
 function is(element, type) {
   return (
