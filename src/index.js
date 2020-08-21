@@ -28,9 +28,9 @@ export function getProcessVariables(containerElement) {
   // (2) extract all variables from the extractors
   forEach(extractors, function(extractor) {
     extractor.extractVariables({
-      elements,
-      containerElement,
-      processVariables
+      elements: elements,
+      containerElement: containerElement,
+      processVariables: processVariables
     });
   });
 
