@@ -60,6 +60,17 @@ export function getFormData(element) {
   return (getElements(element, 'camunda:FormData') || [])[0];
 }
 
+/**
+ * Return out mappings existing in the business object
+ *
+ * @param {ModdleElement} element
+ *
+ * @return {Array<ModdleElement>}
+ */
+export function getOutMappings(element) {
+  return getElements(element, 'camunda:Out') || [];
+}
+
 
 // helpers //////////
 
