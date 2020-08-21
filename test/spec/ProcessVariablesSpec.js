@@ -11,12 +11,13 @@ import fs from 'fs';
 import {
   getProcessVariables,
   getVariablesForScope
-} from '../../src/ProcessVariablesHelper';
+} from '../../src';
 
 
-describe('providers/camunda/util - getProcessVariables', function() {
+describe('process variables module', function() {
 
   describe('#getProcessVariables', function() {
+
     it('should extract variables - simple process', async function() {
 
       // given

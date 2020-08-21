@@ -4,7 +4,7 @@
   "description": "A util for bpmn-js to extract Camunda BPM process variables from a BPMN 2.0 diagram.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "source": "src/ProcessVariablesHelper.js",
+  "source": "src/index.js",
   "scripts": {
     "build": "rollup -c",
     "distro": "run-s build test:build",
@@ -26,7 +26,9 @@
   },
   "homepage": "https://github.com/bpmn-io/extract-process-variables#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "bpmn-moddle": "^7.0.3",
     "camunda-bpmn-moddle": "^4.4.0",
     "chai": "^4.2.0",
@@ -36,9 +38,11 @@
     "mocha": "^8.1.1",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
-    "rollup": "^2.23.0"
+    "rollup": "^2.23.0",
+    "rollup-plugin-node-polyfills": "^0.2.1"
   },
   "dependencies": {
+    "inherits": "^2.0.4",
     "min-dash": "^3.5.2"
   },
   "peerDependencies": {
