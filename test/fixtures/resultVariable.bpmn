@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_06nywz5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0-nightly.20200821">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:businessRuleTask id="BusinessRuleTask" camunda:resultVariable="variable1" camunda:decisionRef="test" camunda:mapDecisionResult="singleEntry" />
+    <bpmn:serviceTask id="ServiceTask" camunda:expression="foo" camunda:resultVariable="variable2" />
+    <bpmn:sendTask id="SendTask" camunda:expression="foo" camunda:resultVariable="variable3" />
+    <bpmn:scriptTask id="ScriptTask" camunda:resultVariable="variable4" camunda:resource="foo" />
+  </bpmn:process>
+  <bpmn:message id="Message_0niigzz" name="Message_1s2d57p" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_1kvmuew_di" bpmnElement="BusinessRuleTask">
+        <dc:Bounds x="160" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1j7faga_di" bpmnElement="ServiceTask">
+        <dc:Bounds x="160" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00nnjds_di" bpmnElement="SendTask">
+        <dc:Bounds x="160" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xmisk3_di" bpmnElement="ScriptTask">
+        <dc:Bounds x="160" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
