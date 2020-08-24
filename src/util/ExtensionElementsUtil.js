@@ -36,12 +36,13 @@ export function getOutputParameters(element) {
   return getParameters(element, 'outputParameters');
 }
 
+
 // helpers //////////
 
 function getElements(element, type, property) {
-  var elems = getExtensionElements(element, type) || [];
+  var elements = getExtensionElements(element, type) || [];
 
-  return !property ? elems : (elems[0] || {})[property] || [];
+  return !property ? elements : (elements[0] || {})[property] || [];
 }
 
 function getParameters(element, property) {
@@ -67,8 +68,6 @@ function getExtensionElements(element, type) {
     }
   }
 }
-
-// helpers //////////
 
 function is(element, type) {
   return (
