@@ -1,6 +1,6 @@
 {
   "name": "@bpmn-io/extract-process-variables",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A util for bpmn-js to extract Camunda BPM process variables from a BPMN 2.0 diagram.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
