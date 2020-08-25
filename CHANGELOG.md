@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.3.0
+
+* `FEAT`: add support for `camunda:resultVariable`, `camunda:formField` & `camunda:out` ([#3](https://github.com/bpmn-io/extract-process-variables/issues/3))
+
 ## 0.2.0
 
 * `FEAT`: return full moddle elements instead of only ids ([#2](https://github.com/bpmn-io/extract-process-variables/pull/2))
