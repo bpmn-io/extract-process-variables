@@ -1,7 +1,6 @@
 import json from '@rollup/plugin-json';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 import pkg from './package.json';
 
@@ -11,7 +10,6 @@ function pgl(plugins=[]) {
     json(),
     nodeResolve(),
     commonjs(),
-    nodePolyfills(),
     ...plugins
   ];
 }
