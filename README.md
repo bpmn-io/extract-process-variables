@@ -66,6 +66,14 @@ Note that `origin` and `scope` retrieves the full moddle element. The example ou
 
 Note that [camunda-bpmn-moddle](https://github.com/camunda/camunda-bpmn-moddle) descriptors have to be installed.
 
+## Properties support
+
+We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/master/src/extractors) from the following diagram properties
+* `camunda:formField`
+* `camunda:outputParameter`
+* `camunda:out`
+* `camunda:resultVariable`
+
 ## See also
 
 * [camunda-bpmn-moddle](https://github.com/camunda/camunda-bpmn-moddle)
