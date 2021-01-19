@@ -18,7 +18,7 @@ describe('extractors - result variables', function() {
   it('should extract variables from result variables', async function() {
 
     // given
-    const xml = read('test/fixtures/resultVariable.bpmn');
+    const xml = read('test/fixtures/result-variable.bpmn');
 
     const definitions = await parse(xml);
 

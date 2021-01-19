@@ -18,7 +18,7 @@ describe('extractors - form fields', function() {
   it('should extract variables from form fields', async function() {
 
     // given
-    const xml = read('test/fixtures/formFields.bpmn');
+    const xml = read('test/fixtures/form-fields.bpmn');
 
     const definitions = await parse(xml);
 
