@@ -14,6 +14,27 @@ import {
 } from '../util/ProcessVariablesUtil';
 
 
+/**
+ * Retrieves process variables defined in event definitions, e.g.
+ *
+ * <bpmn:escalationEventDefinition
+ *   id="EscalationEventDefinition_1"
+ *   escalationRef="Escalation_1"
+ *   camunda:escalationCodeVariable="variable1"
+ * />
+ *
+ * => Adds one variable "variable1" to the list.
+ *
+ * <bpmn:errorEventDefinition
+ *   id="ErrorEventDefinition_1"
+ *   errorRef="Error_1"
+ *   camunda:errorCodeVariable="variable2"
+ *   camunda:errorMessageVariable="variable3"
+ * />
+ *
+ * => Adds two variables "variable2" & "variable3" to the list.
+ *
+ */
 export default function(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
