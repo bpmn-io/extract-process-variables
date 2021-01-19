@@ -1,7 +1,0 @@
-language: node_js
-node_js:
-  - 14
-
-script:
-  - COVERAGE=1 npm run all
-  - npx codecov
