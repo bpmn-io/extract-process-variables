@@ -73,6 +73,9 @@ We are currently [extracting process variables](https://github.com/bpmn-io/extra
 * `camunda:outputParameter`
 * `camunda:out`
 * `camunda:resultVariable`
+* `camunda:errorCodeVariable`
+* `camunda:errorMessageVariable`
+* `camunda:escalationCodeVariable`
 
 ## See also
 
