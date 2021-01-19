@@ -4,6 +4,19 @@ import { getOutMappings } from '../util/ExtensionElementsUtil';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
 
+
+/**
+ * Retrieves process variables defined in output mappings and
+ * ignores local variables, e.g.
+ *
+ * <bpmn:extensionElements>
+ *   <camunda:out sourceExpression="${myBean.ready}" target="variable1" />
+ *   <camunda:out source="foo" target="variableLocal" local="true" />
+ * </bpmn:extensionElements>
+ *
+ * => Adds one variable "variable1" to the list.
+ *
+ */
 export default function(options) {
   var elements = options.elements,
       containerElement = options.containerElement,

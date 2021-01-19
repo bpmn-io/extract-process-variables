@@ -5,6 +5,17 @@ import { getFormFields } from '../util/ExtensionElementsUtil';
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
 
 
+/**
+ * Retrieves process variables defined in form fields, e.g.
+ *
+ * <camunda:formData>
+ *   <camunda:formField id="variable1" />
+ *   <camunda:formField id="variable2" />
+ * </camunda:formData>
+ *
+ * => Adds two variables "variable1" & "variable2" to the list.
+ *
+ */
 export default function(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
