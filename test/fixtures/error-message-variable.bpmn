@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1gfdkv2" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:task id="Task_1" />
+    <bpmn:boundaryEvent id="ErrorEvent_1" attachedToRef="Task_1">
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1" errorRef="Error_1" camunda:errorMessageVariable="variable1" />
+    </bpmn:boundaryEvent>
+    <bpmn:boundaryEvent id="ErrorEvent_2" attachedToRef="Task_1">
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_2" errorRef="Error_2" camunda:errorMessageVariable="variable2" />
+    </bpmn:boundaryEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_1" name="Error_1" />
+  <bpmn:error id="Error_2" name="Error_2" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_1276jbv_di" bpmnElement="Task_1">
+        <dc:Bounds x="160" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_05edu3h_di" bpmnElement="ErrorEvent_2">
+        <dc:Bounds x="222" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_054nynw_di" bpmnElement="ErrorEvent_1">
+        <dc:Bounds x="172" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

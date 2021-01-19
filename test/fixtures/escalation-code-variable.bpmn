@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0zvm61k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:task id="Task_1" />
+    <bpmn:boundaryEvent id="EscalationEvent_1" attachedToRef="Task_1">
+      <bpmn:escalationEventDefinition id="EscalationEventDefinition_1" escalationRef="Escalation_1" camunda:escalationCodeVariable="variable1" />
+    </bpmn:boundaryEvent>
+    <bpmn:boundaryEvent id="EscalationEvent_2" attachedToRef="Task_1">
+      <bpmn:escalationEventDefinition id="EscalationEventDefinition_2" escalationRef="Escalation_2" camunda:escalationCodeVariable="variable2" />
+    </bpmn:boundaryEvent>
+  </bpmn:process>
+  <bpmn:escalation id="Escalation_1" name="Escalation_1" />
+  <bpmn:escalation id="Escalation_2" name="Escalation_2" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_1b2t7t7_di" bpmnElement="Task_1">
+        <dc:Bounds x="190" y="120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10x81l0_di" bpmnElement="EscalationEvent_2">
+        <dc:Bounds x="252" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kghpdl_di" bpmnElement="EscalationEvent_1">
+        <dc:Bounds x="202" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
