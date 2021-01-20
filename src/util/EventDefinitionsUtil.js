@@ -3,9 +3,9 @@ import { filter } from 'min-dash';
 /**
  *
  * @param {ModdleElement} element
- * @param {String} [type] - optional
+ * @param {string} [type] - optional
  *
- * @return {Array<ModdleElement>|null} collection of event definitions
+ * @return {Array<ModdleElement>|undefined} collection of event definitions or none
  */
 export function getEventDefinitions(element, type) {
   var eventDefinitions = element.get('eventDefinitions');
