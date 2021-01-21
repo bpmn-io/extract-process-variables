@@ -6,6 +6,11 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.4.0
+
+* `FEAT`: add support for event definition variables ([#9](https://github.com/bpmn-io/extract-process-variables/issues/9))
+* `CHORE`: migrate to GitHub actions
+
 ## 0.3.0
 
 * `FEAT`: add support for `camunda:resultVariable`, `camunda:formField` & `camunda:out` ([#3](https://github.com/bpmn-io/extract-process-variables/issues/3))
