@@ -8,7 +8,7 @@ import { filter } from 'min-dash';
  * @return {Array<ModdleElement>|undefined} collection of event definitions or none
  */
 export function getEventDefinitions(element, type) {
-  var eventDefinitions = element.get('eventDefinitions');
+  var eventDefinitions = element.eventDefinitions;
 
   if (!eventDefinitions || !type) {
     return eventDefinitions;
