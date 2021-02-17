@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.4.1
+
+* `CHORE`: retrieve event definitions directly without getter ([`90a5f6b9`](https://github.com/bpmn-io/extract-process-variables/commit/90a5f6b99d0ef9a79705b4b487d307e2667b38d4))
+
 ## 0.4.0
 
 * `FEAT`: add support for event definition variables ([#9](https://github.com/bpmn-io/extract-process-variables/issues/9))
