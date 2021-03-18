@@ -57,7 +57,7 @@ export function getFormFields(element) {
  * @return {ModdleElement}
  */
 export function getFormData(element) {
-  return (getElements(element, 'camunda:FormData') || [])[0];
+  return getElements(element, 'camunda:FormData')[0];
 }
 
 /**
@@ -68,14 +68,14 @@ export function getFormData(element) {
  * @return {Array<ModdleElement>}
  */
 export function getOutMappings(element) {
-  return getElements(element, 'camunda:Out') || [];
+  return getElements(element, 'camunda:Out');
 }
 
 
 // helpers //////////
 
 function getElements(element, type, property) {
-  var elements = getExtensionElements(element, type) || [];
+  var elements = getExtensionElements(element, type);
 
   return !property ? elements : (elements[0] || {})[property] || [];
 }
@@ -87,21 +87,20 @@ function getParameters(element, property) {
 }
 
 function getExtensionElements(element, type) {
+  var elements = [];
   var extensionElements = element.get('extensionElements');
 
   if (typeof extensionElements !== 'undefined') {
     var extensionValues = extensionElements.get('values');
 
     if (typeof extensionValues !== 'undefined') {
-      var elements = filter(extensionValues, function(value) {
+      elements = filter(extensionValues, function(value) {
         return is(value, type);
       });
-
-      if (elements.length) {
-        return elements;
-      }
     }
   }
+
+  return elements;
 }
 
 function is(element, type) {
