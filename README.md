@@ -1,6 +1,6 @@
 # extract-process-variables
 
-[![Build Status](https://img.shields.io/github/workflow/status/bpmn-io/extract-process-variables/CI)](https://github.com/bpmn-io/extract-process-variables/actions?query=workflow%3ACI)
+[![CI](https://github.com/bpmn-io/extract-process-variables/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/extract-process-variables/actions/workflows/CI.yml)
 
 An util for [bpmn-js](https://github.com/bpmn-io/bpmn-js) to extract Camunda BPM [process variables](https://docs.camunda.org/manual/latest/user-guide/process-engine/variables/) from a BPMN 2.0 diagram.
 
