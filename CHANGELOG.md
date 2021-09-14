@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.4.4
+
+* `DEPS`: update `camunda-bpmn-moddle` peer dependency ([`7c5d8e42`](https://github.com/bpmn-io/extract-process-variables/commit/7c5d8e4220764b1a7312b76b5128bfe3442387fc2))
+
 ## 0.4.3
 
 * `FIX`: fix peer dependency ([`570ad7de`](https://github.com/bpmn-io/extract-process-variables/commit/570ad7de08b6d6f9a503628e8cc9f08e10d6b4e2))
