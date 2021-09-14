@@ -68,7 +68,7 @@ Note that [camunda-bpmn-moddle](https://github.com/camunda/camunda-bpmn-moddle) 
 
 ## Properties support
 
-We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/master/src/extractors) from the following diagram properties
+We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/main/src/extractors) from the following diagram properties
 * `camunda:formField`
 * `camunda:outputParameter`
 * `camunda:out`
