@@ -41,7 +41,7 @@
     "rollup": "^2.23.0"
   },
   "dependencies": {
-    "min-dash": "^3.5.2"
+    "min-dash": "^3.8.1"
   },
   "peerDependencies": {
     "camunda-bpmn-moddle": "^4.x || ^5.x || ^6.x"
