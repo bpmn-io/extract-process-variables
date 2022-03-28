@@ -6,6 +6,11 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.4.5
+
+* `DEPS`: drop unnecessary peer dependency entirely ([`2f225d33`](https://github.com/bpmn-io/extract-process-variables/commit/2f225d33b5b5ddf8c29f46d71d13986d4e710e08))
+* `DEPS`: update to `min-dash@3.8.1`
+
 ## 0.4.4
 
 * `DEPS`: update `camunda-bpmn-moddle` peer dependency ([`7c5d8e42`](https://github.com/bpmn-io/extract-process-variables/commit/7c5d8e4220764b1a7312b76b5128bfe3442387fc2))
