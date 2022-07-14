@@ -8,17 +8,17 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 
 import fs from 'fs';
 
-import extractVariables from '../../../src/extractors/extractResultVariables';
+import extractVariables from '../../../../src/platform/extractors/extractOutputParameters';
 
-import { selfAndAllFlowElements } from '../../../src/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/platform/util/ElementsUtil';
 
 
-describe('extractors - result variables', function() {
+describe('extractors - output parameters', function() {
 
-  it('should extract variables from result variables', async function() {
+  it('should extract variables from output parameters', async function() {
 
     // given
-    const xml = read('test/fixtures/result-variable.bpmn');
+    const xml = read('test/platform/fixtures/simple.bpmn');
 
     const definitions = await parse(xml);
 
@@ -35,10 +35,8 @@ describe('extractors - result variables', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['BusinessRuleTask'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['ServiceTask'], scope: 'Process_1' },
-      { name: 'variable3', origin: ['SendTask'], scope: 'Process_1' },
-      { name: 'variable4', origin: ['ScriptTask'], scope: 'Process_1' },
+      { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
+      { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
     ]);
   });
 });
