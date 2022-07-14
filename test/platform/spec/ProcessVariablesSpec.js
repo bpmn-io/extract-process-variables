@@ -11,7 +11,7 @@ import fs from 'fs';
 import {
   getProcessVariables,
   getVariablesForScope
-} from '../../src';
+} from '../../../src';
 
 
 describe('process variables module', function() {
@@ -21,7 +21,7 @@ describe('process variables module', function() {
     it('should extract variables - simple process', async function() {
 
       // given
-      const xml = read('test/fixtures/simple.bpmn');
+      const xml = read('test/platform/fixtures/simple.bpmn');
 
       const definitions = await parse(xml);
 
@@ -41,7 +41,7 @@ describe('process variables module', function() {
     it('should extract variables - with sub process', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process.bpmn');
+      const xml = read('test/platform/fixtures/sub-process.bpmn');
 
       const definitions = await parse(xml);
 
@@ -62,7 +62,7 @@ describe('process variables module', function() {
     it('should extract variables - with sub process (duplicated vars)', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process-duplicates.bpmn');
+      const xml = read('test/platform/fixtures/sub-process-duplicates.bpmn');
 
       const definitions = await parse(xml);
 
@@ -83,7 +83,7 @@ describe('process variables module', function() {
     it('should extract variables - with sub process (own scope)', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/platform/fixtures/sub-process-own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -104,7 +104,7 @@ describe('process variables module', function() {
     it('should extract variables - with sub process (own scope, duplicates)', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process-own-scope-duplicates.bpmn');
+      const xml = read('test/platform/fixtures/sub-process-own-scope-duplicates.bpmn');
 
       const definitions = await parse(xml);
 
@@ -126,7 +126,7 @@ describe('process variables module', function() {
     it('should extract variables - sub process (output mapping)', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process-output-mapping.bpmn');
+      const xml = read('test/platform/fixtures/sub-process-output-mapping.bpmn');
 
       const definitions = await parse(xml);
 
@@ -148,7 +148,7 @@ describe('process variables module', function() {
     it('should extract variables - nested sub processes', async function() {
 
       // given
-      const xml = read('test/fixtures/nested-sub-process.bpmn');
+      const xml = read('test/platform/fixtures/nested-sub-process.bpmn');
 
       const definitions = await parse(xml);
 
@@ -169,7 +169,7 @@ describe('process variables module', function() {
     it('should extract variables - complex', async function() {
 
       // given
-      const xml = read('test/fixtures/complex.bpmn');
+      const xml = read('test/platform/fixtures/complex.bpmn');
 
       const definitions = await parse(xml);
 
@@ -209,7 +209,7 @@ describe('process variables module', function() {
     it('should extract available variables - process', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/platform/fixtures/sub-process-own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -229,7 +229,7 @@ describe('process variables module', function() {
     it('should extract available variables - sub process', async function() {
 
       // given
-      const xml = read('test/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/platform/fixtures/sub-process-own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -254,7 +254,7 @@ describe('process variables module', function() {
     it('should extract available variables - complex', async function() {
 
       // given
-      const xml = read('test/fixtures/complex.bpmn');
+      const xml = read('test/platform/fixtures/complex.bpmn');
 
       const definitions = await parse(xml);
 
