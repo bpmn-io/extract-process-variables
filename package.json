@@ -9,7 +9,7 @@
     "build": "rollup -c",
     "distro": "run-s build test:build",
     "lint": "eslint .",
-    "prepublishOnly": "run-s distro",
+    "prepare": "run-s distro",
     "dev": "mocha -r esm --reporter=spec --recursive --watch test/**/*Spec.js",
     "test": "nyc --reporter=lcov mocha -r esm --reporter=spec --recursive test/**/*Spec.js",
     "test:build": "mocha --reporter=spec --recursive test/distro",
