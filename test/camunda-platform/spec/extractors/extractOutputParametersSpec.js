@@ -8,9 +8,9 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/platform/extractors/extractOutputParameters';
+import extractVariables from '../../../../src/camunda-platform/extractors/extractOutputParameters';
 
-import { selfAndAllFlowElements } from '../../../../src/platform/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/camunda-platform/util/ElementsUtil';
 
 
 describe('extractors - output parameters', function() {
@@ -18,7 +18,7 @@ describe('extractors - output parameters', function() {
   it('should extract variables from output parameters', async function() {
 
     // given
-    const xml = read('test/platform/fixtures/simple.bpmn');
+    const xml = read('test/camunda-platform/fixtures/simple.bpmn');
 
     const definitions = await parse(xml);
 

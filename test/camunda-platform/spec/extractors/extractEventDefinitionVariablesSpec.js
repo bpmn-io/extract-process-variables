@@ -8,9 +8,9 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/platform/extractors/extractEventDefinitionVariables';
+import extractVariables from '../../../../src/camunda-platform/extractors/extractEventDefinitionVariables';
 
-import { selfAndAllFlowElements } from '../../../../src/platform/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/camunda-platform/util/ElementsUtil';
 
 
 describe('extractors - event definition variables', function() {
@@ -18,7 +18,7 @@ describe('extractors - event definition variables', function() {
   it('should extract variables from error code variable', async function() {
 
     // given
-    const xml = read('test/platform/fixtures/error-code-variable.bpmn');
+    const xml = read('test/camunda-platform/fixtures/error-code-variable.bpmn');
 
     const definitions = await parse(xml);
 
@@ -45,7 +45,7 @@ describe('extractors - event definition variables', function() {
   it('should extract variables from error message variable', async function() {
 
     // given
-    const xml = read('test/platform/fixtures/error-message-variable.bpmn');
+    const xml = read('test/camunda-platform/fixtures/error-message-variable.bpmn');
 
     const definitions = await parse(xml);
 
@@ -72,7 +72,7 @@ describe('extractors - event definition variables', function() {
   it('should extract variables from escalation code variable', async function() {
 
     // given
-    const xml = read('test/platform/fixtures/escalation-code-variable.bpmn');
+    const xml = read('test/camunda-platform/fixtures/escalation-code-variable.bpmn');
 
     const definitions = await parse(xml);
 

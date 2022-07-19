@@ -8,9 +8,9 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/platform/extractors/extractFormFields';
+import extractVariables from '../../../../src/camunda-platform/extractors/extractFormFields';
 
-import { selfAndAllFlowElements } from '../../../../src/platform/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/camunda-platform/util/ElementsUtil';
 
 
 describe('extractors - form fields', function() {
@@ -18,7 +18,7 @@ describe('extractors - form fields', function() {
   it('should extract variables from form fields', async function() {
 
     // given
-    const xml = read('test/platform/fixtures/form-fields.bpmn');
+    const xml = read('test/camunda-platform/fixtures/form-fields.bpmn');
 
     const definitions = await parse(xml);
 
