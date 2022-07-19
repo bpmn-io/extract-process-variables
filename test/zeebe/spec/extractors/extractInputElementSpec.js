@@ -39,6 +39,29 @@ describe('zeebe/extractors - input element', function() {
     ]);
   });
 
+
+  it('should not extract variables from empty loopCharacteristics', async function() {
+
+    // given
+    const xml = read('test/zeebe/fixtures/mi-subprocess-empty.bpmn');
+
+    const definitions = await parse(xml);
+
+    const rootElement = getRootElement(definitions);
+
+    const elements = selfAndAllFlowElements([rootElement], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([]);
+  });
+
 });
 
 
