@@ -8,17 +8,17 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/platform/extractors/extractOutMappings';
+import extractVariables from '../../../../src/camunda-platform/extractors/extractResultVariables';
 
-import { selfAndAllFlowElements } from '../../../../src/platform/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/camunda-platform/util/ElementsUtil';
 
 
-describe('extractors - out mappings', function() {
+describe('extractors - result variables', function() {
 
-  it('should extract variables from out mappings', async function() {
+  it('should extract variables from result variables', async function() {
 
     // given
-    const xml = read('test/platform/fixtures/call-activity.bpmn');
+    const xml = read('test/camunda-platform/fixtures/result-variable.bpmn');
 
     const definitions = await parse(xml);
 
@@ -35,35 +35,10 @@ describe('extractors - out mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['CallActivity'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['CallActivity'], scope: 'Process_1' },
-    ]);
-  });
-
-
-  it('should NOT extract variable if set as local', async function() {
-
-    // given
-    const xml = read('test/platform/fixtures/call-activity-local.bpmn');
-
-    const definitions = await parse(xml);
-
-    const rootElement = getRootElement(definitions);
-
-    const elements = selfAndAllFlowElements([rootElement], false);
-
-    // when
-    const variables = extractVariables({
-      elements,
-      containerElement: rootElement,
-      processVariables: []
-    });
-
-    // then
-    // <variableLocal> should be ignored
-    expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['CallActivity'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['CallActivity'], scope: 'Process_1' },
+      { name: 'variable1', origin: ['BusinessRuleTask'], scope: 'Process_1' },
+      { name: 'variable2', origin: ['ServiceTask'], scope: 'Process_1' },
+      { name: 'variable3', origin: ['SendTask'], scope: 'Process_1' },
+      { name: 'variable4', origin: ['ScriptTask'], scope: 'Process_1' },
     ]);
   });
 });
