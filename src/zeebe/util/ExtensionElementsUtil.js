@@ -66,7 +66,8 @@ export function getInMappings(element) {
  * @returns {String} outputCollection
  */
 export function getInputElement(loopCharacteristics) {
-  return getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0].inputElement;
+  const extensionElement = getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0];
+  return extensionElement && extensionElement.inputElement;
 }
 
 /**
@@ -76,7 +77,9 @@ export function getInputElement(loopCharacteristics) {
  * @returns {String} outputCollection
  */
 export function getOutputCollection(loopCharacteristics) {
-  return getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0].outputCollection;
+  const extensionElement = getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0];
+  return extensionElement && extensionElement.outputCollection;
+
 }
 
 /**
