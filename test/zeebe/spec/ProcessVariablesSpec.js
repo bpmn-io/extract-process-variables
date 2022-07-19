@@ -9,10 +9,10 @@ import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 import fs from 'fs';
 
 import {
-  getZeebeProcessVariables,
-  getZeebeVariablesForElement,
-  getZeebeVariablesForScope
-} from '../../../src';
+  getProcessVariables,
+  getVariablesForElement,
+  getVariablesForScope
+} from '../../../src/zeebe';
 
 
 describe('zeebe/process variables module', function() {
@@ -29,7 +29,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -49,7 +49,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -70,7 +70,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -91,7 +91,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -112,7 +112,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -134,7 +134,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -156,7 +156,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeProcessVariables(rootElement);
+      const variables = getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -181,7 +181,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeVariablesForScope('Process_1', rootElement);
+      const variables = getVariablesForScope('Process_1', rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -201,7 +201,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeVariablesForScope('SubProcess_1', rootElement);
+      const variables = getVariablesForScope('SubProcess_1', rootElement);
 
       const sortedVariables = sortVariablesByName(variables);
 
@@ -218,7 +218,7 @@ describe('zeebe/process variables module', function() {
   });
 
 
-  describe('#getZeebeVariablesForElement', function() {
+  describe('#getVariablesForElement', function() {
 
     it('should extract available variables - process', async function() {
 
@@ -230,7 +230,7 @@ describe('zeebe/process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getZeebeVariablesForElement(rootElement);
+      const variables = getVariablesForElement(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -252,7 +252,7 @@ describe('zeebe/process variables module', function() {
       const subProcess = rootElement.flowElements[0];
 
       // when
-      const variables = getZeebeVariablesForElement(subProcess);
+      const variables = getVariablesForElement(subProcess);
 
       const sortedVariables = sortVariablesByName(variables);
 
