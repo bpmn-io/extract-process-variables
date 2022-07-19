@@ -2,7 +2,7 @@ import { filter, find, forEach } from 'min-dash';
 
 import extractors from './extractors';
 
-import { selfAndAllFlowElements, getParents, getElement } from './util/ElementsUtil';
+import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/ElementsUtil';
 
 /**
  * @typedef {Object} ProcessVariable

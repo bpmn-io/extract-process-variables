@@ -10,7 +10,7 @@ import fs from 'fs';
 
 import extractVariables from '../../../../src/camunda-platform/extractors/extractOutMappings';
 
-import { selfAndAllFlowElements } from '../../../../src/camunda-platform/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil';
 
 
 describe('extractors - out mappings', function() {

@@ -10,7 +10,7 @@ import fs from 'fs';
 
 import extractVariables from '../../../../src/zeebe/extractors/extractOutMappings';
 
-import { selfAndAllFlowElements } from '../../../../src/zeebe/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil';
 
 
 describe('zeebe/extractors - out mappings', function() {
