@@ -10,4 +10,12 @@ describe('exctract-process-variables', function() {
 
     expect(extractProcessVariables.getProcessVariables).to.exist;
   });
+
+
+  it('should expose zeebe CJS bundle', function() {
+    const extractProcessVariables = require('../../dist/zeebe');
+
+    expect(extractProcessVariables.getProcessVariables).to.exist;
+  });
+
 });

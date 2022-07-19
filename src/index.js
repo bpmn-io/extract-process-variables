@@ -1,2 +1,1 @@
-export * from './platform';
-export * from './zeebe';
+export * from './camunda-platform';

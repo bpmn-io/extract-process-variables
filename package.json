@@ -4,6 +4,10 @@
   "description": "A util for bpmn-js to extract Camunda BPM process variables from a BPMN 2.0 diagram.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./zeebe": "./dist/zeebe/index.js"
+  },
   "source": "src/index.js",
   "scripts": {
     "build": "rollup -c",

@@ -19,7 +19,7 @@ import { selfAndAllFlowElements, getParents, getElement } from './util/ElementsU
  *
  * @returns {Array<ProcessVariable>}
  */
-export function getZeebeProcessVariables(containerElement) {
+export function getProcessVariables(containerElement) {
   var processVariables = [];
 
   // (1) extract all flow elements inside the container
@@ -49,9 +49,9 @@ export function getZeebeProcessVariables(containerElement) {
  *
  * @returns {Array<ProcessVariable>}
  */
-export function getZeebeVariablesForScope(scope, rootElement) {
+export function getVariablesForScope(scope, rootElement) {
 
-  var allVariables = getZeebeProcessVariables(rootElement);
+  var allVariables = getProcessVariables(rootElement);
 
   var scopeElement = getElement(scope, rootElement);
 
@@ -73,11 +73,9 @@ export function getZeebeVariablesForScope(scope, rootElement) {
 }
 
 
-export function getZeebeVariablesForElement(element) {
-  return getZeebeVariablesForScope(getScope(element), getRootElement(element));
+export function getVariablesForElement(element) {
+  return getVariablesForScope(getScope(element), getRootElement(element));
 }
-
-
 
 function getScope(element) {
   const bo = getBusinessObject(element);

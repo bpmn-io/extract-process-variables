@@ -14,18 +14,20 @@ function pgl(plugins=[]) {
   ];
 }
 
-const srcEntry = pkg.source;
+const exports = pkg.exports;
 
-export default [
-  {
-    input: srcEntry,
+const config = Object.keys(exports).map(key => {
+  return {
+    input: `src/${key}/index.js`,
     output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' }
+      { file: `dist/${key}/index.js`, format: 'cjs' },
+      { file: `dist/${key}/index.esm.js`, format: 'es' }
     ],
     external: [
       'min-dash'
     ],
     plugins: pgl()
-  }
-];
+  };
+});
+
+export default config;
