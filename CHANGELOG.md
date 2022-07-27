@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.5.0
+
+* `FEAT`: add support for Camunda Platform 8 diagrams ([#20](https://github.com/bpmn-io/extract-process-variables/pull/20))
+
 ## 0.4.5
 
 * `DEPS`: drop unnecessary peer dependency entirely ([`2f225d33`](https://github.com/bpmn-io/extract-process-variables/commit/2f225d33b5b5ddf8c29f46d71d13986d4e710e08))
