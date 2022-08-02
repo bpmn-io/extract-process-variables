@@ -6,7 +6,7 @@
   "module": "dist/index.esm.js",
   "exports": {
     ".": "./dist/index.js",
-    "./zeebe": "./dist/zeebe/index.js"
+    "./zeebe": "./zeebe/index.js"
   },
   "source": "src/index.js",
   "scripts": {
