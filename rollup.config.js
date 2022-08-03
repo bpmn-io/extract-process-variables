@@ -24,7 +24,7 @@ const config = [
     plugins: pgl()
   },
   {
-    input: 'src/index.js',
+    input: 'src/zeebe/index.js',
     output: [
       { file: 'zeebe/index.js', format: 'cjs' },
       { file: 'zeebe/index.esm.js', format: 'es' }
