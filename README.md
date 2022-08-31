@@ -76,7 +76,7 @@ Note that [camunda-bpmn-moddle](https://github.com/camunda/camunda-bpmn-moddle) 
 ## Properties support
 
 ### Camunda Platform 7
-We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/main/src/camunda-platform/extractors) from the following diagram properties
+We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/main/lib/camunda-platform/extractors) from the following diagram properties
 * `camunda:formField`
 * `camunda:outputParameter`
 * `camunda:out`
@@ -86,7 +86,7 @@ We are currently [extracting process variables](https://github.com/bpmn-io/extra
 * `camunda:escalationCodeVariable`
 
 ### Camunda Platform 8
-We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/main/src/zeebe/extractors) from the following diagram properties
+We are currently [extracting process variables](https://github.com/bpmn-io/extract-process-variables/tree/main/lib/zeebe/extractors) from the following diagram properties
 * `zeebe:input`
 * `zeebe:output`
 * `zeebe:loopCharacteristics > inputElement`

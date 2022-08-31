@@ -8,9 +8,9 @@ import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/camunda-platform/extractors/extractEventDefinitionVariables';
+import extractVariables from '../../../../lib/camunda-platform/extractors/extractEventDefinitionVariables';
 
-import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../lib/shared/util/ElementsUtil';
 
 
 describe('extractors - event definition variables', function() {

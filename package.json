@@ -8,7 +8,7 @@
     ".": "./dist/index.js",
     "./zeebe": "./zeebe/index.js"
   },
-  "source": "src/index.js",
+  "source": "lib/index.js",
   "scripts": {
     "build": "rollup -c",
     "distro": "run-s build test:build",

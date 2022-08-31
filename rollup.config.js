@@ -13,7 +13,7 @@ function pgl(plugins=[]) {
 
 const config = [
   {
-    input: 'src/index.js',
+    input: 'lib/index.js',
     output: [
       { file: 'dist/index.js', format: 'cjs' },
       { file: 'dist/index.esm.js', format: 'es' }
@@ -24,7 +24,7 @@ const config = [
     plugins: pgl()
   },
   {
-    input: 'src/zeebe/index.js',
+    input: 'lib/zeebe/index.js',
     output: [
       { file: 'zeebe/index.js', format: 'cjs' },
       { file: 'zeebe/index.esm.js', format: 'es' }
