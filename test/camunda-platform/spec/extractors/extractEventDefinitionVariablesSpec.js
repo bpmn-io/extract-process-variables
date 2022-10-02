@@ -35,8 +35,8 @@ describe('extractors - event definition variables', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['ErrorEvent_1'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['ErrorEvent_2'], scope: 'Process_1' }
+      { name: 'variable1', origin: [ 'ErrorEvent_1' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'ErrorEvent_2' ], scope: 'Process_1' }
     ]);
 
   });
@@ -51,7 +51,7 @@ describe('extractors - event definition variables', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -62,8 +62,8 @@ describe('extractors - event definition variables', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['ErrorEvent_1'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['ErrorEvent_2'], scope: 'Process_1' }
+      { name: 'variable1', origin: [ 'ErrorEvent_1' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'ErrorEvent_2' ], scope: 'Process_1' }
     ]);
 
   });
@@ -78,7 +78,7 @@ describe('extractors - event definition variables', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -89,8 +89,8 @@ describe('extractors - event definition variables', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['EscalationEvent_1'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['EscalationEvent_2'], scope: 'Process_1' }
+      { name: 'variable1', origin: [ 'EscalationEvent_1' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'EscalationEvent_2' ], scope: 'Process_1' }
     ]);
 
   });

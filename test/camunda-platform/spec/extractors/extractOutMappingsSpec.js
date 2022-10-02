@@ -24,7 +24,7 @@ describe('extractors - out mappings', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -35,8 +35,8 @@ describe('extractors - out mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['CallActivity'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['CallActivity'], scope: 'Process_1' },
+      { name: 'variable1', origin: [ 'CallActivity' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'CallActivity' ], scope: 'Process_1' },
     ]);
   });
 
@@ -50,7 +50,7 @@ describe('extractors - out mappings', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -62,8 +62,8 @@ describe('extractors - out mappings', function() {
     // then
     // <variableLocal> should be ignored
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['CallActivity'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['CallActivity'], scope: 'Process_1' },
+      { name: 'variable1', origin: [ 'CallActivity' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'CallActivity' ], scope: 'Process_1' },
     ]);
   });
 });

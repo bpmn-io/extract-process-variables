@@ -36,7 +36,7 @@ export function createProcessVariable(flowElement, name, defaultScope) {
 
   return {
     name: name,
-    origin: [flowElement],
+    origin: [ flowElement ],
     scope: scope
   };
 }

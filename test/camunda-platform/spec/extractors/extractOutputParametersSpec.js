@@ -24,7 +24,7 @@ describe('extractors - output parameters', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -35,8 +35,8 @@ describe('extractors - output parameters', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+      { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
     ]);
   });
 });

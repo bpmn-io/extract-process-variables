@@ -32,8 +32,8 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -52,9 +52,9 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'Process_1' },
       ]);
     });
 
@@ -73,9 +73,9 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1', 'Task_2'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1', 'Task_2' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'Process_1' },
       ]);
     });
 
@@ -94,9 +94,9 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'SubProcess_1' },
       ]);
     });
 
@@ -115,10 +115,10 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_2'], scope: 'SubProcess_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_2' ], scope: 'SubProcess_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'SubProcess_1' },
       ]);
     });
 
@@ -137,10 +137,10 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['SubProcess_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'SubProcess_1' },
       ]);
     });
 
@@ -159,9 +159,9 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'SubProcess_1' },
       ]);
     });
 
@@ -182,23 +182,23 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable01', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable02', origin: ['Event_2'], scope: 'Process_1' },
-        { name: 'variable03', origin: ['SubProcess_1'], scope: 'Process_1' },
-        { name: 'variable03', origin: ['Task_3'], scope: 'SubProcess_1' },
-        { name: 'variable04', origin: ['Task_4'], scope: 'Process_1' },
-        { name: 'variable05', origin: ['Task_5'], scope: 'Process_1' },
-        { name: 'variable06', origin: ['Event_5'], scope: 'Process_1' },
-        { name: 'variable07', origin: ['Event_5'], scope: 'Process_1' },
-        { name: 'variable08', origin: ['Task_7'], scope: 'Process_1' },
-        { name: 'variable09', origin: ['Event_6'], scope: 'Process_1' },
-        { name: 'variable10', origin: ['Event_8'], scope: 'SubProcess_2' },
-        { name: 'variable11', origin: ['Event_8'], scope: 'Process_1' },
-        { name: 'variable12', origin: ['Task_10'], scope: 'SubProcess_2' },
-        { name: 'variable13', origin: ['Task_10'], scope: 'SubProcess_3' },
-        { name: 'variable14', origin: ['Task_10'], scope: 'Process_1' },
-        { name: 'variable15', origin: ['Task_11'], scope: 'Process_1' },
-        { name: 'variable16', origin: ['Task_12'], scope: 'Process_1' },
+        { name: 'variable01', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable02', origin: [ 'Event_2' ], scope: 'Process_1' },
+        { name: 'variable03', origin: [ 'SubProcess_1' ], scope: 'Process_1' },
+        { name: 'variable03', origin: [ 'Task_3' ], scope: 'SubProcess_1' },
+        { name: 'variable04', origin: [ 'Task_4' ], scope: 'Process_1' },
+        { name: 'variable05', origin: [ 'Task_5' ], scope: 'Process_1' },
+        { name: 'variable06', origin: [ 'Event_5' ], scope: 'Process_1' },
+        { name: 'variable07', origin: [ 'Event_5' ], scope: 'Process_1' },
+        { name: 'variable08', origin: [ 'Task_7' ], scope: 'Process_1' },
+        { name: 'variable09', origin: [ 'Event_6' ], scope: 'Process_1' },
+        { name: 'variable10', origin: [ 'Event_8' ], scope: 'SubProcess_2' },
+        { name: 'variable11', origin: [ 'Event_8' ], scope: 'Process_1' },
+        { name: 'variable12', origin: [ 'Task_10' ], scope: 'SubProcess_2' },
+        { name: 'variable13', origin: [ 'Task_10' ], scope: 'SubProcess_3' },
+        { name: 'variable14', origin: [ 'Task_10' ], scope: 'Process_1' },
+        { name: 'variable15', origin: [ 'Task_11' ], scope: 'Process_1' },
+        { name: 'variable16', origin: [ 'Task_12' ], scope: 'Process_1' },
       ]);
     });
   });
@@ -220,8 +220,8 @@ describe('process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -244,9 +244,9 @@ describe('process variables module', function() {
 
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'SubProcess_1' }
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'SubProcess_1' }
       ]);
     });
 
@@ -269,21 +269,21 @@ describe('process variables module', function() {
 
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable01', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable02', origin: ['Event_2'], scope: 'Process_1' },
-        { name: 'variable03', origin: ['SubProcess_1'], scope: 'Process_1' },
-        { name: 'variable04', origin: ['Task_4'], scope: 'Process_1' },
-        { name: 'variable05', origin: ['Task_5'], scope: 'Process_1' },
-        { name: 'variable06', origin: ['Event_5'], scope: 'Process_1' },
-        { name: 'variable07', origin: ['Event_5'], scope: 'Process_1' },
-        { name: 'variable08', origin: ['Task_7'], scope: 'Process_1' },
-        { name: 'variable09', origin: ['Event_6'], scope: 'Process_1' },
-        { name: 'variable10', origin: ['Event_8'], scope: 'SubProcess_2' },
-        { name: 'variable11', origin: ['Event_8'], scope: 'Process_1' },
-        { name: 'variable12', origin: ['Task_10'], scope: 'SubProcess_2' },
-        { name: 'variable14', origin: ['Task_10'], scope: 'Process_1' },
-        { name: 'variable15', origin: ['Task_11'], scope: 'Process_1' },
-        { name: 'variable16', origin: ['Task_12'], scope: 'Process_1' },
+        { name: 'variable01', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable02', origin: [ 'Event_2' ], scope: 'Process_1' },
+        { name: 'variable03', origin: [ 'SubProcess_1' ], scope: 'Process_1' },
+        { name: 'variable04', origin: [ 'Task_4' ], scope: 'Process_1' },
+        { name: 'variable05', origin: [ 'Task_5' ], scope: 'Process_1' },
+        { name: 'variable06', origin: [ 'Event_5' ], scope: 'Process_1' },
+        { name: 'variable07', origin: [ 'Event_5' ], scope: 'Process_1' },
+        { name: 'variable08', origin: [ 'Task_7' ], scope: 'Process_1' },
+        { name: 'variable09', origin: [ 'Event_6' ], scope: 'Process_1' },
+        { name: 'variable10', origin: [ 'Event_8' ], scope: 'SubProcess_2' },
+        { name: 'variable11', origin: [ 'Event_8' ], scope: 'Process_1' },
+        { name: 'variable12', origin: [ 'Task_10' ], scope: 'SubProcess_2' },
+        { name: 'variable14', origin: [ 'Task_10' ], scope: 'Process_1' },
+        { name: 'variable15', origin: [ 'Task_11' ], scope: 'Process_1' },
+        { name: 'variable16', origin: [ 'Task_12' ], scope: 'Process_1' },
       ]);
     });
 

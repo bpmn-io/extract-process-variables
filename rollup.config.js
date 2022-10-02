@@ -2,7 +2,7 @@ import json from '@rollup/plugin-json';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
-function pgl(plugins=[]) {
+function pgl(plugins = []) {
   return [
     json(),
     nodeResolve(),

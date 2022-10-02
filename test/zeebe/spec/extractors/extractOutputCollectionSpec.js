@@ -24,7 +24,7 @@ describe('zeebe/extractors - output collections', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -35,7 +35,7 @@ describe('zeebe/extractors - output collections', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'outputCollection', origin: ['Subprocess_1'], scope: 'Process_1' }
+      { name: 'outputCollection', origin: [ 'Subprocess_1' ], scope: 'Process_1' }
     ]);
   });
 
@@ -49,7 +49,7 @@ describe('zeebe/extractors - output collections', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({

@@ -23,7 +23,7 @@ export function getProcessVariables(containerElement) {
   var processVariables = [];
 
   // (1) extract all flow elements inside the container
-  var elements = selfAndAllFlowElements([containerElement], false);
+  var elements = selfAndAllFlowElements([ containerElement ], false);
 
   // (2) extract all variables from the extractors
   forEach(extractors, function(extractor) {

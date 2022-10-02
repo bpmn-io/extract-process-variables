@@ -24,7 +24,7 @@ describe('extractors - form fields', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -35,10 +35,10 @@ describe('extractors - form fields', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['StartEvent'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['StartEvent'], scope: 'Process_1' },
-      { name: 'variable3', origin: ['UserTask'], scope: 'Process_1' },
-      { name: 'variable4', origin: ['UserTask'], scope: 'Process_1' }
+      { name: 'variable1', origin: [ 'StartEvent' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'StartEvent' ], scope: 'Process_1' },
+      { name: 'variable3', origin: [ 'UserTask' ], scope: 'Process_1' },
+      { name: 'variable4', origin: [ 'UserTask' ], scope: 'Process_1' }
     ]);
   });
 });

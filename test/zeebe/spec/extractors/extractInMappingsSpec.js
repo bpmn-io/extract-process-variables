@@ -24,7 +24,7 @@ describe('zeebe/extractors - in mappings', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -35,8 +35,8 @@ describe('zeebe/extractors - in mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['Subprocess_1'], scope: 'Subprocess_1' },
-      { name: 'variable2', origin: ['Subprocess_1'], scope: 'Subprocess_1' },
+      { name: 'variable1', origin: [ 'Subprocess_1' ], scope: 'Subprocess_1' },
+      { name: 'variable2', origin: [ 'Subprocess_1' ], scope: 'Subprocess_1' },
     ]);
   });
 

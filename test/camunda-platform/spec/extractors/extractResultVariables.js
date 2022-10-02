@@ -24,7 +24,7 @@ describe('extractors - result variables', function() {
 
     const rootElement = getRootElement(definitions);
 
-    const elements = selfAndAllFlowElements([rootElement], false);
+    const elements = selfAndAllFlowElements([ rootElement ], false);
 
     // when
     const variables = extractVariables({
@@ -35,10 +35,10 @@ describe('extractors - result variables', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: ['BusinessRuleTask'], scope: 'Process_1' },
-      { name: 'variable2', origin: ['ServiceTask'], scope: 'Process_1' },
-      { name: 'variable3', origin: ['SendTask'], scope: 'Process_1' },
-      { name: 'variable4', origin: ['ScriptTask'], scope: 'Process_1' },
+      { name: 'variable1', origin: [ 'BusinessRuleTask' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'ServiceTask' ], scope: 'Process_1' },
+      { name: 'variable3', origin: [ 'SendTask' ], scope: 'Process_1' },
+      { name: 'variable4', origin: [ 'ScriptTask' ], scope: 'Process_1' },
     ]);
   });
 });

@@ -33,8 +33,8 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -53,9 +53,9 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'Process_1' },
       ]);
     });
 
@@ -74,9 +74,9 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1', 'Task_2'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['Task_2'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1', 'Task_2' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'Process_1' },
       ]);
     });
 
@@ -95,9 +95,9 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable3', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' },
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' }
+        { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' }
       ]);
     });
 
@@ -116,10 +116,10 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable3', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' },
-        { name: 'variable2', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' },
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+        { name: 'variable2', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -138,10 +138,10 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable3', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' },
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['SubProcess_1'], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -160,9 +160,9 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable3', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' },
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -185,8 +185,8 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -209,9 +209,9 @@ describe('zeebe/process variables module', function() {
 
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' }
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' }
       ]);
     });
 
@@ -234,8 +234,8 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
     });
 
@@ -260,9 +260,9 @@ describe('zeebe/process variables module', function() {
 
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable1', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable2', origin: ['Task_1'], scope: 'Process_1' },
-        { name: 'variable3', origin: ['SubProcess_1', 'Task_2'], scope: 'SubProcess_1' }
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' }
       ]);
     });
 
