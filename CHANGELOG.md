@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.6.0
+
+* `deps`: update to `min-dash@4`
+
 ## 0.5.1
 
 _Republish of 0.5.0 with backwards compatible folder structure_
