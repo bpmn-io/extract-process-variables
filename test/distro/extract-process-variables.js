@@ -2,11 +2,13 @@ const {
   expect
 } = require('chai');
 
+const pkg = require('../../package.json');
+
 
 describe('exctract-process-variables', function() {
 
   it('should expose CJS bundle', function() {
-    const extractProcessVariables = require('../../dist');
+    const extractProcessVariables = require('../../' + pkg['main']);
 
     expect(extractProcessVariables.getProcessVariables).to.exist;
   });
