@@ -47,5 +47,9 @@
   },
   "dependencies": {
     "min-dash": "^3.8.1"
-  }
+  },
+  "files": [
+    "dist",
+    "zeebe"
+  ]
 }
