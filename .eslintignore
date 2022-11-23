@@ -1,4 +1,4 @@
 dist
-zeebe
+/zeebe
 .nyc_output
 coverage
