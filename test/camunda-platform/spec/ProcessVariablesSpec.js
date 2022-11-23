@@ -201,6 +201,29 @@ describe('process variables module', function() {
         { name: 'variable16', origin: [ 'Task_12' ], scope: 'Process_1' },
       ]);
     });
+
+
+    it('should extract variables - additional extractors', async function() {
+
+      // given
+      const xml = read('test/camunda-platform/fixtures/simple.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getProcessVariables(rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
+    });
+
   });
 
 
@@ -287,6 +310,28 @@ describe('process variables module', function() {
       ]);
     });
 
+
+    it('should extract available variables - additional extractors', async function() {
+
+      // given
+      const xml = read('test/camunda-platform/fixtures/simple.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
+    });
+
   });
 
 });
@@ -328,4 +373,22 @@ function convertToTestable(variables) {
       scope: variable.scope.id
     };
   });
+}
+
+function createAdditionExtractors(rootElement) {
+  return [
+    function(options) {
+      const {
+        processVariables
+      } = options;
+
+      processVariables.push(
+        {
+          name: 'additionalVariable',
+          scope: rootElement,
+          origin: [ rootElement ]
+        }
+      );
+    }
+  ];
 }

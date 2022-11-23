@@ -166,6 +166,28 @@ describe('zeebe/process variables module', function() {
       ]);
     });
 
+
+    it('should extract variables - additional extractors', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/simple.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getProcessVariables(rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
+    });
+
   });
 
 
@@ -213,6 +235,28 @@ describe('zeebe/process variables module', function() {
         { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' }
       ]);
+    });
+
+
+    it('should extract available variables - additional extractors', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
     });
 
   });
@@ -266,6 +310,28 @@ describe('zeebe/process variables module', function() {
       ]);
     });
 
+
+    it('should extract available variables - additional extractors', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = getVariablesForElement(rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
+    });
+
   });
 
 });
@@ -307,4 +373,22 @@ function convertToTestable(variables) {
       scope: variable.scope.id
     };
   });
+}
+
+function createAdditionExtractors(rootElement) {
+  return [
+    function(options) {
+      const {
+        processVariables
+      } = options;
+
+      processVariables.push(
+        {
+          name: 'additionalVariable',
+          scope: rootElement,
+          origin: [ rootElement ]
+        }
+      );
+    }
+  ];
 }
