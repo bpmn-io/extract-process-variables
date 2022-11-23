@@ -14,19 +14,29 @@ import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/E
 // api /////////////////////////
 
 /**
+ * Extractors add ProcessVariables to the `options.processVariables` parameter.
+ * @callback extractor
+ * @param {Object} options
+ * @param {Array<ModdleElement>} options.elements
+ * @param {ModdleElement} options.containerElement
+ * @param {Array<ProcessVariable>} options.processVariables
+ */
+
+/**
  * Retrieves all process variables for a given container element.
  * @param {ModdleElement} containerElement
+ * @param {Array<extractor>} [additionalExtractors]
  *
  * @returns {Array<ProcessVariable>}
  */
-export function getProcessVariables(containerElement) {
+export function getProcessVariables(containerElement, additionalExtractors = []) {
   var processVariables = [];
 
   // (1) extract all flow elements inside the container
   var elements = selfAndAllFlowElements([ containerElement ], false);
 
   // (2) extract all variables from the extractors
-  forEach(extractors, function(extractor) {
+  forEach([ ...extractors, ...additionalExtractors ], function(extractor) {
     extractor({
       elements: elements,
       containerElement: containerElement,
@@ -46,12 +56,13 @@ export function getProcessVariables(containerElement) {
  *
  * @param {string} scope
  * @param {ModdleElement} rootElement element from where to extract all variables
+ * @param {Array<extractor>} [additionalExtractors]
  *
  * @returns {Array<ProcessVariable>}
  */
-export function getVariablesForScope(scope, rootElement) {
+export function getVariablesForScope(scope, rootElement, additionalExtractors = []) {
 
-  var allVariables = getProcessVariables(rootElement);
+  var allVariables = getProcessVariables(rootElement, additionalExtractors);
 
   var scopeElement = getElement(scope, rootElement);
 
@@ -73,8 +84,8 @@ export function getVariablesForScope(scope, rootElement) {
 }
 
 
-export function getVariablesForElement(element) {
-  return getVariablesForScope(getScope(element), getRootElement(element));
+export function getVariablesForElement(element, additionalExtractors = []) {
+  return getVariablesForScope(getScope(element), getRootElement(element), additionalExtractors);
 }
 
 function getScope(element) {
