@@ -31,6 +31,8 @@ import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/E
  * @returns {Array<ProcessVariable>}
  */
 export function getProcessVariables(containerElement, additionalExtractors = []) {
+  const allPromises = [];
+
   var processVariables = [];
 
   // (1) extract all flow elements inside the container
@@ -38,14 +40,17 @@ export function getProcessVariables(containerElement, additionalExtractors = [])
 
   // (2) extract all variables from the extractors
   forEach([ ...extractors, ...additionalExtractors ], function(extractor) {
-    extractor({
-      elements: elements,
-      containerElement: containerElement,
-      processVariables: processVariables
-    });
+    allPromises.push(
+      extractor({
+        elements: elements,
+        containerElement: containerElement,
+        processVariables: processVariables
+      })
+    );
   });
 
-  return processVariables;
+  return Promise.all(allPromises)
+    .then(() => processVariables);
 }
 
 /**
@@ -61,9 +66,9 @@ export function getProcessVariables(containerElement, additionalExtractors = [])
  *
  * @returns {Array<ProcessVariable>}
  */
-export function getVariablesForScope(scope, rootElement, additionalExtractors = []) {
+export async function getVariablesForScope(scope, rootElement, additionalExtractors = []) {
 
-  var allVariables = getProcessVariables(rootElement, additionalExtractors);
+  var allVariables = await getProcessVariables(rootElement, additionalExtractors);
 
   var scopeElement = getElement(scope, rootElement);
 

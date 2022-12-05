@@ -28,7 +28,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -48,7 +48,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -69,7 +69,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -90,7 +90,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -111,7 +111,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -133,7 +133,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -155,7 +155,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -176,7 +176,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement);
+      const variables = await getProcessVariables(rootElement);
 
       const sortedVariables = sortVariablesByName(variables);
 
@@ -213,7 +213,29 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getProcessVariables(rootElement, createAdditionExtractors(rootElement));
+      const variables = await getProcessVariables(rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
+    });
+
+
+    it('should extract variables - additional extractors (async)', async function() {
+
+      // given
+      const xml = read('test/camunda-platform/fixtures/simple.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getProcessVariables(rootElement, createAdditionExtractors(rootElement, true));
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -239,7 +261,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getVariablesForScope('Process_1', rootElement);
+      const variables = await getVariablesForScope('Process_1', rootElement);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -259,7 +281,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getVariablesForScope('SubProcess_1', rootElement);
+      const variables = await getVariablesForScope('SubProcess_1', rootElement);
 
       const sortedVariables = sortVariablesByName(variables);
 
@@ -284,7 +306,7 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getVariablesForScope('SubProcess_2', rootElement);
+      const variables = await getVariablesForScope('SubProcess_2', rootElement);
 
       const sortedVariables = sortVariablesByName(variables);
 
@@ -321,7 +343,29 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement));
+      const variables = await getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement));
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+      ]);
+
+    });
+
+
+    it('should extract available variables - additional extractors', async function() {
+
+      // given
+      const xml = read('test/camunda-platform/fixtures/simple.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement, true));
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -375,20 +419,34 @@ function convertToTestable(variables) {
   });
 }
 
-function createAdditionExtractors(rootElement) {
-  return [
-    function(options) {
-      const {
-        processVariables
-      } = options;
 
-      processVariables.push(
-        {
-          name: 'additionalVariable',
-          scope: rootElement,
-          origin: [ rootElement ]
-        }
-      );
-    }
+function createAdditionExtractors(rootElement, async = false) {
+
+  const additionalVariable = {
+    name: 'additionalVariable',
+    scope: rootElement,
+    origin: [ rootElement ]
+  };
+
+  const extractor = function(options) {
+    const {
+      processVariables
+    } = options;
+
+    processVariables.push(additionalVariable);
+  };
+
+  const asyncExtractor = async function(options) {
+    const {
+      processVariables
+    } = options;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    processVariables.push(additionalVariable);
+  };
+
+  return [
+    async ? asyncExtractor : extractor
   ];
 }
