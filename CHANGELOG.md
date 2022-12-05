@@ -6,6 +6,15 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.7.0
+
+* `FEAT`: allow additional extractors ([#23](https://github.com/bpmn-io/extract-process-variables/pull/23))
+* `FEAT`: make extraction asynchronous ([#24](https://github.com/bpmn-io/extract-process-variables/pull/24))
+
+### BREAKING CHANGES
+
+The `extractVariables` API is now asynchronous and returns a `Promise`.
+
 ## 0.6.0
 
 * `deps`: update to `min-dash@4`
