@@ -28,7 +28,7 @@ import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/E
  * @param {ModdleElement} containerElement
  * @param {Array<extractor>} additionalExtractors
  *
- * @returns {Array<ProcessVariable>}
+ * @returns {Promise<Array<ProcessVariable>>}
  */
 export function getProcessVariables(containerElement, additionalExtractors = []) {
   const allPromises = [];
@@ -64,7 +64,7 @@ export function getProcessVariables(containerElement, additionalExtractors = [])
  * @param {ModdleElement} rootElement element from where to extract all variables
  * @param {Array<extractor>} additionalExtractors
  *
- * @returns {Array<ProcessVariable>}
+ * @returns {Promise<Array<ProcessVariable>>}
  */
 export async function getVariablesForScope(scope, rootElement, additionalExtractors = []) {
 
