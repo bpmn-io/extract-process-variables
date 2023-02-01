@@ -1,5 +1,5 @@
 import { forEach, isArray } from 'min-dash';
-import { getCalledDecision } from '../util/ExtensionElementsUtil';
+import { getCalledDecision, getScript } from '../util/ExtensionElementsUtil';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
 
@@ -27,13 +27,14 @@ export default function(options) {
 
   forEach(elements, function(element) {
 
-    var calledDecision = getCalledDecision(element);
+    var baseElement = getCalledDecision(element) ||
+                      getScript(element);
 
-    if (!calledDecision) {
+    if (!baseElement) {
       return;
     }
 
-    var resultVariable = calledDecision.resultVariable;
+    var resultVariable = baseElement.resultVariable;
 
     if (resultVariable) {
       var newVariable = createProcessVariable(

@@ -15,10 +15,35 @@ import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil
 
 describe('zeebe/extractors - result variables', function() {
 
-  it('should extract variables from result variables', async function() {
+  it('should extract variables from called decision', async function() {
 
     // given
     const xml = read('test/zeebe/fixtures/business-rule-task-result-variable.bpmn');
+
+    const definitions = await parse(xml);
+
+    const rootElement = getRootElement(definitions);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([
+      { name: 'resultVariable', origin: [ 'Task_1' ], scope: 'Process_1' }
+    ]);
+  });
+
+
+  it('should extract variables from script', async function() {
+
+    // given
+    const xml = read('test/zeebe/fixtures/script-task-result-variable.bpmn');
 
     const definitions = await parse(xml);
 

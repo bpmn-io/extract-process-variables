@@ -93,6 +93,16 @@ export function getCalledDecision(element) {
 }
 
 
+/**
+ * Get a script from the business object
+ *
+ * @param {MoodleElement} element
+ * @returns {MoodleElement} the script object
+ */
+export function getScript(element) {
+  return (getElements(element, 'zeebe:Script') || [])[0];
+}
+
 // helpers //////////
 
 function getElements(element, type, property) {
