@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.8.0
+
+* `FEAT`: add support for `zeebe:script` ([#25](https://github.com/bpmn-io/extract-process-variables/issues/25))
+
 ## 0.7.0
 
 * `FEAT`: allow additional extractors ([#23](https://github.com/bpmn-io/extract-process-variables/pull/23))
