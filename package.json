@@ -5,8 +5,14 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "exports": {
-    ".": "./dist/index.js",
-    "./zeebe": "./zeebe/index.js"
+     ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+     },
+    "./zeebe": {
+      "import": "./zeebe/index.esm.js",
+      "require": "./zeebe/index.js"
+    }
   },
   "source": "src/index.js",
   "scripts": {
