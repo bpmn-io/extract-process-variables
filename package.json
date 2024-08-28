@@ -3,14 +3,14 @@
   "version": "0.8.0",
   "description": "A util for bpmn-js to extract Camunda BPM process variables from a BPMN 2.0 diagram.",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.mjs",
   "exports": {
      ".": {
-      "import": "./dist/index.esm.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js"
      },
     "./zeebe": {
-      "import": "./zeebe/index.esm.js",
+      "import": "./zeebe/index.mjs",
       "require": "./zeebe/index.js"
     }
   },
