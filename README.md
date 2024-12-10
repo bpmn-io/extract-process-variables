@@ -92,6 +92,7 @@ We are currently [extracting process variables](https://github.com/bpmn-io/extra
 * `zeebe:loopCharacteristics > inputElement`
 * `zeebe:loopCharacteristics > outputCollection`
 * `zeebe:calledDecision > resultVariable`
+* `zeebe:script > resultVariable`
 
 ## See also
 
