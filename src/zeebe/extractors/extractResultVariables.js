@@ -36,6 +36,13 @@ export default function(options) {
 
     var resultVariable = baseElement.resultVariable;
 
+    // Checks if output variable exists, the scope gets redefined
+    if (processVariables.some(x => x.origin[0] === element && x.scope === containerElement)) {
+
+      // result variable will have local scope
+      containerElement = element;
+    }
+
     if (resultVariable) {
       var newVariable = createProcessVariable(
         element,
