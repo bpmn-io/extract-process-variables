@@ -210,6 +210,26 @@ describe('zeebe/process variables module', function() {
 
     });
 
+
+    it('should extract variables with re define resultVariable scope if output mapping exists - script task', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/script-task-output.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'output', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' },
+      ]);
+    });
+
   });
 
 
