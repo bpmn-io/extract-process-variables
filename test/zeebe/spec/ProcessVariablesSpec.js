@@ -230,6 +230,25 @@ describe('zeebe/process variables module', function() {
       ]);
     });
 
+
+    it('should extract only output variable if same name result variable exists - simple process with script', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/script-task-same-output-and-result-variable.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Process_1' }
+      ]);
+    });
+
   });
 
 
