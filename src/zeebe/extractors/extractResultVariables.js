@@ -41,6 +41,12 @@ export default function(options) {
 
       // result variable will have local scope
       containerElement = element;
+
+      // check if the output have same name as resultVariable, only proceed with output variable
+      if (processVariables.some(variable => variable.name === resultVariable)) {
+        return processVariables;
+      }
+
     }
 
     if (resultVariable) {
