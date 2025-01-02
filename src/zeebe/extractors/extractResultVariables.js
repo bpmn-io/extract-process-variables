@@ -4,17 +4,39 @@ import { getCalledDecision, getScript } from '../util/ExtensionElementsUtil.js';
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
 /**
- * Retrieves process variables defined in result variables, e.g.
+ * Extracts process variables from extension elements that have a result
+ * variable, e.g. given the following element:
  *
- *   <bpmn:businessRuleTask id="Activity_1">
- *     <bpmn:extensionElements>
- *       <zeebe:calledDecision resultVariable="variable1" />
- *     </bpmn:extensionElements>
- *   </bpmn:businessRuleTask>
+ * <bpmn:businessRuleTask id="Task_1">
+ *   <bpmn:extensionElements>
+ *     <zeebe:calledDecision resultVariable="foo" />
+ *   </bpmn:extensionElements>
+ * </bpmn:businessRuleTask>
  *
+ * a process variable with name 'foo' is extracted.
  *
- * => Adds one variable "variable1"to the list.
+ * If output variables exist, the scope is set to the element.
  *
+ * If an output variable with the same name exists, e.g. given the following
+ * element:
+ *
+ * <bpmn:businessRuleTask id="Task_1">
+ *   <bpmn:extensionElements>
+ *     <zeebe:calledDecision resultVariable="foo" />
+ *     <zeebe:ioMapping>
+ *       <zeebe:output target="foo" />
+ *     </zeebe:ioMapping>
+ *   </bpmn:extensionElements>
+ * </bpmn:businessRuleTask>
+ *
+ * no process variable is created.
+ *
+ * @param {Object} options
+ * @param {Array<ModdleElement>} options.elements
+ * @param {ModdleElement} options.containerElement
+ * @param {Array<ProcessVariable>} options.processVariables
+ *
+ * @return {Array<ProcessVariable>}
  */
 export default function(options) {
   var elements = options.elements,
@@ -27,26 +49,21 @@ export default function(options) {
 
   forEach(elements, function(element) {
 
-    var baseElement = getCalledDecision(element) ||
+    var extensionElement = getCalledDecision(element) ||
                       getScript(element);
 
-    if (!baseElement) {
+    if (!extensionElement) {
       return;
     }
 
-    var resultVariable = baseElement.resultVariable;
+    var resultVariable = extensionElement.resultVariable;
 
-    // Checks if output variable exists, the scope gets redefined
-    if (processVariables.some(x => x.origin[0] === element && x.scope === containerElement)) {
-
-      // result variable will have local scope
+    if (processVariables.some(variable => variable.origin[0] === element && variable.scope === containerElement)) {
       containerElement = element;
 
-      // check if the output have same name as resultVariable, only proceed with output variable
       if (processVariables.some(variable => variable.name === resultVariable)) {
         return processVariables;
       }
-
     }
 
     if (resultVariable) {
