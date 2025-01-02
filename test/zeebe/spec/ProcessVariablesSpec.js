@@ -4,7 +4,7 @@ import { sortBy, map } from 'min-dash';
 
 import BpmnModdle from 'bpmn-moddle';
 
-import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
+import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'json' };
 
 import fs from 'fs';
 
@@ -12,7 +12,7 @@ import {
   getProcessVariables,
   getVariablesForElement,
   getVariablesForScope
-} from '../../../src/zeebe';
+} from '@bpmn-io/extract-process-variables/zeebe';
 
 
 describe('zeebe/process variables module', function() {

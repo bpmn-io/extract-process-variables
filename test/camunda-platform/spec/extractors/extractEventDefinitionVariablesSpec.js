@@ -4,13 +4,13 @@ import { map } from 'min-dash';
 
 import BpmnModdle from 'bpmn-moddle';
 
-import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
+import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json' with { type: 'json' };
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/camunda-platform/extractors/extractEventDefinitionVariables';
+import extractVariables from '../../../../src/camunda-platform/extractors/extractEventDefinitionVariables.js';
 
-import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
 describe('extractors - event definition variables', function() {

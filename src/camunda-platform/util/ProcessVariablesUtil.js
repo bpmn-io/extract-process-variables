@@ -1,8 +1,8 @@
 import { find, findIndex } from 'min-dash';
 
-import { getInputParameters } from './ExtensionElementsUtil';
+import { getInputParameters } from './ExtensionElementsUtil.js';
 
-import { getParents } from '../../shared/util/ElementsUtil';
+import { getParents } from '../../shared/util/ElementsUtil.js';
 
 export function addVariableToList(variablesList, newVariable) {
   var foundIdx = findIndex(variablesList, function(variable) {

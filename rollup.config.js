@@ -15,8 +15,8 @@ const config = [
   {
     input: 'src/index.js',
     output: [
-      { file: 'dist/index.js', format: 'cjs' },
-      { file: 'dist/index.mjs', format: 'es' }
+      { file: 'dist/index.cjs', format: 'cjs' },
+      { file: 'dist/index.js', format: 'es' }
     ],
     external: [
       'min-dash'
@@ -26,8 +26,8 @@ const config = [
   {
     input: 'src/zeebe/index.js',
     output: [
-      { file: 'zeebe/index.js', format: 'cjs' },
-      { file: 'zeebe/index.mjs', format: 'es' }
+      { file: 'zeebe/index.cjs', format: 'cjs' },
+      { file: 'zeebe/index.js', format: 'es' }
     ],
     external: [
       'min-dash'
