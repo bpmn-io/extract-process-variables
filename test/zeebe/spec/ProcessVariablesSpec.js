@@ -215,10 +215,10 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables with re define resultVariable scope if output mapping exists - script task', async function() {
+    it('should extract variables - result variable, output exists - script task', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/script-task-output.bpmn');
+      const xml = read('test/zeebe/fixtures/script-task-result-variable-output.bpmn');
 
       const definitions = await parse(xml);
 
@@ -229,16 +229,16 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'output', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' },
+        { name: 'bar', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' }
       ]);
     });
 
 
-    it('should extract only output variable if same name result variable exists - simple process with script', async function() {
+    it('should not extract variables - result variable, output exists with same name - script task', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/script-task-same-output-and-result-variable.bpmn');
+      const xml = read('test/zeebe/fixtures/script-task-result-variable-output-same-name.bpmn');
 
       const definitions = await parse(xml);
 
