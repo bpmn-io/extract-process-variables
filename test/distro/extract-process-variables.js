@@ -1,23 +1,25 @@
-const {
-  expect
-} = require('chai');
-
-const pkg = require('../../package.json');
+import { expect } from 'chai';
 
 
-describe('exctract-process-variables', function() {
+describe('extract-process-variables', function() {
 
-  it('should expose CJS bundle', function() {
-    const extractProcessVariables = require('../../' + pkg['main']);
+  it('should expose ESM bundle', async function() {
 
-    expect(extractProcessVariables.getProcessVariables).to.exist;
+    // when
+    const imported = await import('@bpmn-io/extract-process-variables');
+
+    // then
+    expect(imported).to.exist;
   });
 
 
-  it('should expose zeebe CJS bundle', function() {
-    const extractProcessVariables = require('../../zeebe');
+  it('should expose zeebe ESM bundle', async function() {
 
-    expect(extractProcessVariables.getProcessVariables).to.exist;
+    // when
+    const imported = await import('@bpmn-io/extract-process-variables/zeebe');
+
+    // then
+    expect(imported).to.exist;
   });
 
 });

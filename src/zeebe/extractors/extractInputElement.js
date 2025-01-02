@@ -1,7 +1,7 @@
 import { forEach, isArray } from 'min-dash';
-import { getInputElement } from '../util/ExtensionElementsUtil';
+import { getInputElement } from '../util/ExtensionElementsUtil.js';
 
-import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
+import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
 /**
  * Retrieves process variables defined in result variables, e.g.

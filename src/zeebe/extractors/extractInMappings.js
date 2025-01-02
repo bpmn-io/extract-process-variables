@@ -1,8 +1,8 @@
 import { forEach, isArray } from 'min-dash';
 
-import { getInMappings } from '../util/ExtensionElementsUtil';
+import { getInMappings } from '../util/ExtensionElementsUtil.js';
 
-import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
+import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
 
 /**

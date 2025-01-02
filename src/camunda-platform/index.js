@@ -1,8 +1,8 @@
 import { filter, find, forEach } from 'min-dash';
 
-import extractors from './extractors';
+import extractors from './extractors/index.js';
 
-import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/ElementsUtil';
+import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/ElementsUtil.js';
 
 /**
  * @typedef {Object} ProcessVariable

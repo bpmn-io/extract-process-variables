@@ -6,12 +6,12 @@ import {
 import {
   getErrorEventDefinitions,
   getEscalationEventDefinitions
-} from '../util/EventDefinitionsUtil';
+} from '../util/EventDefinitionsUtil.js';
 
 import {
   createProcessVariable,
   addVariableToList
-} from '../util/ProcessVariablesUtil';
+} from '../util/ProcessVariablesUtil.js';
 
 
 /**
