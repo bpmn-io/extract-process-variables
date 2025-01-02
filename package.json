@@ -6,6 +6,7 @@
   "module": "dist/index.js",
   "type": "module",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
