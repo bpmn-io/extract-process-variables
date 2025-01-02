@@ -39,7 +39,7 @@
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "bpmn-moddle": "^8.0.0",
+    "bpmn-moddle": "^9.0.1",
     "camunda-bpmn-moddle": "^7.0.1",
     "chai": "^4.5.0",
     "eslint": "^8.24.0",
@@ -49,7 +49,7 @@
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "rollup": "^4.29.1",
-    "zeebe-bpmn-moddle": "^0.17.0"
+    "zeebe-bpmn-moddle": "^1.7.0"
   },
   "dependencies": {
     "min-dash": "^4.0.0"
