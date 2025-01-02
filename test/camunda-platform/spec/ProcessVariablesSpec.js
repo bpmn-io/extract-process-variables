@@ -213,7 +213,9 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = await getProcessVariables(rootElement, createAdditionExtractors(rootElement));
+      const variables = await getProcessVariables(rootElement, [
+        additionalExtractor(rootElement)
+      ]);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -235,7 +237,9 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = await getProcessVariables(rootElement, createAdditionExtractors(rootElement, true));
+      const variables = await getProcessVariables(rootElement, [
+        asyncAdditionalExtractor(rootElement)
+      ]);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -343,7 +347,9 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = await getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement));
+      const variables = await getVariablesForScope('Process_1', rootElement, [
+        additionalExtractor(rootElement)
+      ]);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -355,7 +361,7 @@ describe('process variables module', function() {
     });
 
 
-    it('should extract available variables - additional extractors', async function() {
+    it('should extract available variables - additional extractors (async)', async function() {
 
       // given
       const xml = read('test/camunda-platform/fixtures/simple.bpmn');
@@ -365,7 +371,9 @@ describe('process variables module', function() {
       const rootElement = getRootElement(definitions);
 
       // when
-      const variables = await getVariablesForScope('Process_1', rootElement, createAdditionExtractors(rootElement, true));
+      const variables = await getVariablesForScope('Process_1', rootElement, [
+        asyncAdditionalExtractor(rootElement)
+      ]);
 
       // then
       expect(convertToTestable(variables)).to.eql([
@@ -419,8 +427,7 @@ function convertToTestable(variables) {
   });
 }
 
-
-function createAdditionExtractors(rootElement, async = false) {
+function asyncAdditionalExtractor(rootElement) {
 
   const additionalVariable = {
     name: 'additionalVariable',
@@ -428,15 +435,7 @@ function createAdditionExtractors(rootElement, async = false) {
     origin: [ rootElement ]
   };
 
-  const extractor = function(options) {
-    const {
-      processVariables
-    } = options;
-
-    processVariables.push(additionalVariable);
-  };
-
-  const asyncExtractor = async function(options) {
+  return async function(options) {
     const {
       processVariables
     } = options;
@@ -445,8 +444,21 @@ function createAdditionExtractors(rootElement, async = false) {
 
     processVariables.push(additionalVariable);
   };
+}
 
-  return [
-    async ? asyncExtractor : extractor
-  ];
+function additionalExtractor(rootElement) {
+
+  const additionalVariable = {
+    name: 'additionalVariable',
+    scope: rootElement,
+    origin: [ rootElement ]
+  };
+
+  return function(options) {
+    const {
+      processVariables
+    } = options;
+
+    processVariables.push(additionalVariable);
+  };
 }
