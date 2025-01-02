@@ -1,8 +1,8 @@
 import { forEach, isArray } from 'min-dash';
 
-import { getOutputParameters } from '../util/ExtensionElementsUtil';
+import { getOutputParameters } from '../util/ExtensionElementsUtil.js';
 
-import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil';
+import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
 
 /**

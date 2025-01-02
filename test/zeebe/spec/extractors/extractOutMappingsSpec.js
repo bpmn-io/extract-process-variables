@@ -4,13 +4,13 @@ import { map } from 'min-dash';
 
 import BpmnModdle from 'bpmn-moddle';
 
-import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
+import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'json' };
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/zeebe/extractors/extractOutMappings';
+import extractVariables from '../../../../src/zeebe/extractors/extractOutMappings.js';
 
-import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil';
+import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
 describe('zeebe/extractors - out mappings', function() {

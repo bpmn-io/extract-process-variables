@@ -4,14 +4,14 @@ import { sortBy, map } from 'min-dash';
 
 import BpmnModdle from 'bpmn-moddle';
 
-import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
+import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json' with { type: 'json' };
 
 import fs from 'fs';
 
 import {
   getProcessVariables,
   getVariablesForScope
-} from '../../../src';
+} from '@bpmn-io/extract-process-variables';
 
 
 describe('process variables module', function() {
