@@ -3,16 +3,16 @@
   <bpmn:process id="Process_1" isExecutable="true">
     <bpmn:scriptTask id="Task_1">
       <bpmn:extensionElements>
-        <zeebe:script expression="=123" resultVariable="foo" />
+        <zeebe:script resultVariable="foo" />
         <zeebe:ioMapping>
-          <zeebe:output source="={}" target="foo" />
+          <zeebe:output target="foo" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
     </bpmn:scriptTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-      <bpmndi:BPMNShape id="Activity_0258i89_di" bpmnElement="Task_1">
+      <bpmndi:BPMNShape id="Task_1_di" bpmnElement="Task_1">
         <dc:Bounds x="160" y="60" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
