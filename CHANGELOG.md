@@ -6,7 +6,14 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 2.0.0
+
 * `DEPS`: update to `min-dash@5.0.0`
+* `CHORE`: turn into ES module
+
+### Breaking changes
+
+* Drop CJS distribution, consume from CommonJS in Node >= 20.12
 
 ## 1.0.1
 
