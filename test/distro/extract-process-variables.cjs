@@ -3,7 +3,7 @@ const {
 } = require('chai');
 
 
-describe('extract-process-variables', function() {
+describe('extract-process-variables - distribution', function() {
 
   it('should expose CJS bundle', function() {
     const extractProcessVariables = require('@bpmn-io/extract-process-variables');

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe('extract-process-variables', function() {
+describe('extract-process-variables - distribution', function() {
 
   it('should expose ESM bundle', async function() {
 
