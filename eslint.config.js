@@ -46,5 +46,11 @@ export default [
       ...config,
       files: files.test
     };
-  })
+  }),
+  {
+    files: files.test,
+    languageOptions: {
+      ecmaVersion: 2025
+    }
+  }
 ];
