@@ -2,30 +2,22 @@
   "name": "@bpmn-io/extract-process-variables",
   "version": "1.0.1",
   "description": "A util for bpmn-js to extract Camunda BPM process variables from a BPMN 2.0 diagram.",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./zeebe": {
-      "import": "./zeebe/index.js",
-      "require": "./zeebe/index.cjs"
-    }
+    ".": "./dist/index.js",
+    "./zeebe": "./zeebe/index.js"
   },
   "source": "src/index.js",
   "scripts": {
     "build": "rollup -c",
-    "distro": "run-s build test:build",
     "lint": "eslint .",
-    "prepare": "run-s distro",
-    "dev": "mocha -r esm --reporter=spec --recursive --watch test/**/*Spec.js",
-    "test": "nyc --reporter=lcov mocha --reporter=spec --recursive test/**/*Spec.js",
-    "test:build": "mocha --reporter=spec --recursive test/distro",
-    "all": "run-s lint test distro"
+    "pretest": "run-s build",
+    "prepare": "run-s build",
+    "dev": "mocha --reporter=spec --recursive --watch test",
+    "test": "nyc --reporter=lcov mocha --reporter=spec --recursive test",
+    "all": "run-s lint test"
   },
   "repository": {
     "type": "git",

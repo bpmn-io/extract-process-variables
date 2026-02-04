@@ -15,7 +15,6 @@ const config = [
   {
     input: 'src/index.js',
     output: [
-      { file: 'dist/index.cjs', format: 'cjs' },
       { file: 'dist/index.js', format: 'es' }
     ],
     external: [
@@ -26,7 +25,6 @@ const config = [
   {
     input: 'src/zeebe/index.js',
     output: [
-      { file: 'zeebe/index.cjs', format: 'cjs' },
       { file: 'zeebe/index.js', format: 'es' }
     ],
     external: [
