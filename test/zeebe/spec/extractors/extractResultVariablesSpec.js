@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import { map } from 'min-dash';
 
-import BpmnModdle from 'bpmn-moddle';
+import { BpmnModdle } from 'bpmn-moddle';
 
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'json' };
 

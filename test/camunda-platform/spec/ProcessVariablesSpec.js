@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import { sortBy, map } from 'min-dash';
 
-import BpmnModdle from 'bpmn-moddle';
+import { BpmnModdle } from 'bpmn-moddle';
 
 import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json' with { type: 'json' };
 
