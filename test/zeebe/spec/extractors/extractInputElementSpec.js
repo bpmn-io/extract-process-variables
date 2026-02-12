@@ -35,7 +35,7 @@ describe('zeebe/extractors - input element', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'inputElement', origin: [ 'Subprocess_1' ], scope: 'Subprocess_1' },
+      { name: 'inputElement', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
     ]);
   });
 
