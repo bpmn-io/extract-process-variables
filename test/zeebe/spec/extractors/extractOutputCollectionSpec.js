@@ -35,7 +35,7 @@ describe('zeebe/extractors - output collections', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'outputCollection', origin: [ 'Subprocess_1' ], scope: 'Process_1' }
+      { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
     ]);
   });
 

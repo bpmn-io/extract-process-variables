@@ -35,8 +35,8 @@ describe('zeebe/extractors - in mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: [ 'Subprocess_1' ], scope: 'Subprocess_1' },
-      { name: 'variable2', origin: [ 'Subprocess_1' ], scope: 'Subprocess_1' },
+      { name: 'variable1', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+      { name: 'variable2', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
     ]);
   });
 
