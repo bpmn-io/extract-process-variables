@@ -14,7 +14,7 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  *   </bpmn:multiInstanceLoopCharacteristics>
  * </bpmn:serviceTask>
  *
- * => Adds one variable "inputElement"to the list.
+ * => Adds one variable "inputElement" to the list.
  *
  */
 export default function extractInputElement(options) {
