@@ -33,6 +33,7 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
+        { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
       ]);
@@ -183,6 +184,7 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
+        { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
@@ -207,6 +209,7 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
+        { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
