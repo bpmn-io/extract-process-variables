@@ -4,11 +4,12 @@ import { find, forEach, isArray } from 'min-dash';
  * Get all parent elements for a given element.
  *
  * @param {ModdleElement|string} element
+ * @param {boolean} [includeSelf=false]
  *
  * @returns {Array<ModdleElement>}
  */
-export function getParents(element) {
-  var parents = [];
+export function getParents(element, includeSelf = false) {
+  var parents = includeSelf ? [ element ] : [];
   var current = element;
 
   while (current.$parent) {

@@ -1,5 +1,5 @@
 import { forEach, isArray } from 'min-dash';
-import { getInputElement } from '../util/ExtensionElementsUtil.js';
+import { getMultiInstanceInputElement } from '../util/ExtensionElementsUtil.js';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
@@ -27,14 +27,12 @@ export default function extractInputElement(options) {
 
   forEach(elements, function(element) {
 
-    var loopCharacteristics = element.loopCharacteristics;
+    var multiInstanceInputElement = getMultiInstanceInputElement(element);
 
-    var inputElement = loopCharacteristics && getInputElement(loopCharacteristics);
-
-    if (inputElement) {
+    if (multiInstanceInputElement) {
       var newVariable = createProcessVariable(
         element,
-        inputElement,
+        multiInstanceInputElement,
         element
       );
 

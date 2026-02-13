@@ -306,6 +306,54 @@ describe('zeebe/process variables module', function() {
     });
 
 
+    it('should extract variables / ad-hoc sub process', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getVariablesForScope('SubProcess_1', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(convertToTestable(sortedVariables)).to.eql([
+        { name: 'variable', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+      ]);
+    });
+
+
+    it('should extract variables / ad-hoc sub process / own scope', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getVariablesForScope('SubProcess_1', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(convertToTestable(sortedVariables)).to.eql([
+        { name: 'variable', origin: [ 'SubProcess_1', 'Task_1' ], scope: 'SubProcess_1' },
+        { name: 'variables', origin: [ 'SubProcess_1', 'SubProcess_1' ], scope: 'SubProcess_1' }
+      ]);
+    });
+
+
     it('should extract variables / additional extractors', async function() {
 
       // given

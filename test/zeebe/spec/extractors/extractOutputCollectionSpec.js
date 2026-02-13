@@ -15,51 +15,132 @@ import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil
 
 describe('zeebe/extractors - output collections', function() {
 
-  it('should extract variables from output collections', async function() {
+  describe('multi-instance sub process', function() {
 
-    // given
-    const xml = read('test/zeebe/fixtures/sub-process.multi-instance.bpmn');
+    it('should extract variables', async function() {
 
-    const definitions = await parse(xml);
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.multi-instance.bpmn');
 
-    const rootElement = getRootElement(definitions);
+      const definitions = await parse(xml);
 
-    const elements = selfAndAllFlowElements([ rootElement ], false);
+      const rootElement = getRootElement(definitions);
 
-    // when
-    const variables = extractVariables({
-      elements,
-      containerElement: rootElement,
-      processVariables: []
+      const elements = selfAndAllFlowElements([ rootElement ], false);
+
+      // when
+      const variables = extractVariables({
+        elements,
+        containerElement: rootElement,
+        processVariables: []
+      });
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+      ]);
     });
 
-    // then
-    expect(convertToTestable(variables)).to.eql([
-      { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
-    ]);
+
+    it('should not extract variables / empty loopCharacteristics', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.multi-instance-empty.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      const elements = selfAndAllFlowElements([ rootElement ], false);
+
+      // when
+      const variables = extractVariables({
+        elements,
+        containerElement: rootElement,
+        processVariables: []
+      });
+
+      // then
+      expect(convertToTestable(variables)).to.eql([]);
+    });
+
   });
 
 
-  it('should not extract variables from empty loopCharacteristics', async function() {
+  describe('ad-hoc sub process', function() {
 
-    // given
-    const xml = read('test/zeebe/fixtures/sub-process.multi-instance-empty.bpmn');
+    it('should extract variables', async function() {
 
-    const definitions = await parse(xml);
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc.bpmn');
 
-    const rootElement = getRootElement(definitions);
+      const definitions = await parse(xml);
 
-    const elements = selfAndAllFlowElements([ rootElement ], false);
+      const rootElement = getRootElement(definitions);
 
-    // when
-    const variables = extractVariables({
-      elements,
-      containerElement: rootElement,
-      processVariables: []
+      const elements = selfAndAllFlowElements([ rootElement ], false);
+
+      // when
+      const variables = extractVariables({
+        elements,
+        containerElement: rootElement,
+        processVariables: []
+      });
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+      ]);
     });
 
-    // then
-    expect(convertToTestable(variables)).to.eql([]);
+
+    it('should extract variables / scoped', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      const elements = selfAndAllFlowElements([ rootElement ], false);
+
+      // when
+      const variables = extractVariables({
+        elements,
+        containerElement: rootElement,
+        processVariables: []
+      });
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' }
+      ]);
+    });
+
+
+    it('should not extract variables / empty loopCharacteristics', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc-empty.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      const elements = selfAndAllFlowElements([ rootElement ], false);
+
+      // when
+      const variables = extractVariables({
+        elements,
+        containerElement: rootElement,
+        processVariables: []
+      });
+
+      // then
+      expect(convertToTestable(variables)).to.eql([]);
+    });
+
   });
 
 });

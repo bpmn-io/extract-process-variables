@@ -15,7 +15,7 @@ import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil
 
 describe('zeebe/extractors - output mappings', function() {
 
-  it('should extract variables from out mappings', async function() {
+  it('should extract variables / simple', async function() {
 
     // given
     const xml = read('test/zeebe/fixtures/simple.bpmn');
@@ -37,6 +37,34 @@ describe('zeebe/extractors - output mappings', function() {
     expect(convertToTestable(variables)).to.eql([
       { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
       { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+    ]);
+  });
+
+
+  it('should extract variables / sub process', async function() {
+
+    // given
+    const xml = read('test/zeebe/fixtures/sub-process.output-mapping.bpmn');
+
+    const definitions = await parse(xml);
+
+    const rootElement = getRootElement(definitions);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([
+      { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+      { name: 'variable3', origin: [ 'SubProcess_1' ], scope: 'Process_1' },
+      { name: 'variable3', origin: [ 'Task_2' ], scope: 'SubProcess_1' },
     ]);
   });
 

@@ -60,26 +60,46 @@ export function getInputMappings(element) {
 }
 
 /**
- * Get the inputElement name from a loopCharacteristics
+ * Get the multi instance inputElement name from an element
  *
- * @param {MoodleElement} loopCharacteristics
+ * @param {MoodleElement} element
  * @returns {String} outputCollection
  */
-export function getInputElement(loopCharacteristics) {
-  const extensionElement = getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0];
+export function getMultiInstanceInputElement(element) {
+  const loopCharacteristics = element.loopCharacteristics;
+
+  const extensionElement = loopCharacteristics && getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0];
+
   return extensionElement && extensionElement.inputElement;
 }
 
 /**
- * Get the outputCollection name from a loopCharacteristics
+ * Get the multi-instance outputCollection name from an element
  *
- * @param {MoodleElement} loopCharacteristics
+ * @param {MoodleElement} element
+ *
  * @returns {String} outputCollection
  */
-export function getOutputCollection(loopCharacteristics) {
-  const extensionElement = getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0];
-  return extensionElement && extensionElement.outputCollection;
+export function getMultiInstanceOutputCollection(element) {
 
+  const loopCharacteristics = element.loopCharacteristics;
+
+  const extensionElement = loopCharacteristics && getElements(loopCharacteristics, 'zeebe:LoopCharacteristics')[0];
+
+  return extensionElement && extensionElement.outputCollection;
+}
+
+/**
+ * Get the adHoc outputCollection name from an element
+ *
+ * @param {MoodleElement} element
+ *
+ * @returns {String} outputCollection
+ */
+export function getAdHocOutputCollection(element) {
+  const adHoc = getElements(element, 'zeebe:AdHoc')[0];
+
+  return adHoc && adHoc.outputCollection;
 }
 
 /**
