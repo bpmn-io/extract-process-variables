@@ -19,7 +19,7 @@ describe('zeebe/process variables module', function() {
 
   describe('#getProcessVariables', function() {
 
-    it('should extract variables - simple process', async function() {
+    it('should extract variables / simple', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/simple.bpmn');
@@ -40,7 +40,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - with sub process', async function() {
+    it('should extract variables / sub process', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.bpmn');
@@ -61,7 +61,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - with sub process (duplicated vars)', async function() {
+    it('should extract variables / sub process / duplicated vars', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.duplicates.bpmn');
@@ -82,7 +82,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - with sub process (own scope)', async function() {
+    it('should extract variables / sub process / own scope', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -103,7 +103,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - with sub process (own scope, duplicates)', async function() {
+    it('should extract variables / sub process / own scope / duplicates', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope-duplicates.bpmn');
@@ -125,7 +125,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - sub process (output mapping)', async function() {
+    it('should extract variables / sub process / output mapping', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.output-mapping.bpmn');
@@ -147,7 +147,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - nested sub processes', async function() {
+    it('should extract variables / sub process / nested sub process', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.nested.bpmn');
@@ -163,12 +163,12 @@ describe('zeebe/process variables module', function() {
       expect(convertToTestable(variables)).to.eql([
         { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' }
       ]);
     });
 
 
-    it('should extract variables - additional extractors', async function() {
+    it('should extract variables / additional extractors', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/simple.bpmn');
@@ -193,7 +193,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - additional extractors (async)', async function() {
+    it('should extract variables / additional extractors / async', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/simple.bpmn');
@@ -218,7 +218,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract variables - result variable, output exists - script task', async function() {
+    it('should extract variables / script task / result variable, output exists', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/script-task-result-variable-output.bpmn');
@@ -238,7 +238,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should not extract variables - result variable, output exists with same name - script task', async function() {
+    it('should not extract variables / script task / result variable, output exists with same name', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/script-task-result-variable-output-same-name.bpmn');
@@ -261,7 +261,7 @@ describe('zeebe/process variables module', function() {
 
   describe('#getVariablesForScope', function() {
 
-    it('should extract available variables - process', async function() {
+    it('should extract variables / process', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -276,12 +276,12 @@ describe('zeebe/process variables module', function() {
       // then
       expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' }
       ]);
     });
 
 
-    it('should extract available variables - sub process', async function() {
+    it('should extract variables / sub process', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -306,7 +306,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract available variables - additional extractors', async function() {
+    it('should extract variables / additional extractors', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -324,13 +324,13 @@ describe('zeebe/process variables module', function() {
       expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
       ]);
 
     });
 
 
-    it('should extract available variables - additional extractors (async)', async function() {
+    it('should extract variables / additional extractors (async)', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -348,7 +348,7 @@ describe('zeebe/process variables module', function() {
       expect(convertToTestable(variables)).to.eql([
         { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
         { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
       ]);
 
     });
@@ -358,7 +358,7 @@ describe('zeebe/process variables module', function() {
 
   describe('#getVariablesForElement', function() {
 
-    it('should extract available variables - process', async function() {
+    it('should extract variables / process', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -378,7 +378,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract available variables - sub process', async function() {
+    it('should extract variables / sub process', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -405,7 +405,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract available variables - additional extractors', async function() {
+    it('should extract variables / additional extractors', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
@@ -429,7 +429,7 @@ describe('zeebe/process variables module', function() {
     });
 
 
-    it('should extract available variables - additional extractors (async)', async function() {
+    it('should extract variables / additional extractors (async)', async function() {
 
       // given
       const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
