@@ -4,6 +4,7 @@
     <bpmn:serviceTask id="Task_1">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
+          <zeebe:input source="= processSource" target="variable3" />
           <zeebe:output source="= source" target="variable1" />
           <zeebe:output source="= source" target="variable2" />
         </zeebe:ioMapping>
