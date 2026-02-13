@@ -14,7 +14,7 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  *   </bpmn:multiInstanceLoopCharacteristics>
  * </bpmn:serviceTask>
  *
- * => Adds one variable "outputCollection"to the list.
+ * => Adds one variable "outputCollection" to the list.
  *
  * Retrieves variables defined in adHoc output collection, e.g.
  *
