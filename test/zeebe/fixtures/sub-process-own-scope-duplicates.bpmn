@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-rc.2" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
   <bpmn:process id="Process_1" isExecutable="true">
-    <bpmn:serviceTask id="Task_1">
+    <bpmn:serviceTask id="Task_1" name="Task_1">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
           <zeebe:output source="= source" target="variable1" />
@@ -9,7 +9,7 @@
         </zeebe:ioMapping>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
-    <bpmn:subProcess id="SubProcess_1">
+    <bpmn:subProcess id="SubProcess_1" name="SubProcess_1">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
           <zeebe:input source="= source" target="variable3" />
@@ -17,7 +17,7 @@
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:startEvent id="Event_0hzl2r3" />
-      <bpmn:serviceTask id="Task_2">
+      <bpmn:serviceTask id="Task_2" name="Task_2">
         <bpmn:extensionElements>
           <zeebe:ioMapping>
             <zeebe:output source="= source" target="variable3" />
@@ -26,20 +26,62 @@
         </bpmn:extensionElements>
       </bpmn:serviceTask>
     </bpmn:subProcess>
+    <bpmn:textAnnotation id="TextAnnotation_00thoby">
+      <bpmn:text>in: variable3
+in: variable2</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1olosn4">
+      <bpmn:text>out: variable1
+out: variable2</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1yyni1k" associationDirection="None" sourceRef="TextAnnotation_1olosn4" targetRef="Task_1" />
+    <bpmn:textAnnotation id="TextAnnotation_0po8h6e">
+      <bpmn:text>out: variable3
+out: variable2</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1m4xfwq" associationDirection="None" sourceRef="TextAnnotation_00thoby" targetRef="SubProcess_1" />
+    <bpmn:association id="Association_172m503" associationDirection="None" sourceRef="TextAnnotation_0po8h6e" targetRef="SubProcess_1" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
       <bpmndi:BPMNShape id="Activity_1baashc_di" bpmnElement="Task_1">
-        <dc:Bounds x="170" y="140" width="100" height="80" />
+        <dc:Bounds x="120" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11q7hbr_di" bpmnElement="SubProcess_1" isExpanded="true">
-        <dc:Bounds x="350" y="80" width="350" height="200" />
+        <dc:Bounds x="350" y="160" width="350" height="200" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0hzl2r3_di" bpmnElement="Event_0hzl2r3">
-        <dc:Bounds x="390" y="162" width="36" height="36" />
+        <dc:Bounds x="390" y="242" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_15sbqp9_di" bpmnElement="Task_2">
-        <dc:Bounds x="500" y="140" width="100" height="80" />
+        <dc:Bounds x="500" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1yyni1k_di" bpmnElement="Association_1yyni1k">
+        <di:waypoint x="232" y="161" />
+        <di:waypoint x="210" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1m4xfwq_di" bpmnElement="Association_1m4xfwq">
+        <di:waypoint x="346" y="102" />
+        <di:waypoint x="364" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_172m503_di" bpmnElement="Association_172m503">
+        <di:waypoint x="736" y="102" />
+        <di:waypoint x="694" y="161" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_0yiku60" bpmnElement="TextAnnotation_1olosn4">
+        <dc:Bounds x="190" y="120" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_00thoby_di" bpmnElement="TextAnnotation_00thoby">
+        <dc:Bounds x="290" y="61" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_08h4isj" bpmnElement="TextAnnotation_0po8h6e">
+        <dc:Bounds x="700" y="61" width="100" height="41" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
