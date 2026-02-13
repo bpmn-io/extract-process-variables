@@ -1,6 +1,6 @@
 import { forEach, isArray } from 'min-dash';
 
-import { getInMappings } from '../util/ExtensionElementsUtil.js';
+import { getOutputMappings } from '../util/ExtensionElementsUtil.js';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
@@ -11,7 +11,7 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  * <bpmn:serviceTask id="ServiceTask">
  *   <bpmn:extensionElements>
  *     <zeebe:ioMapping>
- *       <zeebe:input source="= source" target="variable1" />
+ *       <zeebe:output source="= source" target="variable1" />
  *     </zeebe:ioMapping>
  *   </bpmn:extensionElements>
  * </bpmn:serviceTask>
@@ -19,8 +19,9 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  * => Adds one variable "variable1" to the list.
  *
  */
-export default function(options) {
+export default function extractOutputMappings(options) {
   var elements = options.elements,
+      containerElement = options.containerElement,
       processVariables = options.processVariables;
 
   if (!isArray(elements)) {
@@ -29,15 +30,14 @@ export default function(options) {
 
   forEach(elements, function(element) {
 
-    var inMappings = getInMappings(element);
+    var outMappings = getOutputMappings(element);
 
     // extract all variables with correct scope
-    forEach(inMappings, function(mapping) {
-
+    forEach(outMappings, function(mapping) {
       var newVariable = createProcessVariable(
         element,
         mapping.target,
-        element
+        containerElement
       );
 
       addVariableToList(processVariables, newVariable);

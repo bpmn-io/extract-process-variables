@@ -1,6 +1,6 @@
 import { forEach, isArray } from 'min-dash';
 
-import { getOutMappings } from '../util/ExtensionElementsUtil.js';
+import { getOutputMappings } from '../util/ExtensionElementsUtil.js';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
@@ -17,7 +17,7 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  * => Adds one variable "variable1" to the list.
  *
  */
-export default function(options) {
+export default function extractOutputMappings(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
       processVariables = options.processVariables;
@@ -28,7 +28,7 @@ export default function(options) {
 
   forEach(elements, function(element) {
 
-    var outMappings = getOutMappings(element);
+    var outMappings = getOutputMappings(element);
 
     // extract all variables with correct scope
     forEach(outMappings, function(mapping) {

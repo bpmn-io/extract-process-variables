@@ -67,7 +67,7 @@ export function getFormData(element) {
  *
  * @return {Array<ModdleElement>}
  */
-export function getOutMappings(element) {
+export function getOutputMappings(element) {
   return getElements(element, 'camunda:Out');
 }
 

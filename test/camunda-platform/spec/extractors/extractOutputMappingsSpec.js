@@ -4,21 +4,21 @@ import { map } from 'min-dash';
 
 import { BpmnModdle } from 'bpmn-moddle';
 
-import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'json' };
+import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json' with { type: 'json' };
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/zeebe/extractors/extractInMappings.js';
+import extractVariables from '../../../../src/camunda-platform/extractors/extractOutputMappings.js';
 
 import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
-describe('zeebe/extractors - in mappings', function() {
+describe('extractors - output mappings', function() {
 
-  it('should extract variables from in mappings', async function() {
+  it('should extract variables from out mappings', async function() {
 
     // given
-    const xml = read('test/zeebe/fixtures/subprocess-in-mappings.bpmn');
+    const xml = read('test/camunda-platform/fixtures/call-activity.bpmn');
 
     const definitions = await parse(xml);
 
@@ -35,11 +35,37 @@ describe('zeebe/extractors - in mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
-      { name: 'variable2', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+      { name: 'variable1', origin: [ 'CallActivity' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'CallActivity' ], scope: 'Process_1' },
     ]);
   });
 
+
+  it('should NOT extract variable if set as local', async function() {
+
+    // given
+    const xml = read('test/camunda-platform/fixtures/call-activity-local.bpmn');
+
+    const definitions = await parse(xml);
+
+    const rootElement = getRootElement(definitions);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    // <variableLocal> should be ignored
+    expect(convertToTestable(variables)).to.eql([
+      { name: 'variable1', origin: [ 'CallActivity' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'CallActivity' ], scope: 'Process_1' },
+    ]);
+  });
 });
 
 
@@ -51,7 +77,7 @@ function getRootElement(definitions) {
 
 async function parse(xml) {
   const moddle = new BpmnModdle({
-    zeebe: ZeebeModdle,
+    camunda: CamundaBpmnModdle,
   });
 
   const { rootElement: definitions } = await moddle.fromXML(xml);
