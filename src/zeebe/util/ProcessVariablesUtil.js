@@ -78,6 +78,16 @@ function hasInputParameter(element, name) {
   });
 }
 
+/**
+ * Combine elements from two arrays, ensuring there are no duplicates.
+ *
+ * @param {Array} a
+ * @param {Array} b
+ *
+ * @return {Array}
+ */
 function combineArrays(a, b) {
-  return a.concat(b);
+  const newItems = b.filter(value => !a.includes(value));
+
+  return a.concat(newItems);
 }
