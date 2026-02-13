@@ -38,7 +38,7 @@ export function getOutputParameters(element) {
 }
 
 /**
- * Return out mappings existing in the business object
+ * Return output mappings existing in the business object
  *
  * @param {ModdleElement} element
  *
@@ -49,7 +49,7 @@ export function getOutputMappings(element) {
 }
 
 /**
- * Return out mappings existing in the business object
+ * Return input mappings existing in the business object
  *
  * @param {ModdleElement} element
  *
@@ -60,10 +60,10 @@ export function getInputMappings(element) {
 }
 
 /**
- * Get the multi instance inputElement name from an element
+ * Get the multi-instance inputElement name from an element
  *
  * @param {MoodleElement} element
- * @returns {String} outputCollection
+ * @returns {string|undefined} inputElement name, if existing
  */
 export function getMultiInstanceInputElement(element) {
   const loopCharacteristics = element.loopCharacteristics;
@@ -78,7 +78,7 @@ export function getMultiInstanceInputElement(element) {
  *
  * @param {MoodleElement} element
  *
- * @returns {String} outputCollection
+ * @returns {string|undefined} outputCollection name, if existing
  */
 export function getMultiInstanceOutputCollection(element) {
 
@@ -94,7 +94,7 @@ export function getMultiInstanceOutputCollection(element) {
  *
  * @param {MoodleElement} element
  *
- * @returns {String} outputCollection
+ * @returns {string|undefined} outputCollection name, if existing
  */
 export function getAdHocOutputCollection(element) {
   const adHoc = getElements(element, 'zeebe:AdHoc')[0];
