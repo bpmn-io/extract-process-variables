@@ -354,6 +354,54 @@ describe('zeebe/process variables module', function() {
     });
 
 
+    it('should extract variables / multi-instance sub process', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.multi-instance.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getVariablesForScope('SubProcess_1', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(convertToTestable(sortedVariables)).to.eql([
+        { name: 'inputElement', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+      ]);
+    });
+
+
+    it('should extract variables / multi-instance sub process / own scope', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.multi-instance-own-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getVariablesForScope('SubProcess_1', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(convertToTestable(sortedVariables)).to.eql([
+        { name: 'inputElement', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' }
+      ]);
+    });
+
+
     it('should extract variables / additional extractors', async function() {
 
       // given
