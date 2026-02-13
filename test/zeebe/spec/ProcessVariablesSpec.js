@@ -64,7 +64,7 @@ describe('zeebe/process variables module', function() {
     it('should extract variables - with sub process (duplicated vars)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-duplicates.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.duplicates.bpmn');
 
       const definitions = await parse(xml);
 
@@ -85,7 +85,7 @@ describe('zeebe/process variables module', function() {
     it('should extract variables - with sub process (own scope)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -106,7 +106,7 @@ describe('zeebe/process variables module', function() {
     it('should extract variables - with sub process (own scope, duplicates)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope-duplicates.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope-duplicates.bpmn');
 
       const definitions = await parse(xml);
 
@@ -128,7 +128,7 @@ describe('zeebe/process variables module', function() {
     it('should extract variables - sub process (output mapping)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-output-mapping.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.output-mapping.bpmn');
 
       const definitions = await parse(xml);
 
@@ -150,7 +150,7 @@ describe('zeebe/process variables module', function() {
     it('should extract variables - nested sub processes', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/nested-sub-process.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.nested.bpmn');
 
       const definitions = await parse(xml);
 
@@ -264,7 +264,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -284,7 +284,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -309,7 +309,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - additional extractors', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -333,7 +333,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - additional extractors (async)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -361,7 +361,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -381,7 +381,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -408,7 +408,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - additional extractors', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
@@ -432,7 +432,7 @@ describe('zeebe/process variables module', function() {
     it('should extract available variables - additional extractors (async)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process-own-scope.bpmn');
+      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
       const definitions = await parse(xml);
 
