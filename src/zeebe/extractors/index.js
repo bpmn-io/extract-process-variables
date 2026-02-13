@@ -1,13 +1,13 @@
-import extractInMappings from './extractInMappings';
+import extractInputMappings from './extractInputMappings';
 import extractInputElement from './extractInputElement';
-import extractOutMappings from './extractOutMappings';
+import extractOutputMappings from './extractOutputMappings';
 import extractOutputCollections from './extractOutputCollections';
 import extractResultVariables from './extractResultVariables';
 
 export default [
-  extractInMappings,
+  extractInputMappings,
   extractInputElement,
-  extractOutMappings,
+  extractOutputMappings,
   extractOutputCollections,
   extractResultVariables
 ];

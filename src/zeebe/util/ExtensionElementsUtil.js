@@ -44,7 +44,7 @@ export function getOutputParameters(element) {
  *
  * @return {Array<ModdleElement>}
  */
-export function getOutMappings(element) {
+export function getOutputMappings(element) {
   return (getInputOutput(element) || {}).outputParameters;
 }
 
@@ -55,7 +55,7 @@ export function getOutMappings(element) {
  *
  * @return {Array<ModdleElement>}
  */
-export function getInMappings(element) {
+export function getInputMappings(element) {
   return (getInputOutput(element) || {}).inputParameters;
 }
 

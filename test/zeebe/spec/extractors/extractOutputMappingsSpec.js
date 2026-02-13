@@ -4,21 +4,21 @@ import { map } from 'min-dash';
 
 import { BpmnModdle } from 'bpmn-moddle';
 
-import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json' with { type: 'json' };
+import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'json' };
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/camunda-platform/extractors/extractOutMappings.js';
+import extractVariables from '../../../../src/zeebe/extractors/extractOutputMappings.js';
 
 import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
-describe('extractors - out mappings', function() {
+describe('zeebe/extractors - output mappings', function() {
 
   it('should extract variables from out mappings', async function() {
 
     // given
-    const xml = read('test/camunda-platform/fixtures/call-activity.bpmn');
+    const xml = read('test/zeebe/fixtures/simple.bpmn');
 
     const definitions = await parse(xml);
 
@@ -35,37 +35,11 @@ describe('extractors - out mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: [ 'CallActivity' ], scope: 'Process_1' },
-      { name: 'variable2', origin: [ 'CallActivity' ], scope: 'Process_1' },
+      { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+      { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
     ]);
   });
 
-
-  it('should NOT extract variable if set as local', async function() {
-
-    // given
-    const xml = read('test/camunda-platform/fixtures/call-activity-local.bpmn');
-
-    const definitions = await parse(xml);
-
-    const rootElement = getRootElement(definitions);
-
-    const elements = selfAndAllFlowElements([ rootElement ], false);
-
-    // when
-    const variables = extractVariables({
-      elements,
-      containerElement: rootElement,
-      processVariables: []
-    });
-
-    // then
-    // <variableLocal> should be ignored
-    expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: [ 'CallActivity' ], scope: 'Process_1' },
-      { name: 'variable2', origin: [ 'CallActivity' ], scope: 'Process_1' },
-    ]);
-  });
 });
 
 
@@ -77,7 +51,7 @@ function getRootElement(definitions) {
 
 async function parse(xml) {
   const moddle = new BpmnModdle({
-    camunda: CamundaBpmnModdle,
+    zeebe: ZeebeModdle,
   });
 
   const { rootElement: definitions } = await moddle.fromXML(xml);

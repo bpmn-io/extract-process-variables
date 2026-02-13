@@ -17,7 +17,7 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  * => Adds one variable "inputElement"to the list.
  *
  */
-export default function(options) {
+export default function extractInputElement(options) {
   var elements = options.elements,
       processVariables = options.processVariables;
 

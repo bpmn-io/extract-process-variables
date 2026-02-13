@@ -8,17 +8,17 @@ import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'j
 
 import fs from 'fs';
 
-import extractVariables from '../../../../src/zeebe/extractors/extractOutMappings.js';
+import extractVariables from '../../../../src/zeebe/extractors/extractInputMappings.js';
 
 import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
-describe('zeebe/extractors - out mappings', function() {
+describe('zeebe/extractors - input mappings', function() {
 
-  it('should extract variables from out mappings', async function() {
+  it('should extract variables from in mappings', async function() {
 
     // given
-    const xml = read('test/zeebe/fixtures/simple.bpmn');
+    const xml = read('test/zeebe/fixtures/subprocess-in-mappings.bpmn');
 
     const definitions = await parse(xml);
 
@@ -35,8 +35,8 @@ describe('zeebe/extractors - out mappings', function() {
 
     // then
     expect(convertToTestable(variables)).to.eql([
-      { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-      { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+      { name: 'variable1', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+      { name: 'variable2', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
     ]);
   });
 

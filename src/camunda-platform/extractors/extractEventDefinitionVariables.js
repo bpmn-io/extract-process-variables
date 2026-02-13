@@ -35,7 +35,7 @@ import {
  * => Adds two variables "variable2" & "variable3" to the list.
  *
  */
-export default function(options) {
+export default function extractEventDefinitionVariables(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
       processVariables = options.processVariables;
