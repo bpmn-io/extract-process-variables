@@ -18,7 +18,7 @@ describe('zeebe/extractors - input mappings', function() {
   it('should extract variables from in mappings', async function() {
 
     // given
-    const xml = read('test/zeebe/fixtures/subprocess-in-mappings.bpmn');
+    const xml = read('test/zeebe/fixtures/sub-process.input-mapping.bpmn');
 
     const definitions = await parse(xml);
 

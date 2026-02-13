@@ -18,7 +18,7 @@ describe('zeebe/extractors - output collections', function() {
   it('should extract variables from output collections', async function() {
 
     // given
-    const xml = read('test/zeebe/fixtures/mi-subprocess.bpmn');
+    const xml = read('test/zeebe/fixtures/sub-process.multi-instance.bpmn');
 
     const definitions = await parse(xml);
 
@@ -43,7 +43,7 @@ describe('zeebe/extractors - output collections', function() {
   it('should not extract variables from empty loopCharacteristics', async function() {
 
     // given
-    const xml = read('test/zeebe/fixtures/mi-subprocess-empty.bpmn');
+    const xml = read('test/zeebe/fixtures/sub-process.multi-instance-empty.bpmn');
 
     const definitions = await parse(xml);
 
