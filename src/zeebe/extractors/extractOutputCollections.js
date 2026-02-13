@@ -1,10 +1,10 @@
 import { forEach, isArray } from 'min-dash';
-import { getOutputCollection } from '../util/ExtensionElementsUtil.js';
+import { getMultiInstanceOutputCollection, getAdHocOutputCollection } from '../util/ExtensionElementsUtil.js';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
 /**
- * Retrieves process variables defined in output collection, e.g.
+ * Retrieves process variables defined in multi-instance output collection, e.g.
  *
  * <bpmn:serviceTask id="ServiceTask">
  *   <bpmn:multiInstanceLoopCharacteristics>
@@ -16,9 +16,19 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  *
  * => Adds one variable "outputCollection"to the list.
  *
+ * Retrieves variables defined in adHoc output collection, e.g.
+ *
+ * <bpmn:adHocSubProcess id="AdHocSubProcess">
+ *   <bpmn:extensionElements>
+ *     <zeebe:adHoc outputCollection="executionResults" outputElement="executionResult" />
+ *   </bpmn:extensionElements>
+ *   ...
+ * </bpmn:adHocSubProcess>
+ *
+ * => Adds one variable "executionResults" to the list.
  */
 export default function extractOutputCollections(options) {
-  var elements = options.elements,
+  let elements = options.elements,
       containerElement = options.containerElement,
       processVariables = options.processVariables;
 
@@ -28,15 +38,28 @@ export default function extractOutputCollections(options) {
 
   forEach(elements, function(element) {
 
-    var loopCharacteristics = element.loopCharacteristics;
+    var multiInstanceOutputCollection = getMultiInstanceOutputCollection(element);
 
-    var outputCollection = loopCharacteristics && getOutputCollection(loopCharacteristics);
-
-    if (outputCollection) {
-      var newVariable = createProcessVariable(
+    if (multiInstanceOutputCollection) {
+      const newVariable = createProcessVariable(
         element,
-        outputCollection,
-        containerElement
+        multiInstanceOutputCollection,
+        containerElement,
+        true
+      );
+
+      addVariableToList(processVariables, newVariable);
+    }
+
+    const adHocOutputCollection = getAdHocOutputCollection(element);
+
+    if (adHocOutputCollection) {
+
+      const newVariable = createProcessVariable(
+        element,
+        adHocOutputCollection,
+        containerElement,
+        true
       );
 
       addVariableToList(processVariables, newVariable);
