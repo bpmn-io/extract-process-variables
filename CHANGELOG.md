@@ -6,6 +6,10 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 2.1.0
+
+* `FEAT`: extract variables from `<zeebe:adHoc />` declaration
+
 ## 2.0.0
 
 * `DEPS`: update to `min-dash@5.0.0`
