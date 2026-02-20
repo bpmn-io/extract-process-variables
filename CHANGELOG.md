@@ -6,6 +6,11 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+## 2.2.0
+
+* `FIX`: correctly recognize local `resultVariable` ([#https://github.com/bpmn-io/extract-process-variables/pull/35](https://github.com/bpmn-io/extract-process-variables/pull/35))
+* `FIX`: ensure input mapping always creates local scope ([#https://github.com/bpmn-io/extract-process-variables/pull/35](https://github.com/bpmn-io/extract-process-variables/pull/35))
+
 ## 2.1.0
 
 * `FEAT`: extract variables from `<zeebe:adHoc />` declaration
