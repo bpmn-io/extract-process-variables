@@ -37,7 +37,8 @@ export default function extractInputMappings(options) {
       var newVariable = createProcessVariable(
         element,
         mapping.target,
-        element
+        element,
+        true
       );
 
       addVariableToList(processVariables, newVariable);
