@@ -32,6 +32,30 @@ describe('zeebe/extractors - input mappings', function() {
   });
 
 
+  it('should extract variables for sub-process / nested', async function() {
+
+    // given
+    const model = await readModel('test/zeebe/fixtures/sub-process.nested-input-same-name.bpmn');
+
+    const rootElement = getRootElement(model);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([
+      { name: 'variable1', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+      { name: 'variable1', origin: [ 'Task_1' ], scope: 'Task_1' },
+    ]);
+  });
+
+
   it('should extract variables for task', async function() {
 
     // given
