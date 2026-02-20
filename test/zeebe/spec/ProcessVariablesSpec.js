@@ -172,6 +172,24 @@ describe('zeebe/process variables module', function() {
     });
 
 
+    it('should extract variables / sub process / nested sub process / duplicate inputs', async function() {
+
+      // given
+      const model = await readModel('test/zeebe/fixtures/sub-process.nested-input-same-name.bpmn');
+
+      const rootElement = getRootElement(model);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Task_1' }
+      ]);
+    });
+
+
     it('should extract variables / additional extractors', async function() {
 
       // given
