@@ -13,31 +13,6 @@ export function getInputOutput(element) {
 }
 
 /**
- * Return all input parameters existing in the business object, and
- * an empty array if none exist.
- *
- * @param  {ModdleElement} element
- *
- * @return {Array<ModdleElement>} a list of input parameter objects
- */
-export function getInputParameters(element) {
-  return getParameters(element, 'inputParameters');
-}
-
-/**
- * Return all output parameters existing in the business object, and
- * an empty array if none exist.
- *
- * @param  {ModdleElement} element
- * @param  {boolean} insideConnector
- *
- * @return {Array<ModdleElement>} a list of output parameter objects
- */
-export function getOutputParameters(element) {
-  return getParameters(element, 'output');
-}
-
-/**
  * Return output mappings existing in the business object
  *
  * @param {ModdleElement} element
@@ -129,12 +104,6 @@ function getElements(element, type, property) {
   var elements = getExtensionElements(element, type);
 
   return !property ? elements : (elements[0] || {})[property] || [];
-}
-
-function getParameters(element, property) {
-  var inputOutput = getInputOutput(element);
-
-  return (inputOutput && inputOutput.get(property)) || [];
 }
 
 function getExtensionElements(element, type) {
