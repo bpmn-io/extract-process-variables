@@ -103,6 +103,26 @@ describe('zeebe/process variables module', function() {
     });
 
 
+    it('should extract variables / input mapping / same name', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/sub-process.same-name-different-scope.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Task_1' }
+      ]);
+    });
+
+
     it('should extract variables / sub process / own scope / duplicates', async function() {
 
       // given

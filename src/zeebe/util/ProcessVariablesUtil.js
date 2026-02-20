@@ -57,19 +57,11 @@ function getScope(element, globalScope, variableName, includeSelf) {
 
   var scopedParent = find(parents, function(parent) {
     return (
-      is(parent, 'bpmn:SubProcess') && hasInputParameter(parent, variableName)
+      hasInputParameter(parent, variableName)
     );
   });
 
   return scopedParent ? scopedParent : globalScope;
-}
-
-function is(element, type) {
-  return (
-    element &&
-      typeof element.$instanceOf === 'function' &&
-      element.$instanceOf(type)
-  );
 }
 
 function hasInputParameter(element, name) {
