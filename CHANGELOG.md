@@ -8,6 +8,7 @@ ___Note:__ Yet to be released changes appear here._
 
 ## 2.2.0
 
+* `FIX`: ignore invalid mappings ([#https://github.com/bpmn-io/extract-process-variables/pull/35](https://github.com/bpmn-io/extract-process-variables/pull/35))
 * `FIX`: correctly recognize local `resultVariable` ([#https://github.com/bpmn-io/extract-process-variables/pull/35](https://github.com/bpmn-io/extract-process-variables/pull/35))
 * `FIX`: ensure input mapping always creates local scope ([#https://github.com/bpmn-io/extract-process-variables/pull/35](https://github.com/bpmn-io/extract-process-variables/pull/35))
 
