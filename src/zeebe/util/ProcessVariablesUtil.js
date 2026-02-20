@@ -1,6 +1,6 @@
 import { find, findIndex } from 'min-dash';
 
-import { getInputParameters } from './ExtensionElementsUtil.js';
+import { getInputMappings } from './ExtensionElementsUtil.js';
 
 import { getParents } from '../../shared/util/ElementsUtil.js';
 
@@ -57,15 +57,15 @@ function getScope(element, globalScope, variableName, includeSelf) {
 
   var scopedParent = find(parents, function(parent) {
     return (
-      hasInputParameter(parent, variableName)
+      hasInputMapping(parent, variableName)
     );
   });
 
   return scopedParent ? scopedParent : globalScope;
 }
 
-function hasInputParameter(element, name) {
-  return find(getInputParameters(element), function(input) {
+function hasInputMapping(element, name) {
+  return find(getInputMappings(element), function(input) {
     return input.target === name;
   });
 }
