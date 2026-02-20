@@ -40,6 +40,29 @@ describe('zeebe/extractors - input mappings', function() {
     ]);
   });
 
+
+  it('should ignore invalid input mapping', async function() {
+
+    // given
+    const xml = read('test/zeebe/fixtures/errors.bpmn');
+
+    const definitions = await parse(xml);
+
+    const rootElement = getRootElement(definitions);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([]);
+  });
+
 });
 
 
