@@ -248,7 +248,25 @@ describe('zeebe/process variables module', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'foo', origin: [ 'Task_1' ], scope: 'Process_1' }
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' }
+      ]);
+    });
+
+
+    it('should extract variables / script task / result variable / local', async function() {
+
+      // given
+      const model = await readModel('test/zeebe/fixtures/script-task-result-variable-local.bpmn');
+
+      const rootElement = getRootElement(model);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' }
       ]);
     });
 

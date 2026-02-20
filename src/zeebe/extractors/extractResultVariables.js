@@ -59,17 +59,14 @@ export default function extractResultVariables(options) {
 
     if (hasOutMappings(element)) {
       containerElement = element;
-
-      if (processVariables.some(variable => variable.name === resultVariable)) {
-        return processVariables;
-      }
     }
 
     if (resultVariable) {
       var newVariable = createProcessVariable(
         element,
         resultVariable,
-        containerElement
+        containerElement,
+        true
       );
 
       addVariableToList(processVariables, newVariable);
