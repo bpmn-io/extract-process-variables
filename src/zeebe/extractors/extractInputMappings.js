@@ -34,6 +34,11 @@ export default function extractInputMappings(options) {
     // extract all variables with correct scope
     forEach(inMappings, function(mapping) {
 
+      // skip invalid mappings
+      if (!mapping.target) {
+        return;
+      }
+
       var newVariable = createProcessVariable(
         element,
         mapping.target,

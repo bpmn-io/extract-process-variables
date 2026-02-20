@@ -256,6 +256,23 @@ describe('zeebe/process variables module', function() {
       ]);
     });
 
+
+    it('should handle errors gracefully', async function() {
+
+      // given
+      const xml = read('test/zeebe/fixtures/errors.bpmn');
+
+      const definitions = await parse(xml);
+
+      const rootElement = getRootElement(definitions);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([]);
+    });
+
   });
 
 
