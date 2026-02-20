@@ -31,7 +31,7 @@ describe('zeebe/extractors - result variables', function() {
   });
 
 
-  it('should extract variables from script', async function() {
+  it('should extract variables from script / global variable', async function() {
 
     // given
     const model = await readModel('test/zeebe/fixtures/script-task-result-variable.bpmn');
@@ -50,6 +50,29 @@ describe('zeebe/extractors - result variables', function() {
     // then
     expect(convertToTestable(variables)).to.eql([
       { name: 'resultVariable', origin: [ 'Task_1' ], scope: 'Process_1' }
+    ]);
+  });
+
+
+  it('should extract variables from script / local variable', async function() {
+
+    // given
+    const model = await readModel('test/zeebe/fixtures/script-task-result-variable-local.bpmn');
+
+    const rootElement = getRootElement(model);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([
+      { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' }
     ]);
   });
 
