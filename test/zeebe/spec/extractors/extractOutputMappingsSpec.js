@@ -57,4 +57,25 @@ describe('zeebe/extractors - output mappings', function() {
     ]);
   });
 
+
+  it('should ignore invalid output mapping', async function() {
+
+    // given
+    const model = await readModel('test/zeebe/fixtures/errors.bpmn');
+
+    const rootElement = getRootElement(model);
+
+    const elements = selfAndAllFlowElements([ rootElement ], false);
+
+    // when
+    const variables = extractVariables({
+      elements,
+      containerElement: rootElement,
+      processVariables: []
+    });
+
+    // then
+    expect(convertToTestable(variables)).to.eql([]);
+  });
+
 });

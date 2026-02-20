@@ -288,6 +288,21 @@ describe('zeebe/process variables module', function() {
       ]);
     });
 
+
+    it('should handle errors gracefully', async function() {
+
+      // given
+      const model = await readModel('test/zeebe/fixtures/errors.bpmn');
+
+      const rootElement = getRootElement(model);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(convertToTestable(variables)).to.eql([]);
+    });
+
   });
 
 
