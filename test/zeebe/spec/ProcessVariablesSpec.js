@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 
-import { sortBy, map } from 'min-dash';
+import { sortBy } from 'min-dash';
 
-import { BpmnModdle } from 'bpmn-moddle';
-
-import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe.json' with { type: 'json' };
-
-import fs from 'fs';
+import {
+  convertToTestable,
+  getRootElement,
+  readModel
+} from '../TestHelper.js';
 
 import {
   getProcessVariables,
@@ -22,11 +22,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / simple', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/simple.bpmn');
+      const model = await readModel('test/zeebe/fixtures/simple.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -43,11 +41,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -64,11 +60,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process / duplicated vars', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.duplicates.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.duplicates.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -85,11 +79,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process / own scope', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -106,11 +98,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / input mapping / same name', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.same-name-different-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.same-name-different-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -126,11 +116,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process / own scope / duplicates', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope-duplicates.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope-duplicates.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -148,11 +136,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process / output mapping', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.output-mapping.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.output-mapping.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -170,11 +156,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process / nested sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.nested.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.nested.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -191,11 +175,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / additional extractors', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/simple.bpmn');
+      const model = await readModel('test/zeebe/fixtures/simple.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement, [
@@ -216,11 +198,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / additional extractors / async', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/simple.bpmn');
+      const model = await readModel('test/zeebe/fixtures/simple.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement, [
@@ -241,11 +221,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / script task / result variable, output exists', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/script-task-result-variable-output.bpmn');
+      const model = await readModel('test/zeebe/fixtures/script-task-result-variable-output.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -261,11 +239,9 @@ describe('zeebe/process variables module', function() {
     it('should not extract variables / script task / result variable, output exists with same name', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/script-task-result-variable-output-same-name.bpmn');
+      const model = await readModel('test/zeebe/fixtures/script-task-result-variable-output-same-name.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -280,11 +256,9 @@ describe('zeebe/process variables module', function() {
     it('should handle errors gracefully', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/errors.bpmn');
+      const model = await readModel('test/zeebe/fixtures/errors.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getProcessVariables(rootElement);
@@ -301,11 +275,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('Process_1', rootElement);
@@ -321,11 +293,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
@@ -346,11 +316,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / ad-hoc sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
@@ -370,11 +338,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / ad-hoc sub process / own scope', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.ad-hoc-own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc-own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
@@ -394,11 +360,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / multi-instance sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.multi-instance.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.multi-instance.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
@@ -418,11 +382,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / multi-instance sub process / own scope', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.multi-instance-own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.multi-instance-own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
@@ -442,11 +404,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / additional extractors', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('Process_1', rootElement, [
@@ -466,11 +426,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / additional extractors (async)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForScope('Process_1', rootElement, [
@@ -494,11 +452,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForElement(rootElement);
@@ -514,11 +470,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / sub process', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       const subProcess = rootElement.flowElements[0];
 
@@ -541,11 +495,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / additional extractors', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForElement(rootElement, [
@@ -565,11 +517,9 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / additional extractors (async)', async function() {
 
       // given
-      const xml = read('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const definitions = await parse(xml);
-
-      const rootElement = getRootElement(definitions);
+      const rootElement = getRootElement(model);
 
       // when
       const variables = await getVariablesForElement(rootElement, [
@@ -589,42 +539,12 @@ describe('zeebe/process variables module', function() {
 
 });
 
+
 // helpers //////////
-
-function getRootElement(definitions) {
-  return definitions.get('rootElements')[0];
-}
-
-async function parse(xml) {
-  const moddle = new BpmnModdle({
-    zeebe: ZeebeModdle,
-  });
-
-  const { rootElement: definitions } = await moddle.fromXML(xml);
-
-  return definitions;
-}
-
-function read(path, encoding = 'utf8') {
-  return fs.readFileSync(path, encoding);
-}
 
 function sortVariablesByName(variables) {
   return sortBy(variables, function(variable) {
     return variable.name;
-  });
-}
-
-// converts the variables list from full moddle elements to only id, for better testability
-function convertToTestable(variables) {
-  return map(variables, function(variable) {
-    return {
-      name: variable.name,
-      origin: map(variable.origin, function(origin) {
-        return origin.id;
-      }),
-      scope: variable.scope.id
-    };
   });
 }
 
