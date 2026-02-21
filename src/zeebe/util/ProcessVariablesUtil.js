@@ -52,9 +52,6 @@ export function createProcessVariable(flowElement, name, defaultScope, targetSel
 function getScope(element, globalScope, variableName, includeSelf) {
   var parents = getParents(element, includeSelf);
 
-  // local variables in sub-processes have to be explicitly created
-  // https://docs.camunda.io/docs/components/modeler/bpmn/embedded-subprocesses/#variable-mappings
-
   var scopedParent = find(parents, function(parent) {
     return (
       hasInputMapping(parent, variableName)

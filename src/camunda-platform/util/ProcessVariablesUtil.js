@@ -28,16 +28,17 @@ export function addVariableToList(variablesList, newVariable) {
  * @param {ModdleElement} flowElement
  * @param {String} name
  * @param {ModdleElement} defaultScope
+ * @param {boolean} [targetSelf=false]
  *
  * @returns {ProcessVariable}
  */
-export function createProcessVariable(flowElement, name, defaultScope) {
-  var scope = getScope(flowElement, defaultScope, name);
+export function createProcessVariable(flowElement, name, defaultScope, targetSelf = false) {
+  var scope = getScope(flowElement, defaultScope, name, targetSelf);
 
   return {
     name: name,
     origin: [ flowElement ],
-    scope: scope,
+    scope: scope
   };
 }
 
@@ -48,24 +49,20 @@ export function createProcessVariable(flowElement, name, defaultScope) {
  * Set parent container if it defines it's own scope for the variable, so
  * when it defines an input mapping for it. Otherwise returns the default global scope
  */
-function getScope(element, globalScope, variableName) {
-  var parents = getParents(element);
+function getScope(element, globalScope, variableName, includeSelf) {
+  var parents = getParents(element, includeSelf);
 
+  // local variables are created through an input mapping
+  //
+  // find the closes scope parent that defines the input mapping
+  // matching a given variable, that is the scope
   var scopedParent = find(parents, function(parent) {
     return (
-      is(parent, 'bpmn:SubProcess') && hasInputParameter(parent, variableName)
+      hasInputParameter(parent, variableName)
     );
   });
 
   return scopedParent ? scopedParent : globalScope;
-}
-
-function is(element, type) {
-  return (
-    element &&
-      typeof element.$instanceOf === 'function' &&
-      element.$instanceOf(type)
-  );
 }
 
 function hasInputParameter(element, name) {
