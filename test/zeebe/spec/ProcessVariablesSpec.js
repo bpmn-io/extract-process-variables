@@ -387,8 +387,17 @@ describe('zeebe/process variables module', function() {
 
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable', origin: [ 'AdHocSubProcess_1', 'Task_1' ], scope: 'AdHocSubProcess_1' },
-        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
+        {
+          name: 'toolResult',
+          origin: [
+            'AdHocSubProcess_1',
+            'Task_1',
+            'ScriptTask_1',
+            'RuleTask_1'
+          ],
+          scope: 'AdHocSubProcess_1'
+        },
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
       ]);
     });
 
