@@ -249,7 +249,9 @@ describe('zeebe/process variables module', function() {
       // then
       expect(convertToTestable(variables)).to.eql([
         { name: 'bar', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' }
+        { name: 'foo', origin: [ 'Task_2' ], scope: 'Process_1' },
+        { name: 'foo', origin: [ 'Task_1' ], scope: 'Task_1' },
+        { name: 'ignored', origin: [ 'Task_2' ], scope: 'Task_2' }
       ]);
     });
 
