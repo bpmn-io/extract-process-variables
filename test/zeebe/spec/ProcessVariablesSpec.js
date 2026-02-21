@@ -399,6 +399,13 @@ describe('zeebe/process variables module', function() {
           ],
           scope: 'AdHocSubProcess_1'
         },
+        {
+          name: 'toolResult.mail',
+          origin: [
+            'ScriptTask_2'
+          ],
+          scope: 'AdHocSubProcess_1'
+        },
         { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
       ]);
     });
