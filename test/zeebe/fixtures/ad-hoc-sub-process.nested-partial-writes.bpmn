@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-dev" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="Process_1" name="out: toolResult.email = &#34;my@mail&#34;" isExecutable="true">
+    <bpmn:adHocSubProcess id="AdHocSubProcess_1" name="AdHocSubProcess_1">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition />
+        <zeebe:adHoc outputCollection="toolResults" outputElement="=toolResult" />
+        <zeebe:ioMapping>
+          <zeebe:input target="toolResult" />
+          <zeebe:input target="toolResults" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:scriptTask id="ScriptTask_1" name="ScriptTask_1">
+        <bpmn:extensionElements>
+          <zeebe:script expression="=&#34;YES&#34;" resultVariable="toolResult" />
+        </bpmn:extensionElements>
+      </bpmn:scriptTask>
+      <bpmn:scriptTask id="ScriptTask_2" name="ScriptTask_2">
+        <bpmn:extensionElements>
+          <zeebe:script expression="=&#34;my@mail&#34;" resultVariable="userEmail" />
+          <zeebe:ioMapping>
+            <zeebe:output target="toolResult.email" source="= userEmail" />
+          </zeebe:ioMapping>
+        </bpmn:extensionElements>
+      </bpmn:scriptTask>
+    </bpmn:adHocSubProcess>
+    <bpmn:textAnnotation id="TextAnnotation_03j09jg">
+      <bpmn:text>outputElement: toolResult
+outputCollection: toolResults</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0kjh134" associationDirection="None" sourceRef="AdHocSubProcess_1" targetRef="TextAnnotation_03j09jg" />
+    <bpmn:textAnnotation id="TextAnnotation_1850vkp">
+      <bpmn:text>out: toolCall = "YES"</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1h6zojv">
+      <bpmn:text>out: toolResult.email = "my@mail"</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0hzodcg" associationDirection="None" sourceRef="ScriptTask_1" targetRef="TextAnnotation_1850vkp" />
+    <bpmn:association id="Association_1cggoob" associationDirection="None" sourceRef="ScriptTask_2" targetRef="TextAnnotation_1h6zojv" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Activity_0282riy_di" bpmnElement="AdHocSubProcess_1" isExpanded="true">
+        <dc:Bounds x="160" y="190" width="300" height="310" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16tkphp_di" bpmnElement="ScriptTask_1">
+        <dc:Bounds x="300" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1w3kwa9" bpmnElement="ScriptTask_2">
+        <dc:Bounds x="300" y="380" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0hzodcg_di" bpmnElement="Association_0hzodcg">
+        <di:waypoint x="400" y="264" />
+        <di:waypoint x="549" y="186" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1cggoob_di" bpmnElement="Association_1cggoob">
+        <di:waypoint x="400" y="396" />
+        <di:waypoint x="520" y="339" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_03j09jg_di" bpmnElement="TextAnnotation_03j09jg">
+        <dc:Bounds x="380" y="80" width="220" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0kjh134_di" bpmnElement="Association_0kjh134">
+        <di:waypoint x="354" y="190" />
+        <di:waypoint x="409" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1850vkp_di" bpmnElement="TextAnnotation_1850vkp">
+        <dc:Bounds x="520" y="160" width="130" height="25.999998092651367" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0ik99qc" bpmnElement="TextAnnotation_1h6zojv">
+        <dc:Bounds x="520" y="310" width="200" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
