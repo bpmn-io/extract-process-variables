@@ -99,7 +99,7 @@ describe('zeebe/extractors - output collections', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
       ]);
     });
 
