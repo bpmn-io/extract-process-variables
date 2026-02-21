@@ -49,9 +49,13 @@ export function createProcessVariable(flowElement, name, defaultScope, targetSel
  * Set parent container if it defines it's own scope for the variable, so
  * when it defines an input mapping for it. Otherwise returns the default global scope
  */
-function getScope(element, globalScope, variableName, includeSelf) {
+export function getScope(element, globalScope, variableName, includeSelf) {
   var parents = getParents(element, includeSelf);
 
+  // local variables are created through an input mapping
+  //
+  // find the closes scope parent that defines the input mapping
+  // matching a given variable, that is the scope
   var scopedParent = find(parents, function(parent) {
     return (
       hasInputMapping(parent, variableName)

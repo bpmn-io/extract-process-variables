@@ -4,6 +4,8 @@ import extractors from './extractors/index.js';
 
 import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/ElementsUtil.js';
 
+export { getScope, createProcessVariable } from './util/ProcessVariablesUtil.js';
+
 /**
  * @typedef {Object} ProcessVariable
  * @property {string} name
