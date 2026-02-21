@@ -402,6 +402,36 @@ describe('zeebe/process variables module', function() {
     });
 
 
+    it('should extract variables / ad-hoc sub process / nested partial writes', async function() {
+
+      // given
+      const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.nested-partial-writes.bpmn');
+
+      const rootElement = getRootElement(model);
+
+      // when
+      const variables = await getVariablesForScope('AdHocSubProcess_1', rootElement);
+
+      const sortedVariables = sortVariablesByName(variables);
+
+      // then
+
+      // own + all variables from parent scope
+      expect(convertToTestable(sortedVariables)).to.eql([
+        {
+          name: 'toolResult',
+          origin: [
+            'AdHocSubProcess_1',
+            'ScriptTask_1',
+          ],
+          scope: 'AdHocSubProcess_1'
+        },
+        { name: 'toolResult.email', origin: [ 'ScriptTask_2' ], scope: 'AdHocSubProcess_1' },
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
+      ]);
+    });
+
+
     it('should extract variables / multi-instance sub process', async function() {
 
       // given
