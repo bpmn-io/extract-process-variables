@@ -66,7 +66,30 @@ function getScope(element, globalScope, variableName, includeSelf) {
 
 function hasInputMapping(element, name) {
   return find(getInputMappings(element), function(input) {
-    return input.target === name;
+
+    // inputs define mappings by name, an input
+    // <foo.baz> defines a local variable <foo> with the value <baz>
+    // we match if that variable part is either equal or a prefix of name
+
+    const localName = input.target;
+
+    if (!localName) {
+      return false;
+    }
+
+    const localPart = localName.split('.')[0];
+
+    // exact match
+    if (localName === name) {
+      return true;
+    }
+
+    // name is hierarchical <foo.bar>, localPart is prefix <foo>
+    if (name.startsWith(localPart + '.')) {
+      return true;
+    }
+
+    return false;
   });
 }
 
