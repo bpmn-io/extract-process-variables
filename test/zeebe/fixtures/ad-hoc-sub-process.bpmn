@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-rc.2" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="Process_1" isExecutable="true">
-    <bpmn:adHocSubProcess id="SubProcess_1" name="SubProcess_1">
+    <bpmn:adHocSubProcess id="AdHocSubProcess_1" name="AdHocSubProcess_1">
       <bpmn:extensionElements>
         <zeebe:taskDefinition />
         <zeebe:adHoc outputCollection="variables" outputElement="=variable" />
@@ -18,7 +18,7 @@
       <bpmn:text>outputElement: variable
 outputCollection: variables</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0kjh134" associationDirection="None" sourceRef="SubProcess_1" targetRef="TextAnnotation_03j09jg" />
+    <bpmn:association id="Association_0kjh134" associationDirection="None" sourceRef="AdHocSubProcess_1" targetRef="TextAnnotation_03j09jg" />
     <bpmn:textAnnotation id="TextAnnotation_0umy5l8">
       <bpmn:text>out: variable</bpmn:text>
     </bpmn:textAnnotation>
@@ -26,7 +26,7 @@ outputCollection: variables</bpmn:text>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-      <bpmndi:BPMNShape id="Activity_0282riy_di" bpmnElement="SubProcess_1" isExpanded="true">
+      <bpmndi:BPMNShape id="Activity_0282riy_di" bpmnElement="AdHocSubProcess_1" isExpanded="true">
         <dc:Bounds x="160" y="190" width="350" height="200" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11csst4_di" bpmnElement="Task_1">

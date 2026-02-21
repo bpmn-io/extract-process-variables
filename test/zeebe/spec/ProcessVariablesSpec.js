@@ -352,12 +352,12 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / ad-hoc sub process', async function() {
 
       // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc.bpmn');
+      const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.bpmn');
 
       const rootElement = getRootElement(model);
 
       // when
-      const variables = await getVariablesForScope('SubProcess_1', rootElement);
+      const variables = await getVariablesForScope('AdHocSubProcess_1', rootElement);
 
       const sortedVariables = sortVariablesByName(variables);
 
@@ -366,7 +366,7 @@ describe('zeebe/process variables module', function() {
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
         { name: 'variable', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 
@@ -374,12 +374,12 @@ describe('zeebe/process variables module', function() {
     it('should extract variables / ad-hoc sub process / own scope', async function() {
 
       // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc-own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.own-scope.bpmn');
 
       const rootElement = getRootElement(model);
 
       // when
-      const variables = await getVariablesForScope('SubProcess_1', rootElement);
+      const variables = await getVariablesForScope('AdHocSubProcess_1', rootElement);
 
       const sortedVariables = sortVariablesByName(variables);
 
@@ -387,8 +387,8 @@ describe('zeebe/process variables module', function() {
 
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
-        { name: 'variable', origin: [ 'SubProcess_1', 'Task_1' ], scope: 'SubProcess_1' },
-        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' }
+        { name: 'variable', origin: [ 'AdHocSubProcess_1', 'Task_1' ], scope: 'AdHocSubProcess_1' },
+        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
       ]);
     });
 
