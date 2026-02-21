@@ -61,7 +61,7 @@ describe('zeebe/extractors - output collections', function() {
     it('should extract variables', async function() {
 
       // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc.bpmn');
+      const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.bpmn');
 
       const rootElement = getRootElement(model);
 
@@ -76,7 +76,7 @@ describe('zeebe/extractors - output collections', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 
@@ -84,7 +84,7 @@ describe('zeebe/extractors - output collections', function() {
     it('should extract variables / scoped', async function() {
 
       // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc-own-scope.bpmn');
+      const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.own-scope.bpmn');
 
       const rootElement = getRootElement(model);
 
@@ -99,15 +99,15 @@ describe('zeebe/extractors - output collections', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'variables', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' }
+        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
       ]);
     });
 
 
-    it('should not extract variables / empty loopCharacteristics', async function() {
+    it('should not extract variables / missing output collection', async function() {
 
       // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.ad-hoc-empty.bpmn');
+      const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.no-output-collection.bpmn');
 
       const rootElement = getRootElement(model);
 
