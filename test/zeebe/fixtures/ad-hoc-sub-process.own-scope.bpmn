@@ -1,51 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-rc.2" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hdwtag" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0-dev" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="Process_1" isExecutable="true">
     <bpmn:adHocSubProcess id="AdHocSubProcess_1" name="AdHocSubProcess_1">
       <bpmn:extensionElements>
         <zeebe:taskDefinition />
-        <zeebe:adHoc outputCollection="variables" outputElement="=variable" />
+        <zeebe:adHoc outputCollection="toolResults" outputElement="=toolResult" />
         <zeebe:ioMapping>
-          <zeebe:input target="variables" />
-          <zeebe:input target="variable" />
+          <zeebe:input target="toolResult" />
+          <zeebe:input target="toolResults" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
-      <bpmn:serviceTask id="Task_1" name="Task_1">
+      <bpmn:serviceTask id="Task_1" name="Task_1&#10;&#10;Produce &#39;1&#39;">
         <bpmn:extensionElements>
           <zeebe:ioMapping>
-            <zeebe:output source="=1" target="variable" />
+            <zeebe:output source="=1" target="toolResult" />
           </zeebe:ioMapping>
         </bpmn:extensionElements>
       </bpmn:serviceTask>
+      <bpmn:scriptTask id="ScriptTask_1" name="ScriptTask_1&#10;&#10;Produce &#39;&#34;YES&#34;&#39;">
+        <bpmn:extensionElements>
+          <zeebe:script expression="=&#34;YES&#34;" resultVariable="toolResult" />
+        </bpmn:extensionElements>
+      </bpmn:scriptTask>
+      <bpmn:subProcess id="EventSubProcess_1" name="EventSubProcess_1" triggeredByEvent="true">
+        <bpmn:startEvent id="MessageStartEvent_1">
+          <bpmn:outgoing>Flow_1v5xfda</bpmn:outgoing>
+          <bpmn:messageEventDefinition id="MessageEventDefinition_0ctx6uu" />
+        </bpmn:startEvent>
+        <bpmn:sequenceFlow id="Flow_1v5xfda" sourceRef="MessageStartEvent_1" targetRef="RuleTask_1" />
+        <bpmn:businessRuleTask id="RuleTask_1" name="RuleTask_1">
+          <bpmn:extensionElements>
+            <zeebe:calledDecision resultVariable="toolResult" />
+          </bpmn:extensionElements>
+          <bpmn:incoming>Flow_1v5xfda</bpmn:incoming>
+        </bpmn:businessRuleTask>
+      </bpmn:subProcess>
     </bpmn:adHocSubProcess>
     <bpmn:textAnnotation id="TextAnnotation_03j09jg">
-      <bpmn:text>outputElement: variable
-outputCollection: variables</bpmn:text>
+      <bpmn:text>outputElement: toolResult
+outputCollection: toolResults</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0kjh134" associationDirection="None" sourceRef="AdHocSubProcess_1" targetRef="TextAnnotation_03j09jg" />
-    <bpmn:textAnnotation id="TextAnnotation_0tnxbjp">
-      <bpmn:text>outputElement: { variable: variable1 }
-outputCollection: variables</bpmn:text>
-    </bpmn:textAnnotation>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
       <bpmndi:BPMNShape id="Activity_0282riy_di" bpmnElement="AdHocSubProcess_1" isExpanded="true">
-        <dc:Bounds x="310" y="190" width="350" height="200" />
+        <dc:Bounds x="160" y="190" width="360" height="370" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11csst4_di" bpmnElement="Task_1">
-        <dc:Bounds x="430" y="250" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_03j09jg_di" bpmnElement="TextAnnotation_03j09jg">
-        <dc:Bounds x="590" y="80" width="219.99998474121094" height="41" />
+        <dc:Bounds x="220" y="250" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0kjh134_di" bpmnElement="Association_0kjh134">
-        <di:waypoint x="564" y="190" />
-        <di:waypoint x="619" y="121" />
+      <bpmndi:BPMNShape id="Activity_16tkphp_di" bpmnElement="ScriptTask_1">
+        <dc:Bounds x="360" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ytgz15_di" bpmnElement="EventSubProcess_1" isExpanded="true">
+        <dc:Bounds x="190" y="360" width="300" height="160" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tadlzf_di" bpmnElement="MessageStartEvent_1">
+        <dc:Bounds x="230" y="432" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="205" y="475" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00ao0ar_di" bpmnElement="RuleTask_1">
+        <dc:Bounds x="320" y="410" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1v5xfda_di" bpmnElement="Flow_1v5xfda">
+        <di:waypoint x="266" y="450" />
+        <di:waypoint x="320" y="450" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BPMNShape_05hjquk" bpmnElement="TextAnnotation_0tnxbjp">
-        <dc:Bounds x="160" y="81" width="220" height="41" />
+      <bpmndi:BPMNEdge id="Association_0kjh134_di" bpmnElement="Association_0kjh134">
+        <di:waypoint x="414" y="190" />
+        <di:waypoint x="469" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_03j09jg_di" bpmnElement="TextAnnotation_03j09jg">
+        <dc:Bounds x="440" y="80" width="219.98794555664062" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
