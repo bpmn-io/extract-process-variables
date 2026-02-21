@@ -31,9 +31,6 @@
         <bpmn:businessRuleTask id="RuleTask_1" name="RuleTask_1">
           <bpmn:extensionElements>
             <zeebe:calledDecision resultVariable="toolResult" />
-            <zeebe:properties>
-              <zeebe:property name="camundaModeler:exampleOutputJson" value="{&#10;  &#34;allowed&#34;: true&#10;}" />
-            </zeebe:properties>
           </bpmn:extensionElements>
           <bpmn:incoming>Flow_1v5xfda</bpmn:incoming>
         </bpmn:businessRuleTask>
