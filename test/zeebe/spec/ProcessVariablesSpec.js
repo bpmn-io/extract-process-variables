@@ -421,6 +421,7 @@ describe('zeebe / process variables module', function() {
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
         { name: 'variable', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' },
         { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
@@ -459,7 +460,10 @@ describe('zeebe / process variables module', function() {
           ],
           scope: 'AdHocSubProcess_1'
         },
-        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' },
+
+        // always leaks to parent, is un-local-scopable
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 
@@ -489,7 +493,10 @@ describe('zeebe / process variables module', function() {
           scope: 'AdHocSubProcess_1'
         },
         { name: 'toolResult.email', origin: [ 'ScriptTask_2' ], scope: 'AdHocSubProcess_1' },
-        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' },
+
+        // always leaks to parent, is un-local-scopable
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 
@@ -533,7 +540,10 @@ describe('zeebe / process variables module', function() {
       // own + all variables from parent scope
       expect(convertToTestable(sortedVariables)).to.eql([
         { name: 'inputElement', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
-        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' }
+        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+
+        // always leaks to parent, is un-local-scopable
+        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 

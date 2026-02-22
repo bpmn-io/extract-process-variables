@@ -6,6 +6,8 @@ All notable changes to [@bpmn-io/extract-process-variables](https://github.com/b
 
 ___Note:__ Yet to be released changes appear here._
 
+* `FIX`: correct `outputCollection` scoping ([#36](https://github.com/bpmn-io/extract-process-variables/pull/36))
+
 ## 2.2.0
 
 * `FEAT`: recognize output mapping variables with paths ([#35](https://github.com/bpmn-io/extract-process-variables/pull/35))

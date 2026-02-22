@@ -33,6 +33,29 @@ describe('zeebe / extractors - output collections', function() {
     });
 
 
+    it('should extract variables / un-local-scopable', async function() {
+
+      // given
+      const model = await readModel('test/zeebe/fixtures/sub-process.multi-instance-own-scope.bpmn');
+
+      const rootElement = getRootElement(model);
+
+      const elements = selfAndAllFlowElements([ rootElement ], false);
+
+      // when
+      const variables = extractVariables({
+        elements,
+        containerElement: rootElement,
+        processVariables: []
+      });
+
+      // then
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
+      ]);
+    });
+
+
     it('should not extract variables / empty loopCharacteristics', async function() {
 
       // given
@@ -76,12 +99,13 @@ describe('zeebe / extractors - output collections', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
+        { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' },
         { name: 'variables', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 
 
-    it('should extract variables / scoped', async function() {
+    it('should extract variables / un-local-scopable', async function() {
 
       // given
       const model = await readModel('test/zeebe/fixtures/ad-hoc-sub-process.own-scope.bpmn');
@@ -99,7 +123,8 @@ describe('zeebe / extractors - output collections', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
-        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' }
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' },
+        { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
 
