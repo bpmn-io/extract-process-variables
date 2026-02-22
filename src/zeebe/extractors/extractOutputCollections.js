@@ -36,6 +36,9 @@ export default function extractOutputCollections(options) {
     elements = [ elements ];
   }
 
+  // zeebe quirk: <outputCollection> always leaks, despite being a local
+  // variable :o)
+  //
   forEach(elements, function(element) {
 
     var multiInstanceOutputCollection = getMultiInstanceOutputCollection(element);
@@ -44,8 +47,7 @@ export default function extractOutputCollections(options) {
       const newVariable = createProcessVariable(
         element,
         multiInstanceOutputCollection,
-        containerElement,
-        true
+        containerElement
       );
 
       addVariableToList(processVariables, newVariable);
@@ -58,8 +60,7 @@ export default function extractOutputCollections(options) {
       const newVariable = createProcessVariable(
         element,
         adHocOutputCollection,
-        containerElement,
-        true
+        containerElement
       );
 
       addVariableToList(processVariables, newVariable);
