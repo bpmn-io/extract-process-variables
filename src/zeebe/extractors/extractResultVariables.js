@@ -1,5 +1,5 @@
 import { forEach, isArray } from 'min-dash';
-import { getCalledDecision, getOutputMappings, getScript } from '../util/ExtensionElementsUtil.js';
+import { getCalledDecision, getScript } from '../util/ExtensionElementsUtil.js';
 
 import { createProcessVariable, addVariableToList } from '../util/ProcessVariablesUtil.js';
 
@@ -57,10 +57,6 @@ export default function extractResultVariables(options) {
 
     var resultVariable = extensionElement.resultVariable;
 
-    if (hasOutMappings(element)) {
-      containerElement = element;
-    }
-
     if (resultVariable) {
       var newVariable = createProcessVariable(
         element,
@@ -74,10 +70,4 @@ export default function extractResultVariables(options) {
   });
 
   return processVariables;
-}
-
-function hasOutMappings(element) {
-  var outMappings = getOutputMappings(element);
-
-  return outMappings && outMappings.length;
 }
