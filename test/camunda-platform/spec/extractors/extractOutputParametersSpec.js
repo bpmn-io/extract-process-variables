@@ -13,7 +13,7 @@ import extractVariables from '../../../../src/camunda-platform/extractors/extrac
 import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
-describe('extractors - output parameters', function() {
+describe('camunda-platform / extractors - output parameters', function() {
 
   it('should extract variables from output parameters', async function() {
 
