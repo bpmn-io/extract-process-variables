@@ -4,6 +4,7 @@ import { sortBy } from 'min-dash';
 
 import {
   convertToTestable,
+  getElement,
   getRootElement,
   readModel
 } from '../TestHelper.js';
@@ -209,7 +210,53 @@ describe('zeebe / process variables module', function() {
           { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
           { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
           { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
+        ]);
+      });
+
+
+      it('should add task variable / local', async function() {
+
+        // given
+        const model = await readModel('test/zeebe/fixtures/simple.bpmn');
+
+        const rootElement = getRootElement(model);
+        const task = getElement(model, 'Task_1');
+
+        // when
+        const variables = await getProcessVariables(rootElement, [
+          additionalExtractor(task)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Task_1' ], scope: 'Task_1' }
+        ]);
+      });
+
+
+      it('should add task variable / global', async function() {
+
+        // given
+        const model = await readModel('test/zeebe/fixtures/simple.bpmn');
+
+        const rootElement = getRootElement(model);
+        const task = getElement(model, 'Task_1');
+
+        // when
+        const variables = await getProcessVariables(rootElement, [
+          additionalExtractor(task, rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Task_1' ], scope: 'Process_1' }
         ]);
       });
 
@@ -568,9 +615,7 @@ describe('zeebe / process variables module', function() {
       // given
       const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      const rootElement = getRootElement(model);
-
-      const subProcess = rootElement.flowElements[0];
+      const subProcess = getElement(model, 'SubProcess_1');
 
       // when
       const variables = await getVariablesForElement(subProcess);
@@ -607,6 +652,72 @@ describe('zeebe / process variables module', function() {
           { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
           { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
           { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        ]);
+      });
+
+
+      it('should add task variable', async function() {
+
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+
+        const rootElement = getRootElement(model);
+        const task = getElement(model, 'Task_1');
+
+        // when
+        const variables = await getVariablesForElement(rootElement, [
+          additionalExtractor(task, rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Task_1' ], scope: 'Process_1' }
+        ]);
+      });
+
+
+      it('should add task variable / local', async function() {
+
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+
+        const task = getElement(model, 'Task_1');
+
+        // when
+        const variables = await getVariablesForElement(task, [
+          additionalExtractor(task)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'additionalVariable', origin: [ 'Task_1' ], scope: 'Task_1' },
+          { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' }
+        ]);
+      });
+
+
+      it('should add sub-process variable / local', async function() {
+
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+
+        const subProcess = getElement(model, 'SubProcess_1');
+
+        // when
+        const variables = await getVariablesForElement(subProcess, [
+          additionalExtractor(subProcess)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable3', origin: [ 'SubProcess_1', 'Task_2' ], scope: 'SubProcess_1' },
+          { name: 'additionalVariable', origin: [ 'SubProcess_1' ], scope: 'SubProcess_1' },
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' }
         ]);
       });
 
@@ -651,12 +762,12 @@ function sortVariablesByName(variables) {
   });
 }
 
-function asyncAdditionalExtractor(rootElement) {
+function asyncAdditionalExtractor(element, scope = element) {
 
   const additionalVariable = {
     name: 'additionalVariable',
-    scope: rootElement,
-    origin: [ rootElement ]
+    scope,
+    origin: [ element ]
   };
 
   return async function(options) {
@@ -670,12 +781,12 @@ function asyncAdditionalExtractor(rootElement) {
   };
 }
 
-function additionalExtractor(rootElement) {
+function additionalExtractor(element, scope = element) {
 
   const additionalVariable = {
     name: 'additionalVariable',
-    scope: rootElement,
-    origin: [ rootElement ]
+    scope,
+    origin: [ element ]
   };
 
   return function(options) {
