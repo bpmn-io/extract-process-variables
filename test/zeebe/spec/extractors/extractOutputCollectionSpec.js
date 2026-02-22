@@ -6,7 +6,7 @@ import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil
 import { convertToTestable, getRootElement, readModel } from '../../TestHelper.js';
 
 
-describe('zeebe/extractors - output collections', function() {
+describe('zeebe / extractors - output collections', function() {
 
   describe('multi-instance sub process', function() {
 

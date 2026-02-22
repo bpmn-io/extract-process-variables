@@ -6,7 +6,7 @@ import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil
 import { convertToTestable, getRootElement, readModel } from '../../TestHelper.js';
 
 
-describe('zeebe/extractors - output mappings', function() {
+describe('zeebe / extractors - output mappings', function() {
 
   it('should extract variables / simple', async function() {
 

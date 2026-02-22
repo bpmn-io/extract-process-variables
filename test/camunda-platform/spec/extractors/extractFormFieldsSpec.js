@@ -13,7 +13,7 @@ import extractVariables from '../../../../src/camunda-platform/extractors/extrac
 import { selfAndAllFlowElements } from '../../../../src/shared/util/ElementsUtil.js';
 
 
-describe('extractors - form fields', function() {
+describe('camunda-platform / extractors - form fields', function() {
 
   it('should extract variables from form fields', async function() {
 

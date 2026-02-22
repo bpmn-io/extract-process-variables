@@ -15,7 +15,7 @@ import {
 } from '@bpmn-io/extract-process-variables/zeebe';
 
 
-describe('zeebe/process variables module', function() {
+describe('zeebe / process variables module', function() {
 
   describe('#getProcessVariables', function() {
 

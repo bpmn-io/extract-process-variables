@@ -13,7 +13,7 @@ describe('extract-process-variables - distribution', function() {
   });
 
 
-  it('should expose zeebe ESM bundle', async function() {
+  it('should expose ESM bundle / zeebe', async function() {
 
     // when
     const imported = await import('@bpmn-io/extract-process-variables/zeebe');
