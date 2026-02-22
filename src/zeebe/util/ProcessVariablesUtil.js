@@ -46,15 +46,24 @@ export function createProcessVariable(flowElement, name, defaultScope, targetSel
 // helpers ////////////////////
 
 /**
- * Set parent container if it defines it's own scope for the variable, so
- * when it defines an input mapping for it. Otherwise returns the default global scope
+ * Determines the scope of a given variable, by examining the element
+ * and its parents. If no scope can be determined, return a specified
+ * global scope.
+ *
+ * @param {ModdleElement} element
+ * @param {ModdleElement} globalScope
+ * @param {string} variableName
+ * @param {boolean} [includeSelf=false]
+ *
+ * @return {ModdleElement} scope for the variable
  */
-function getScope(element, globalScope, variableName, includeSelf) {
+function getScope(element, globalScope, variableName, includeSelf = false) {
   var parents = getParents(element, includeSelf);
 
-  // local variables in sub-processes have to be explicitly created
-  // https://docs.camunda.io/docs/components/modeler/bpmn/embedded-subprocesses/#variable-mappings
-
+  // local variables are created through an input mapping
+  //
+  // find the closes scope parent that defines the input mapping
+  // matching a given variable, that is the scope
   var scopedParent = find(parents, function(parent) {
     return (
       hasInputMapping(parent, variableName)
