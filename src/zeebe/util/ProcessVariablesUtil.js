@@ -57,7 +57,7 @@ export function createProcessVariable(flowElement, name, defaultScope, targetSel
  *
  * @return {ModdleElement} scope for the variable
  */
-function getScope(element, globalScope, variableName, includeSelf = false) {
+export function getScope(element, globalScope, variableName, includeSelf = false) {
   var parents = getParents(element, includeSelf);
 
   // local variables are created through an input mapping

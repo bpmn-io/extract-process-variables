@@ -6,16 +6,18 @@ const {
 describe('extract-process-variables - distribution', function() {
 
   it('should expose CJS bundle', function() {
-    const extractProcessVariables = require('@bpmn-io/extract-process-variables');
+    const { getProcessVariables, getScope } = require('@bpmn-io/extract-process-variables');
 
-    expect(extractProcessVariables.getProcessVariables).to.exist;
+    expect(getProcessVariables).to.exist;
+    expect(getScope).to.exist;
   });
 
 
   it('should expose zeebe CJS bundle', function() {
-    const extractProcessVariables = require('@bpmn-io/extract-process-variables/zeebe');
+    const { getProcessVariables, getScope } = require('@bpmn-io/extract-process-variables/zeebe');
 
-    expect(extractProcessVariables.getProcessVariables).to.exist;
+    expect(getProcessVariables).to.exist;
+    expect(getScope).to.exist;
   });
 
 });

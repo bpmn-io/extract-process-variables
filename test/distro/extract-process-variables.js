@@ -6,20 +6,22 @@ describe('extract-process-variables - distribution', function() {
   it('should expose ESM bundle', async function() {
 
     // when
-    const imported = await import('@bpmn-io/extract-process-variables');
+    const { getProcessVariables, getScope } = await import('@bpmn-io/extract-process-variables');
 
     // then
-    expect(imported).to.exist;
+    expect(getProcessVariables).to.exist;
+    expect(getScope).to.exist;
   });
 
 
   it('should expose zeebe ESM bundle', async function() {
 
     // when
-    const imported = await import('@bpmn-io/extract-process-variables/zeebe');
+    const { getProcessVariables, getScope } = await import('@bpmn-io/extract-process-variables/zeebe');
 
     // then
-    expect(imported).to.exist;
+    expect(getProcessVariables).to.exist;
+    expect(getScope).to.exist;
   });
 
 });
