@@ -9,8 +9,10 @@ ___Note:__ Yet to be released changes appear here._
 ## 2.2.0
 
 * `FEAT`: recognize output mapping variables with paths ([#35](https://github.com/bpmn-io/extract-process-variables/pull/35))
+* `FEAT`: expose `getScope` for use by downstream integrators ([#36](https://github.com/bpmn-io/extract-process-variables/pull/36))
 * `FIX`: correctly recognize local `resultVariable` ([#35](https://github.com/bpmn-io/extract-process-variables/pull/35))
 * `FIX`: ensure input mapping always creates local scope ([#35](https://github.com/bpmn-io/extract-process-variables/pull/35))
+* `CHORE`: align scope detection across Camunda 7 and Camunda 8 ([#36](https://github.com/bpmn-io/extract-process-variables/pull/36))
 
 ## 2.1.1
 
