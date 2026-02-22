@@ -13,7 +13,7 @@ describe('extract-process-variables - distribution', function() {
   });
 
 
-  it('should expose zeebe CJS bundle', function() {
+  it('should expose CJS bundle / zeebe', function() {
     const { getProcessVariables, getScope } = require('@bpmn-io/extract-process-variables/zeebe');
 
     expect(getProcessVariables).to.exist;

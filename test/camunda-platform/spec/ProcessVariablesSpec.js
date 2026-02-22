@@ -14,7 +14,7 @@ import {
 } from '@bpmn-io/extract-process-variables';
 
 
-describe('process variables module', function() {
+describe('camunda-platform / process variables module', function() {
 
   describe('#getProcessVariables', function() {
 
