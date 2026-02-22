@@ -36,16 +36,20 @@ export default function extractOutputCollections(options) {
     elements = [ elements ];
   }
 
+  // <outputCollection> defines a local variable that always propagates
+  // to the parent scope upon completion
   forEach(elements, function(element) {
 
     var multiInstanceOutputCollection = getMultiInstanceOutputCollection(element);
 
     if (multiInstanceOutputCollection) {
+
+      // <outputCollection> declared variable is not available
+      // in local scope, but only in the MI parent.
       const newVariable = createProcessVariable(
         element,
         multiInstanceOutputCollection,
-        containerElement,
-        true
+        containerElement
       );
 
       addVariableToList(processVariables, newVariable);
@@ -55,14 +59,25 @@ export default function extractOutputCollections(options) {
 
     if (adHocOutputCollection) {
 
-      const newVariable = createProcessVariable(
+      // <outputCollection> declared variable is available in ad-hoc local
+      // scope as a local variable
+      const newLocalVariable = createProcessVariable(
         element,
         adHocOutputCollection,
-        containerElement,
-        true
+        element
       );
 
-      addVariableToList(processVariables, newVariable);
+      addVariableToList(processVariables, newLocalVariable);
+
+      // <outputCollection> declared variable also "force propagates" to the
+      // parent scope
+      const newParentVariable = createProcessVariable(
+        element,
+        adHocOutputCollection,
+        containerElement
+      );
+
+      addVariableToList(processVariables, newParentVariable);
     }
   });
 
