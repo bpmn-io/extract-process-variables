@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import { map } from 'min-dash';
 
 import { BpmnModdle } from 'bpmn-moddle';
@@ -9,6 +11,15 @@ import fs from 'node:fs';
 
 export function getRootElement(model) {
   return model.rootElement.get('rootElements')[0];
+}
+
+export function getElement(model, id) {
+
+  const element = model.elementsById[id];
+
+  expect(element, `element[id=${id}]`).to.exist;
+
+  return element;
 }
 
 export async function parseXML(xml) {
