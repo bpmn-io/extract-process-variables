@@ -1,6 +1,6 @@
 import { find, findIndex } from 'min-dash';
 
-import { getInputMappings } from './ExtensionElementsUtil.js';
+import { getInputMappings, getOutputMappings } from './ExtensionElementsUtil.js';
 
 import { getParents } from '../../shared/util/ElementsUtil.js';
 
@@ -50,12 +50,17 @@ export function createProcessVariable(flowElement, name, defaultScope, targetSel
  * when it defines an input mapping for it. Otherwise returns the default global scope
  */
 export function getScope(element, globalScope, variableName, includeSelf) {
+
+  // (1) if an element defines an output mapping
+  // then the variable is local
+  if (includeSelf && hasOutputMappings(element)) {
+    return element;
+  }
+
+  // (2) otherwise, search parents upwards, to determine the closest
+  // scope that declares the variable (via a matching input mapping)
   var parents = getParents(element, includeSelf);
 
-  // local variables are created through an input mapping
-  //
-  // find the closes scope parent that defines the input mapping
-  // matching a given variable, that is the scope
   var scopedParent = find(parents, function(parent) {
     return (
       hasInputMapping(parent, variableName)
@@ -65,6 +70,27 @@ export function getScope(element, globalScope, variableName, includeSelf) {
   return scopedParent ? scopedParent : globalScope;
 }
 
+/**
+ * Does element define output mappings?
+ *
+ * @param {ModdleElement} element
+ *
+ * @return {boolean}
+ */
+function hasOutputMappings(element) {
+  var outputMappings = getOutputMappings(element);
+
+  return outputMappings && outputMappings.length > 0;
+}
+
+/**
+ * Does element define an input mapping for the given name?
+ *
+ * @param {ModdleElement} element
+ * @param {string} name
+ *
+ * @return {boolean}
+ */
 function hasInputMapping(element, name) {
   return find(getInputMappings(element), function(input) {
 
