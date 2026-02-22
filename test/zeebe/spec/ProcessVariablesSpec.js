@@ -190,48 +190,54 @@ describe('zeebe / process variables module', function() {
     });
 
 
-    it('should extract variables / additional extractors', async function() {
+    describe('additional extractors', function() {
 
-      // given
-      const model = await readModel('test/zeebe/fixtures/simple.bpmn');
+      it('should add global variable', async function() {
 
-      const rootElement = getRootElement(model);
+        // given
+        const model = await readModel('test/zeebe/fixtures/simple.bpmn');
 
-      // when
-      const variables = await getProcessVariables(rootElement, [
-        additionalExtractor(rootElement)
-      ]);
+        const rootElement = getRootElement(model);
 
-      // then
-      expect(convertToTestable(variables)).to.eql([
-        { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
-        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
-      ]);
+        // when
+        const variables = await getProcessVariables(rootElement, [
+          additionalExtractor(rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        ]);
+      });
 
     });
 
 
-    it('should extract variables / additional extractors / async', async function() {
+    describe('additional extractors (async)', function() {
 
-      // given
-      const model = await readModel('test/zeebe/fixtures/simple.bpmn');
+      it('should add global variable', async function() {
 
-      const rootElement = getRootElement(model);
+        // given
+        const model = await readModel('test/zeebe/fixtures/simple.bpmn');
 
-      // when
-      const variables = await getProcessVariables(rootElement, [
-        asyncAdditionalExtractor(rootElement)
-      ]);
+        const rootElement = getRootElement(model);
 
-      // then
-      expect(convertToTestable(variables)).to.eql([
-        { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
-        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
-      ]);
+        // when
+        const variables = await getProcessVariables(rootElement, [
+          asyncAdditionalExtractor(rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable3', origin: [ 'Task_1' ], scope: 'Task_1' },
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        ]);
+      });
 
     });
 
@@ -485,46 +491,52 @@ describe('zeebe / process variables module', function() {
     });
 
 
-    it('should extract variables / additional extractors', async function() {
+    describe('additional extractors', function() {
 
-      // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      it('should add global variable', async function() {
 
-      const rootElement = getRootElement(model);
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      // when
-      const variables = await getVariablesForScope('Process_1', rootElement, [
-        additionalExtractor(rootElement)
-      ]);
+        const rootElement = getRootElement(model);
 
-      // then
-      expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
-      ]);
+        // when
+        const variables = await getVariablesForScope('Process_1', rootElement, [
+          additionalExtractor(rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
+        ]);
+      });
 
     });
 
 
-    it('should extract variables / additional extractors (async)', async function() {
+    describe('additional extractors (async)', function() {
 
-      // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      it('should add global variable', async function() {
 
-      const rootElement = getRootElement(model);
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      // when
-      const variables = await getVariablesForScope('Process_1', rootElement, [
-        asyncAdditionalExtractor(rootElement)
-      ]);
+        const rootElement = getRootElement(model);
 
-      // then
-      expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
-      ]);
+        // when
+        const variables = await getVariablesForScope('Process_1', rootElement, [
+          asyncAdditionalExtractor(rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' }
+        ]);
+      });
 
     });
 
@@ -576,46 +588,53 @@ describe('zeebe / process variables module', function() {
     });
 
 
-    it('should extract variables / additional extractors', async function() {
+    describe('additional extractors', function() {
 
-      // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      it('should add global variable', async function() {
 
-      const rootElement = getRootElement(model);
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      // when
-      const variables = await getVariablesForElement(rootElement, [
-        additionalExtractor(rootElement)
-      ]);
+        const rootElement = getRootElement(model);
 
-      // then
-      expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
-      ]);
+        // when
+        const variables = await getVariablesForElement(rootElement, [
+          additionalExtractor(rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        ]);
+      });
 
     });
 
 
-    it('should extract variables / additional extractors (async)', async function() {
+    describe('additional extractors (async)', function() {
 
-      // given
-      const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
+      it('should add global variable', async function() {
 
-      const rootElement = getRootElement(model);
+        // given
+        const model = await readModel('test/zeebe/fixtures/sub-process.own-scope.bpmn');
 
-      // when
-      const variables = await getVariablesForElement(rootElement, [
-        asyncAdditionalExtractor(rootElement)
-      ]);
+        const rootElement = getRootElement(model);
 
-      // then
-      expect(convertToTestable(variables)).to.eql([
-        { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
-        { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
-      ]);
+        // when
+        const variables = await getVariablesForElement(rootElement, [
+          asyncAdditionalExtractor(rootElement)
+        ]);
+
+        // then
+        expect(convertToTestable(variables)).to.eql([
+          { name: 'variable1', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+          { name: 'additionalVariable', origin: [ 'Process_1' ], scope: 'Process_1' },
+        ]);
+
+      });
 
     });
 
