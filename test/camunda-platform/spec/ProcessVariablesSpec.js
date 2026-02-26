@@ -178,7 +178,7 @@ describe('camunda-platform / process variables module', function() {
       // when
       const variables = await getProcessVariables(rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
       expect(convertToTestable(sortedVariables)).to.eql([
@@ -287,7 +287,7 @@ describe('camunda-platform / process variables module', function() {
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -312,7 +312,7 @@ describe('camunda-platform / process variables module', function() {
       // when
       const variables = await getVariablesForScope('SubProcess_2', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -408,9 +408,9 @@ function read(path, encoding = 'utf8') {
   return fs.readFileSync(path, encoding);
 }
 
-function sortVariablesByName(variables) {
+function sortVariables(variables) {
   return sortBy(variables, function(variable) {
-    return variable.name;
+    return `${variable.name} ~ ${variable.scope ?? ''}`;
   });
 }
 

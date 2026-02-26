@@ -391,7 +391,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -414,7 +414,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForScope('AdHocSubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -437,7 +437,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForScope('AdHocSubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -478,7 +478,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForScope('AdHocSubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -511,7 +511,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -533,7 +533,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForScope('SubProcess_1', rootElement);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -630,7 +630,7 @@ describe('zeebe / process variables module', function() {
       // when
       const variables = await getVariablesForElement(subProcess);
 
-      const sortedVariables = sortVariablesByName(variables);
+      const sortedVariables = sortVariables(variables);
 
       // then
 
@@ -766,9 +766,9 @@ describe('zeebe / process variables module', function() {
 
 // helpers //////////
 
-function sortVariablesByName(variables) {
+function sortVariables(variables) {
   return sortBy(variables, function(variable) {
-    return variable.name;
+    return `${variable.name} ~ ${variable.scope ?? ''}`;
   });
 }
 
