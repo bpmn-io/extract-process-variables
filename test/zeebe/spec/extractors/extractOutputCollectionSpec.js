@@ -51,6 +51,8 @@ describe('zeebe / extractors - output collections', function() {
 
       // then
       expect(convertToTestable(variables)).to.eql([
+
+        // always leaks to parent, is un-local-scopable
         { name: 'outputCollection', origin: [ 'SubProcess_1' ], scope: 'Process_1' }
       ]);
     });
@@ -124,6 +126,8 @@ describe('zeebe / extractors - output collections', function() {
       // then
       expect(convertToTestable(variables)).to.eql([
         { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'AdHocSubProcess_1' },
+
+        // always leaks to parent, is un-local-scopable
         { name: 'toolResults', origin: [ 'AdHocSubProcess_1' ], scope: 'Process_1' }
       ]);
     });
