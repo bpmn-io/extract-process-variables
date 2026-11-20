@@ -47,19 +47,19 @@ function eachElement(elements, fn, depth) {
 }
 
 /**
- * Adds an element to a collection and returns true if the
- * element was added.
+ * Marks an element as seen and returns true if it
+ * should be added to a collection.
  *
- * @param {Array<Object>} elements
+ * @param {Set<Object>} seen
  * @param {Object} e
  * @param {boolean} unique
+ *
+ * @return {boolean}
  */
-function add(elements, e, unique) {
-  var canAdd = !unique || elements.indexOf(e) === -1;
+function markSeen(seen, e, unique) {
+  var canAdd = !unique || !seen.has(e);
 
-  if (canAdd) {
-    elements.push(e);
-  }
+  seen.add(e);
 
   return canAdd;
 }
@@ -75,10 +75,13 @@ function add(elements, e, unique) {
  */
 export function selfAndFlowElements(elements, unique, maxDepth) {
   var result = [],
-      processedFlowElements = [];
+      seenElements = new Set(),
+      processedFlowElements = new Set();
 
   eachElement(elements, function(element, i, depth) {
-    add(result, element, unique);
+    if (markSeen(seenElements, element, unique)) {
+      result.push(element);
+    }
 
     var flowElements = element.flowElements;
 
@@ -86,7 +89,7 @@ export function selfAndFlowElements(elements, unique, maxDepth) {
     if (maxDepth === -1 || depth < maxDepth) {
 
       // flowElements exist && flowElements not yet processed
-      if (flowElements && add(processedFlowElements, flowElements, unique)) {
+      if (flowElements && markSeen(processedFlowElements, flowElements, unique)) {
         return flowElements;
       }
     }

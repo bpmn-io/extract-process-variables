@@ -1,24 +1,20 @@
-import { find, findIndex } from 'min-dash';
+import { find } from 'min-dash';
 
 import { getInputMappings, getOutputMappings } from './ExtensionElementsUtil.js';
 
 import { getParents } from '../../shared/util/ElementsUtil.js';
 
-export function addVariableToList(variablesList, newVariable) {
-  var foundIdx = findIndex(variablesList, function(variable) {
-    return (
-      variable.name === newVariable.name && variable.scope === newVariable.scope
-    );
-  });
+import { addVariableToList as addVariable } from '../../shared/util/ProcessVariablesUtil.js';
 
-  if (foundIdx >= 0) {
-    variablesList[foundIdx].origin = combineArrays(
-      variablesList[foundIdx].origin,
-      newVariable.origin
-    );
-  } else {
-    variablesList.push(newVariable);
-  }
+/**
+ * Add a variable to the list, or merge its origin into the existing
+ * variable with the same name and scope. Origins are not duplicated.
+ *
+ * @param {Array<ProcessVariable>} variablesList
+ * @param {ProcessVariable} newVariable
+ */
+export function addVariableToList(variablesList, newVariable) {
+  addVariable(variablesList, newVariable, { uniqueOrigin: true });
 }
 
 /**
@@ -126,18 +122,4 @@ function hasInputMapping(element, name) {
 
     return false;
   });
-}
-
-/**
- * Combine elements from two arrays, ensuring there are no duplicates.
- *
- * @param {Array} a
- * @param {Array} b
- *
- * @return {Array}
- */
-function combineArrays(a, b) {
-  const newItems = b.filter(value => !a.includes(value));
-
-  return a.concat(newItems);
 }
