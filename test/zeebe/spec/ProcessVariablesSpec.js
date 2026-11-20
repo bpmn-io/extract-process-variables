@@ -77,6 +77,30 @@ describe('zeebe / process variables module', function() {
     });
 
 
+    it('should extract variables / sub process / duplicated vars / repeated', async function() {
+
+      // given
+      const model = await readModel('test/zeebe/fixtures/sub-process.duplicates.bpmn');
+
+      const rootElement = getRootElement(model);
+
+      const firstVariables = await getProcessVariables(rootElement);
+
+      // when
+      const variables = await getProcessVariables(rootElement);
+
+      // then
+      expect(variables).not.to.equal(firstVariables);
+
+      expect(convertToTestable(variables)).to.eql(convertToTestable(firstVariables));
+      expect(convertToTestable(variables)).to.eql([
+        { name: 'variable1', origin: [ 'Task_1', 'Task_2' ], scope: 'Process_1' },
+        { name: 'variable2', origin: [ 'Task_1' ], scope: 'Process_1' },
+        { name: 'variable3', origin: [ 'Task_2' ], scope: 'Process_1' },
+      ]);
+    });
+
+
     it('should extract variables / sub process / own scope', async function() {
 
       // given
