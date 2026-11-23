@@ -19,7 +19,8 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
 export default function extractOutputParameters(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
-      processVariables = options.processVariables;
+      processVariables = options.processVariables,
+      variablesIndex = options._variablesIndex;
 
   if (!isArray(elements)) {
     elements = [ elements ];
@@ -38,7 +39,7 @@ export default function extractOutputParameters(options) {
         containerElement
       );
 
-      addVariableToList(processVariables, newVariable);
+      addVariableToList(processVariables, newVariable, variablesIndex);
     });
   });
 

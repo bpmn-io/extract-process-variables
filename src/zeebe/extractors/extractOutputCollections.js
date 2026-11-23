@@ -30,7 +30,8 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
 export default function extractOutputCollections(options) {
   let elements = options.elements,
       containerElement = options.containerElement,
-      processVariables = options.processVariables;
+      processVariables = options.processVariables,
+      variablesIndex = options._variablesIndex;
 
   if (!isArray(elements)) {
     elements = [ elements ];
@@ -52,7 +53,7 @@ export default function extractOutputCollections(options) {
         containerElement
       );
 
-      addVariableToList(processVariables, newVariable);
+      addVariableToList(processVariables, newVariable, variablesIndex);
     }
 
     const adHocOutputCollection = getAdHocOutputCollection(element);
@@ -67,7 +68,7 @@ export default function extractOutputCollections(options) {
         element
       );
 
-      addVariableToList(processVariables, newLocalVariable);
+      addVariableToList(processVariables, newLocalVariable, variablesIndex);
 
       // <outputCollection> declared variable also "force propagates" to the
       // parent scope
@@ -77,7 +78,7 @@ export default function extractOutputCollections(options) {
         containerElement
       );
 
-      addVariableToList(processVariables, newParentVariable);
+      addVariableToList(processVariables, newParentVariable, variablesIndex);
     }
   });
 

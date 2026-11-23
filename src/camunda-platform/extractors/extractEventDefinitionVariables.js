@@ -38,7 +38,8 @@ import {
 export default function extractEventDefinitionVariables(options) {
   var elements = options.elements,
       containerElement = options.containerElement,
-      processVariables = options.processVariables;
+      processVariables = options.processVariables,
+      variablesIndex = options._variablesIndex;
 
   var addVariable = function(element, name) {
     var newVariable = createProcessVariable(
@@ -47,7 +48,7 @@ export default function extractEventDefinitionVariables(options) {
       containerElement
     );
 
-    addVariableToList(processVariables, newVariable);
+    addVariableToList(processVariables, newVariable, variablesIndex);
   };
 
   if (!isArray(elements)) {

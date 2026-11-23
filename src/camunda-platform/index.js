@@ -4,6 +4,8 @@ import extractors from './extractors/index.js';
 
 import { selfAndAllFlowElements, getParents, getElement } from '../shared/util/ElementsUtil.js';
 
+import { createVariablesIndex } from '../shared/util/ProcessVariablesUtil.js';
+
 export { getScope } from './util/ProcessVariablesUtil.js';
 
 /**
@@ -37,6 +39,8 @@ export function getProcessVariables(containerElement, additionalExtractors = [])
 
   var processVariables = [];
 
+  var variablesIndex = createVariablesIndex(processVariables);
+
   // (1) extract all flow elements inside the container
   var elements = selfAndAllFlowElements([ containerElement ], false);
 
@@ -46,7 +50,11 @@ export function getProcessVariables(containerElement, additionalExtractors = [])
       extractor({
         elements: elements,
         containerElement: containerElement,
-        processVariables: processVariables
+        processVariables: processVariables,
+
+        // private, not part of the extractor API: lets built-in
+        // extractors look up variables in constant time
+        _variablesIndex: variablesIndex
       })
     );
   });

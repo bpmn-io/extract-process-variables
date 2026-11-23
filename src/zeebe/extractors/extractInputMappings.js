@@ -21,7 +21,8 @@ import { createProcessVariable, addVariableToList } from '../util/ProcessVariabl
  */
 export default function extractInputMappings(options) {
   var elements = options.elements,
-      processVariables = options.processVariables;
+      processVariables = options.processVariables,
+      variablesIndex = options._variablesIndex;
 
   if (!isArray(elements)) {
     elements = [ elements ];
@@ -46,7 +47,7 @@ export default function extractInputMappings(options) {
         true
       );
 
-      addVariableToList(processVariables, newVariable);
+      addVariableToList(processVariables, newVariable, variablesIndex);
     });
   });
 

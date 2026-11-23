@@ -1,24 +1,21 @@
-import { find, findIndex } from 'min-dash';
+import { find } from 'min-dash';
 
 import { getInputParameters } from './ExtensionElementsUtil.js';
 
 import { getParents } from '../../shared/util/ElementsUtil.js';
 
-export function addVariableToList(variablesList, newVariable) {
-  var foundIdx = findIndex(variablesList, function(variable) {
-    return (
-      variable.name === newVariable.name && variable.scope === newVariable.scope
-    );
-  });
+import { addVariableToList as addVariable } from '../../shared/util/ProcessVariablesUtil.js';
 
-  if (foundIdx >= 0) {
-    variablesList[foundIdx].origin = combineArrays(
-      variablesList[foundIdx].origin,
-      newVariable.origin
-    );
-  } else {
-    variablesList.push(newVariable);
-  }
+/**
+ * Add a variable to the list, or merge its origin into the existing
+ * variable with the same name and scope.
+ *
+ * @param {Array<ProcessVariable>} variablesList
+ * @param {ProcessVariable} newVariable
+ * @param {VariablesIndex} [index] index of `variablesList`
+ */
+export function addVariableToList(variablesList, newVariable, index) {
+  addVariable(variablesList, newVariable, { index });
 }
 
 /**
@@ -78,8 +75,4 @@ function hasInputParameter(element, name) {
   return find(getInputParameters(element), function(input) {
     return input.name === name;
   });
-}
-
-function combineArrays(a, b) {
-  return a.concat(b);
 }
